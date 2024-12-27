@@ -1,0 +1,5 @@
+<?php 
+define("IP", "LOCALHOST");
+define("USER", "root");
+define("PASS", "Qwe1234241+-+");
+define("DATA", "z_45052914806");

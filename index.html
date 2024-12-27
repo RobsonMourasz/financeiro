@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="htdocs/App/css/login.css">
+    <title>Login</title>
+</head>
+
+<body>
+    <div class="container">
+        <div class="box">
+
+            <div class="cadastre-se">
+                <section>
+                    <legend>Cadastre-se</legend>
+                    <form action="#" method="post">
+                        <div class="group-input">
+                            <label for="nome">
+                                Nome
+                                <input type="text" name="nome" placeholder="Nome completo">
+                            </label>
+                            <span class="warning"></span>
+                        </div> <!-- group-input -->
+
+                        <div class="group-input">
+                            <label for="email">
+                                E-mail
+                                <input type="email" name="email" placeholder="seuemail@dominio.com">
+                                <span class="warning"></span>
+                            </label>
+                        </div><!-- group-input-->
+
+                        <div class="group-input">
+                            <label for="senha">
+                                Senha
+                                <input type="password" name="senha" minlength="8" maxlength="20"
+                                    placeholder="Minimo 8 Máximo 20">
+                                <span class="warning"></span>
+                            </label>
+                        </div><!-- group-input -->
+
+                        <div class="btn sucess">
+                            <input type="submit" value="Cadastrar">
+                        </div>
+
+                    </form>
+
+                    <div class="btn-link">
+                        <button id="btn-login">Realize o Login</button>
+                        <script>
+                            this.document.getElementById("btn-login").addEventListener("click", () => {
+                                this.document.querySelector(".login").style.width = "50%"
+                                this.document.querySelector(".login").style.scale = 1
+                                this.document.querySelector(".cadastre-se").style.width = "0%"
+                                this.document.querySelector(".cadastre-se").style.scale = 0
+                            })
+                        </script>
+                    </div>
+
+                </section>
+            </div><!-- cadastre-se -->
+
+            <div class="login">
+                <section>
+                    <legend>Faça o Login</legend>
+                    <form action="#" method="post">
+                        <div class="group-input">
+                            <label for="email">
+                                E-mail
+                                <input type="email" name="email" placeholder="seuemail@dominio.com">
+                                <span class="warning"></span>
+                            </label>
+                        </div><!-- group-input-->
+
+                        <div class="group-input">
+                            <label for="senha">
+                                Senha
+                                <input type="password" name="senha" minlength="8" maxlength="20"
+                                    placeholder="Minimo 8 Máximo 20">
+                                </label>
+                            </div><!-- group-input -->
+                            <span class="warning"></span>
+
+                        <div class="btn sucess">
+                            <input type="submit" value="Login">
+                        </div>
+
+                    </form>
+
+                    <div class="btn-link">
+                        <button id="btn-cadastrar">Cadastre-se</button>
+                        <script>
+                            this.document.getElementById("btn-cadastrar").addEventListener("click", () => {
+                                this.document.querySelector(".cadastre-se").style.width = "50%"
+                                this.document.querySelector(".cadastre-se").style.scale = 1
+                                this.document.querySelector(".login").style.width = "0%"
+                                this.document.querySelector(".login").style.scale = 0
+                            })
+                        </script>
+                    </div>
+
+                </section>
+            </div><!-- login -->
+
+        </div>
+    </div><!-- container -->
+</body>
+
+</html>
