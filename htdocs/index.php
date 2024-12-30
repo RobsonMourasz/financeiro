@@ -4,7 +4,16 @@ if (!isset($_SESSION)) {
 }
 
 if(isset($_SESSION['sessao'])){
-    if($_SESSION['sessao'] === "ativa"){?>
+    if($_SESSION['sessao'] === "ativa"){
+        if(isset($_GET['url'])){
+            $url = __DIR__."/page/".$_GET['url'].".php";
+            if(!file_exists($url)){
+                $url = __DIR__."/page/404.html";
+            }
+        }else{
+            $url = __DIR__."/page/Dashboard.php";
+        }
+        ?>
 
 <!DOCTYPE HTML>
 <html>
@@ -135,7 +144,7 @@ if(isset($_SESSION['sessao'])){
                         <ul class="sidebar-menu">
                             <li class="header">Menu Navegação</li>
                             <li class="treeview">
-                                <a href="Dashboard.html">
+                                <a href="?url=Dashboard">
                                     <i class="fa fa-dashboard"></i> <span>Dashboard</span>
                                 </a>
                             </li>
@@ -146,11 +155,11 @@ if(isset($_SESSION['sessao'])){
                                     <i class="fa fa-angle-left pull-right"></i>
                                 </a>
                                 <ul class="treeview-menu">
-                                    <li><a href="grids.html"><i class="fa fa-angle-right"></i> Pessoa</a></li>
-                                    <li><a href="media.html"><i class="fa fa-angle-right"></i> Despesas</a></li>
-                                    <li><a href="media.html"><i class="fa fa-angle-right"></i> Receita</a></li>
-                                    <li><a href="media.html"><i class="fa fa-angle-right"></i> Categoria</a></li>
-                                    <li><a href="media.html"><i class="fa fa-angle-right"></i> Contas</a></li>
+                                    <li><a href="?url=Pessoa"><i class="fa fa-angle-right"></i> Pessoa</a></li>
+                                    <li><a href="?url=Despesa"><i class="fa fa-angle-right"></i> Despesas</a></li>
+                                    <li><a href="?url=Receita"><i class="fa fa-angle-right"></i> Receita</a></li>
+                                    <li><a href="?url=Categoria"><i class="fa fa-angle-right"></i> Categoria</a></li>
+                                    <li><a href="?url=Conta"><i class="fa fa-angle-right"></i> Contas</a></li>
                                 </ul>
                             </li>
 
@@ -188,7 +197,7 @@ if(isset($_SESSION['sessao'])){
                                 </div>
                             </a>
                             <ul class="dropdown-menu drp-mnu">
-                                <li> <a href="model/logoff.php"><i class="fa fa-sign-out"></i> Sair</a> </li>
+                                <li><a href="model/logoff.php"><i class="fa fa-sign-out"></i> Sair</a></li>
                             </ul>
                         </li>
                     </ul>
@@ -200,8 +209,8 @@ if(isset($_SESSION['sessao'])){
         <!-- //header-ends -->
         <!-- main content start-->
         <div id="page-wrapper">
-
-        </div>
+            <?php include_once($url) ?>
+        </div> <!-- main content start-->
         <!--footer-->
         <div class="footer">
             <p>&copy; Desenvolvido por Robson Moura</p>

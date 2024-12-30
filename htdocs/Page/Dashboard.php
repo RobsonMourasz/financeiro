@@ -887,8 +887,6 @@
         });
     </script>
     <!-- //for index page weekly sales java script -->
-
-
     <!-- Bootstrap Core JavaScript -->
     <script src="../app/js/bootstrap.js"> </script>
     <!-- //Bootstrap Core JavaScript -->
