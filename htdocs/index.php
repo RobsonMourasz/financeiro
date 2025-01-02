@@ -41,6 +41,7 @@ if (isset($_SESSION['sessao'])) {
 
             <!-- font-awesome icons CSS -->
             <link href="app/css/font-awesome.css" rel="stylesheet">
+            <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
             <!-- //font-awesome icons CSS-->
 
             <!-- side nav css file -->
@@ -214,7 +215,7 @@ if (isset($_SESSION['sessao'])) {
                     <?php include_once($url) ?>
                 </div> <!-- main content start-->
 
-                
+
                 <!--footer-->
                 <div class="footer">
                     <p>&copy; Desenvolvido por Robson Moura</p>
