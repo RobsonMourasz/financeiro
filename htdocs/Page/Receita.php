@@ -47,7 +47,7 @@
                     <td>R$ 753,00</td>
                     <td>Não</td>
                     <td>
-                        <button style="border: none; outline: none;"><i class="bi bi-hand-thumbs-down"></i></button>
+                        <button id="confirma2" style="border: none; outline: none;" onclick="Confirma('confirma2')"><i class="bi bi-hand-thumbs-down"></i></button>
                         <button data-toggle="modal" data-target="#modalExcluir" style="border: none; outline: none;"><i class="bi bi-trash"></i></button>
                         <button data-toggle="modal" data-target="#modalEditar" style="border: none; outline: none;"><i class="bi bi-clipboard-check-fill"></i></button>
                     </td>
@@ -59,7 +59,7 @@
                     <td>R$ 1280,00</td>
                     <td>Não</td>
                     <td>
-                        <button style="border: none; outline: none;"><i class="bi bi-hand-thumbs-down"></i></button>
+                        <button id="confirma3" style="border: none; outline: none;" onclick="Confirma('confirma3')"><i class="bi bi-hand-thumbs-down"></i></button>
                         <button data-toggle="modal" data-target="#modalExcluir" style="border: none; outline: none;"><i class="bi bi-trash"></i></button>
                         <button data-toggle="modal" data-target="#modalEditar" style="border: none; outline: none;"><i class="bi bi-clipboard-check-fill"></i></button>
                     </td>

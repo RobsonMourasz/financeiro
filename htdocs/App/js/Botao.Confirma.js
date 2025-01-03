@@ -1,7 +1,7 @@
 function Confirma(idElemento) {
 
     // Selecione o ícone atual
-    const iconeAtual = document.getElementById(`${idElemento}`).querySelector('.bi-hand-thumbs-down');
+    const iconeAtual = document.getElementById(`${idElemento}`).querySelector('.bi');
     const novoIcone = document.createElement('i');
 
     if (iconeAtual.classList.contains('bi-hand-thumbs-down')) {
