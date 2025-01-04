@@ -110,16 +110,16 @@
                         <div class="row">
                             <div class="col-6 d-flex justify-content-center" style="background-color: transparent;">
                                 <div class="form-check form-switch mb-3">
-                                    <input id="cadFixa" name="fixa" type="checkbox" class="form-check-input" require>
+                                    <input data-id="0" id="cadFixa" name="fixa" type="checkbox" class="form-check-input" require>
                                     <label for="cadFixa" class="form-check-label" style="user-select: none;">Despesa Fixa?</label>
                                 </div>
                             </div>
                             <div class="col-6 d-flex justify-content-center" style="background-color: transparent;">
                                 <div class="form-check form-switch mb-3">
-                                    <input id="cadParcelada" name="parcelada" type="checkbox" class="form-check-input" require>
+                                    <input data-id="0" id="cadParcelada" name="parcelada" type="checkbox" class="form-check-input" require>
                                     <label for="cadParcelada" class="form-check-label" style="user-select: none;">Despesa Parcelada?</label>
                                     <input type="text" name="qtdParcelas" id="cadQtdParcelas" value="0" class="d-none">
-                                    <p style="color: red;" id="cadResposta" class="d-none">0,00</p>
+                                    <p style="color: red;" id="cadResposta" class="d-none">R$ 0,00</p>
                                 </div>
                             </div>
                         </div>
@@ -137,83 +137,7 @@
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
     <link href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" rel="stylesheet" />
     <script src="App/js/Botao.Confirma.js"></script>
-    <script>
-        /* FORMATA EM REAL */
-        function getFloat(str) {
-            return str.replace(",", ".")
-        }
-
-        function formatarReal(valor) {
-            // Arredonda o valor para duas casas decimais
-            const valorFormatado = parseFloat(valor).toFixed(2);
-
-            // Divide o valor em reais e centavos
-            const [reais, centavos] = valorFormatado.split('.');
-
-            // Formata o valor com vírgula e o símbolo de R$
-            const valorFinal = `R$ ${reais},${centavos.padEnd(2, '0')}`;
-
-            return valorFinal;
-        }
-
-        /* FORMATA EM REAL */
-
-        /* FORMATAR DATA ATUAL */
-        function formatDate(data){
-            const dataNova = new Date()
-            let tempData = "nada"
-            
-            if(data == ""){
-                const tempDia = dataNova.getDate()
-                const tempMes = dataNova.getMonth() + 1
-                const tempAno = dataNova.getFullYear()
-                tempData = `${tempAno}-${tempMes.toString().padStart(2, '0')}-${tempDia.toString().padStart(2, '0')}`
-                
-            }
-
-            return tempData
-        }
-        /* FORMATAR DATA ATUAL */
-
-        document.getElementById("cadFixa").addEventListener("click", () => {
-            if (document.getElementById("cadFixa").checked) {
-                document.getElementById("cadParcelada").checked = false
-            }
-            if (!document.getElementById("cadQtdParcelas").classList.contains("d-none")) {
-                document.getElementById("cadQtdParcelas").classList.add("d-none")
-                document.getElementById("cadResposta").classList.add("d-none")
-            }
-        });
-
-        document.getElementById("cadParcelada").addEventListener("click", () => {
-            if (document.getElementById("cadParcelada").checked) {
-                document.getElementById("cadFixa").checked = false
-            }
-            document.getElementById("cadQtdParcelas").classList.toggle("d-none")
-            document.getElementById("cadResposta").classList.toggle("d-none")
-        });
-
-        document.getElementById("cadQtdParcelas").addEventListener("focusout", () => {
-            const valor = document.getElementById("cadValor").value
-            const parcelas = document.getElementById("cadQtdParcelas").value
-            const total = valor * parcelas
-            console.log(total)
-            document.getElementById("cadResposta").textContent = `Valor final total será de ${parseFloat(total)}`
-        });
-
-        document.getElementById("cadValor").addEventListener("focusout", () => {
-            let valorTemporario = formatarReal(getFloat(document.getElementById("cadValor").value))
-            document.getElementById("cadValor").value = valorTemporario
-        });
-
-        ( function(){
-            
-            if (document.getElementById("cadVencimento").value === "") {
-                document.getElementById("cadVencimento").value = formatDate("");
-            }
-
-        })();
-    </script>
+    <script src="App/js/Funcoes.lancamento.js"></script>
 
 
 </div> <!-- manin-page -->
