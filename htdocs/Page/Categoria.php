@@ -130,10 +130,10 @@
                         </small>
 
                         <div class="input-group mb-3">
-                            <input id="edtDescricao" name="descricao" type="text" class="form-control" placeholder="Descrição Categoria" require>
+                            <input name="descricao" type="text" class="form-control" placeholder="Descrição Categoria" require disabled>
                         </div>
                         <div class="input-group mb-3">
-                            <input id="edtTipo" name="tipo" type="text" class="form-control" placeholder="Tipo (Receita ou Despesa)" require>
+                            <input name="tipo" type="text" class="form-control" placeholder="Tipo (Receita ou Despesa)" require disabled>
                         </div>
 
                         <div class="modal-footer">

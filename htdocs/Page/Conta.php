@@ -130,10 +130,10 @@
                         </small>
 
                         <div class="input-group mb-3">
-                            <input name="descricao" type="text" class="form-control" placeholder="Descrição Carteira" require>
+                            <input name="descricao" type="text" class="form-control" placeholder="Descrição Carteira" require disabled>
                         </div>
                         <div class="input-group mb-3">
-                            <input name="tipo" type="text" class="form-control" placeholder="Qual Saldo atual ? R$ 0,00" require>
+                            <input name="tipo" type="text" class="form-control" placeholder="Qual Saldo atual ? R$ 0,00" require disabled>
                         </div>
 
                         <div class="modal-footer">

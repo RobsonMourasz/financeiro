@@ -2,7 +2,7 @@
 
     <div class="d-grid gap-2">
 
-        <h3 class="title1 mt-2">Pessoas</h3>
+        <h3 class="title1 mt-2">Usuários</h3>
 
         <!-- Button trigger modal -->
 
@@ -16,8 +16,8 @@
                 <tr>
                     <th scope="col">#</th>
                     <th scope="col">Nome</th>
-                    <th scope="col">Endereco</th>
-                    <th scope="col">telefone</th>
+                    <th scope="col">E-mail</th>
+                    <th scope="col">CPF</th>
                     <th scope="col"></th>
                 </tr>
             </thead>
@@ -75,24 +75,32 @@
                     </small>
 
                     <div class="input-group mb-3">
-                        <input id="cadSocial" name="nomeSocial" type="text" class="form-control" placeholder="Nome Social" require>
-                    </div>
-                    <div class="input-group mb-3">
-                        <input id="cadEndereco" name="endereco" type="text" class="form-control" placeholder="Endereco Completo">
-                    </div>
-                    <div class="input-group mb-3">
-                        <input id="cadCnpj" name="cnpj" type="text" class="form-control" placeholder="CNPJ">
-                    </div>
-                    <div class="input-group mb-3">
-                        <input id="cadEmail" name="email" type="text" class="form-control" placeholder="E-mail">
-                    </div>
-                    <div class="input-group mb-3">
-                        <input id="cadTelefone" name="telefone" type="text" class="form-control" placeholder="(00) 0 0000-0000">
-                    </div>
-                    <div class="modal-footer">
-                        <button id="btnCadastrar" type="submit" class="form-control btn btn-success">Cadastrar</button>
+
+                        <div class="form-check form-switch mx-auto">
+                            <input id="cadAtivo" name="ativo" type="checkbox" class="form-check-input" value="S" checked>
+                            <label class="form-check-label mx-auto" for="cadAtivo" style="user-select: none;">Cadastro Ativo ? </label>
+                        </div>
+
                     </div>
 
+                    <div class="input-group mb-3">
+                        <input id="cadNome" name="nome" type="text" class="form-control" placeholder="Nome Completo" require>
+                    </div>
+                    <div class="input-group mb-3">
+                        <input id="cadEmail" name="email" type="email" class="form-control" placeholder="E-mail" require>
+                    </div>
+                    <div class="input-group mb-3">
+                        <input id="cadCnpj" name="cnpj" type="text" class="form-control" placeholder="CNPJ" require>
+                    </div>
+                    <div class="input-group mb-3">
+                        <input id="cadSenha" name="senha" type="password" class="form-control" minlength="4" maxlength="10" placeholder="Mínimo de caracteres 4 máximo 10" require>
+                    </div>
+                    <div class="input-group mb-3">
+                        <input id="cadRepitaSenha" name="repita-senha" type="password" class="form-control" minlength="4" maxlength="10" placeholder="Repita a senha " require>
+                    </div>
+                    <div class="modal-footer">
+                        <button id="btnCadastrar" type="button" class="form-control btn btn-success">Cadastrar</button>
+                    </div>
                 </form>
             </div>
         </div>
@@ -116,21 +124,33 @@
                     </small>
 
                     <div class="input-group mb-3">
-                        <input id="edtSocial" name="nomeSocial" type="text" class="form-control" placeholder="Nome Social" require>
+
+                        <div class="form-check form-switch mx-auto">
+                            <input id="edtAtivo" name="ativo" type="checkbox" class="form-check-input" value="S" checked>
+                            <label class="form-check-label mx-auto" for="cadAtivo" style="user-select: none;">Cadastro Ativo ? </label>
+                        </div>
+
+                    </div>
+
+                    <div class="input-group mb-3">
+                        <input id="edtNome" name="nome" type="text" class="form-control" placeholder="Nome Completo" require>
                     </div>
                     <div class="input-group mb-3">
-                        <input id="edtEndereco" name="endereco" type="text" class="form-control" placeholder="Cidade" require>
+                        <input id="edtEmail" name="email" type="email" class="form-control" placeholder="E-mail" require>
                     </div>
                     <div class="input-group mb-3">
                         <input id="edtCnpj" name="cnpj" type="text" class="form-control" placeholder="CNPJ" require>
                     </div>
                     <div class="input-group mb-3">
-                        <input id="edtTelefone" name="telefone" type="text" class="form-control" placeholder="(00) 0 0000-0000" require>
+                        <input id="edtSenha" name="senha" type="password" class="form-control" minlength="4" maxlength="10" placeholder="Mínimo de caracteres 4 máximo 10" require>
                     </div>
+                    <div class="input-group mb-3">
+                        <input id="edtRepitaSenha" name="repita-senha" type="password" class="form-control" minlength="4" maxlength="10" placeholder="Repita a senha " require>
+                    </div>
+
                     <div class="modal-footer">
                         <button id="btnEditar" type="button" class="form-control btn btn-primary">Editar</button>
                     </div>
-                    
                 </form>
             </div>
         </div>
@@ -154,7 +174,7 @@
                     </small>
 
                     <div class="input-group mb-3">
-                        <input name="nomeSocial" type="text" class="form-control" placeholder="Nome Social" require disabled>
+                        <input name="nome" type="text" class="form-control" placeholder="Nome Completo" require disabled>
                     </div>
                     <div class="input-group mb-3">
                         <input name="cnpj" type="text" class="form-control" placeholder="CNPJ" require disabled>
@@ -169,50 +189,6 @@
         </div>
     </div>
 </div> <!-- FIM MODAL EXCLUIR  -->
-
-<script>
-    document.getElementById("btnCadastrar").addEventListener("click", async (event) => {
-        event.preventDefault(); // Evita o comportamento padrão do formulário
-
-        const url = 'Request/Pessoa/cadPessoa.php'; // Substitua pela sua URL de destino
-        const nome = document.getElementById('cadSocial').value;
-        const Formulario = document.querySelector("#formCadastro");
-
-        const form = new FormData(Formulario);
-
-        if (nome !== "") {
-            try {
-                const response = await fetch(url, {
-                    method: 'POST',
-                    body: form, // Use o FormData diretamente como corpo da requisição
-                });
-
-                if (response.ok) {
-                    console.log('Requisição POST bem-sucedida!');
-                    // Lógica adicional após o sucesso
-                } else {
-                    console.error('Erro na requisição:', response.status);
-                }
-            } catch (error) {
-                console.error('Erro na requisição:', error);
-            }
-        }
-    });
-</script>
-
-<script>
-    /* FETCH PARA EDITAR */
-    document.getElementById("btnEditar").addEventListener("click", () => {
-        console.log("clicou")
-    })
-</script>
-
-<script>
-    /* FETCH PARA EXCLUIR */
-    document.getElementById("btnExcluir").addEventListener("click", () => {
-        console.log("clicou")
-    })
-</script>
 
 
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>

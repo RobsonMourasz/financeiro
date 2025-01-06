@@ -163,6 +163,7 @@ if (isset($_SESSION['sessao'])) {
                                             <li><a href="?url=Receita"><i class="fa fa-angle-right"></i> Receita</a></li>
                                             <li><a href="?url=Categoria"><i class="fa fa-angle-right"></i> Categoria</a></li>
                                             <li><a href="?url=Conta"><i class="fa fa-angle-right"></i> Contas</a></li>
+                                            <li><a href="?url=Usuario"><i class="fa fa-angle-right"></i> Usuário</a></li>
                                         </ul>
                                     </li>
 
