@@ -54,6 +54,14 @@
                         <button id="btn-login">Realize o Login</button>
                         <script>
 
+                            document.getElementById("cadEmpresa").addEventListener("submit", function(e){
+                                const senha = document.getElementById("senha").value 
+                                const senhaRep = document.getElementById("rep-senha").value
+                                if(senha !== senhaRep){
+                                    e.preventDefault();
+                                }
+                            })
+
                             this.document.getElementById("rep-senha").addEventListener("focusout", (e)=>{
                                 const senha = document.getElementById("senha").value 
                                 const senhaRep = document.getElementById("rep-senha").value
