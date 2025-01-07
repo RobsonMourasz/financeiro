@@ -15,30 +15,33 @@
             <div class="cadastre-se">
                 <section>
                     <legend>Cadastre-se sua empresa!</legend>
-                    <form action="htdocs/model/cadastrarLogin.php" method="post">
+                    <form id="cadEmpresa" action="htdocs/Request/Login/cadEmpresa.php" method="post">
+
                         <div class="group-input">
-                            <label for="nome">
-                                Nome
-                                <input type="text" name="nome" placeholder="Nome completo">
-                            </label>
+                            <input type="text" name="NomeEmpresa" placeholder="Nome Fantasia">
                             <span class="warning"></span>
                         </div> <!-- group-input -->
 
                         <div class="group-input">
-                            <label for="email">
-                                E-mail
-                                <input type="email" name="email" placeholder="seuemail@dominio.com">
-                                <span class="warning"></span>
-                            </label>
+                            <input type="text" name="cpf_cnpj" placeholder="CPF ou CNPJ (EX: 00000000000 )">
+                            <span class="warning"></span>
+                        </div> <!-- group-input -->
+
+                        <div class="group-input">
+                            <input type="email" name="email" placeholder="seuemail@dominio.com">
+                            <span class="warning"></span>
                         </div><!-- group-input-->
 
                         <div class="group-input">
-                            <label for="senha">
-                                Senha
-                                <input type="password" name="senha" minlength="8" maxlength="20"
-                                    placeholder="Minimo 8 Máximo 20">
-                                <span class="warning"></span>
-                            </label>
+                            <input id="senha" type="password" name="senha" minlength="4" maxlength="10"
+                                placeholder="Minimo 4 Máximo 10">
+                            <span class="warning"></span>
+                        </div><!-- group-input -->
+
+                        <div class="group-input">
+                            <input id="rep-senha" type="password" name="rep-senha" minlength="4" maxlength="10"
+                                placeholder="Repita a senha">
+                            <span id="senha-warning" class="warning"></span>
                         </div><!-- group-input -->
 
                         <div class="btn sucess">
@@ -50,12 +53,30 @@
                     <div class="btn-link">
                         <button id="btn-login">Realize o Login</button>
                         <script>
+
+                            this.document.getElementById("rep-senha").addEventListener("focusout", (e)=>{
+                                const senha = document.getElementById("senha").value 
+                                const senhaRep = document.getElementById("rep-senha").value
+
+                                if( senha !== senhaRep ){
+                                    document.getElementById("senha-warning").textContent = "Senhas não conferem"
+                                    document.getElementById("senha-warning").style.color = "red"
+                                    document.getElementById("rep-senha").focus();
+                                    e.preventDefault()
+                                }else{
+                                    document.getElementById("senha-warning").textContent = "";
+                                    
+                                }
+
+                            });
+
                             this.document.getElementById("btn-login").addEventListener("click", () => {
-                                this.document.querySelector(".login").style.width = "50%"
+                                this.document.querySelector(".login").style.width = "80%"
                                 this.document.querySelector(".login").style.scale = 1
                                 this.document.querySelector(".cadastre-se").style.width = "0%"
                                 this.document.querySelector(".cadastre-se").style.scale = 0
-                            })
+                            });
+
                         </script>
                     </div>
 
@@ -79,9 +100,9 @@
                                 Senha
                                 <input type="password" name="senha" minlength="8" maxlength="20"
                                     placeholder="Minimo 8 Máximo 20">
-                                </label>
-                            </div><!-- group-input -->
-                            <span class="warning"></span>
+                            </label>
+                        </div><!-- group-input -->
+                        <span class="warning"></span>
 
                         <div class="btn sucess">
                             <input type="submit" value="Login">
@@ -93,7 +114,7 @@
                         <button id="btn-cadastrar">Cadastre-se</button>
                         <script>
                             this.document.getElementById("btn-cadastrar").addEventListener("click", () => {
-                                this.document.querySelector(".cadastre-se").style.width = "50%"
+                                this.document.querySelector(".cadastre-se").style.width = "80%"
                                 this.document.querySelector(".cadastre-se").style.scale = 1
                                 this.document.querySelector(".login").style.width = "0%"
                                 this.document.querySelector(".login").style.scale = 0
