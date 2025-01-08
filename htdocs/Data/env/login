@@ -2,9 +2,9 @@
 if(!isset($_SESSION)){
     session_start();
 }
-$database = "f_".$_SESSION["cpf_cnpj"];
+
 define("IP", "LOCALHOST");
 define("USER", "root");
 define("PASS", "Qwe1234241+-+");
-define("DATA", $database);
+define("DATA", "dados");
 define("PORT", "3310");

@@ -1,10 +1,19 @@
 <?php
-include_once __DIR__ . "/../../Data/conexao.php";
+
+@include_once __DIR__ . "/../../Data/conn.php";
 if (isset($_POST["NomeEmpresa"])) {
 
     $database = "f_" . $_POST["cpf_cnpj"];
+    $Empresa = $_POST["NomeEmpresa"];
+    $Email = $_POST["email"];
+    $Senha = $_POST["senha"];
+    $CPF_CNPJ = $_POST["cpf_cnpj"];
+    if(!isset($_SESSION)){
+        session_start();
+    }
+    $_SESSION["cpf_cnpj"] = $CPF_CNPJ;
 
-    $consulta = $conexao->query("SELECT COUNT(*) AS BancoExiste
+    $consulta = $conn->query("SELECT COUNT(*) AS BancoExiste
         FROM information_schema.SCHEMATA
         WHERE SCHEMA_NAME = '$database'");
 
@@ -13,13 +22,15 @@ if (isset($_POST["NomeEmpresa"])) {
         try {
 
             $sqlCreateBanco = "CREATE DATABASE IF NOT EXISTS $database";
-            if ($conexao->query($sqlCreateBanco)) {
+            if ($conn->query($sqlCreateBanco)) {
                 echo "<h1>banco criado com sucesso</h1>";
+                @include_once __DIR__ . "/../../Data/conexao.php";
                 echo "<br>";
                 echo "<br>";
                 echo "<br>";
 
                 $conexao->select_db($database);
+                $conn->select_db("dados");
 
                 $sqlCreateTabelaCategoria = "CREATE TABLE `cadcategoria` (
                     `idCat` int(11) NOT NULL AUTO_INCREMENT,
@@ -137,6 +148,8 @@ if (isset($_POST["NomeEmpresa"])) {
                     ";
 
 
+                $sqlInsertLogin = "INSERT INTO cadlogin (Empresa, Cpf_Cnpj, Email, Ativo) VALUES ('$Empresa', '$CPF_CNPJ', '$Email', 0)" ; 
+
                 if ($conexao->query($sqlCreateTabelaCategoria)) {
                     echo "Tabela Categoria criada";
                     echo "<br>";
@@ -177,17 +190,23 @@ if (isset($_POST["NomeEmpresa"])) {
                     echo "<br>";
                 }
 
+                if($conn->query($sqlInsertLogin)){
+                    echo "Usuario e Senha Criados";
+                    echo "<br>";
+                }
+
                 header('Refresh:2 url="../../model/logoff.php"');
                 
             } else {
                 echo "erro";
             }
         } catch (\Throwable $th) {
-            die($th->getMessage());
             header("location: ../../model/logoff.php");
+            die($th->getMessage());
         }
     } else {
-        die("erro na consulta");
+        header('Refresh:1 url="../../model/logoff.php"');
+        die("Cadastro já existe!");
     }
 } else {
     die("acesso negado!");
