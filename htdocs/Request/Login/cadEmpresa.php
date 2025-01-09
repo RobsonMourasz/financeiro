@@ -8,31 +8,35 @@ if (isset($_POST["NomeEmpresa"])) {
     $Email = $_POST["email"];
     $Senha = password_hash($_POST["senha"], PASSWORD_DEFAULT);
     $CPF_CNPJ = $_POST["cpf_cnpj"];
-    if(!isset($_SESSION)){
+    if (!isset($_SESSION)) {
         session_start();
     }
     $_SESSION["cpf_cnpj"] = $CPF_CNPJ;
 
-    $consulta = $conn->query("SELECT COUNT(*) AS BancoExiste
+    $VerificarCadastro = $conn->query("SELECT COUNT(a.Email) AS 'UserCadastrado' FROM cadlogin a WHERE a.Email = '$Email'");
+    $VerificarCadastro = $VerificarCadastro->fetch_assoc();
+
+    if ($VerificarCadastro['UserCadastrado'] < 1) {
+        $consulta = $conn->query("SELECT COUNT(*) AS BancoExiste
         FROM information_schema.SCHEMATA
         WHERE SCHEMA_NAME = '$database'");
 
-    $consulta = $consulta->fetch_assoc();
-    if ($consulta["BancoExiste"] == 0) {;
-        try {
+        $consulta = $consulta->fetch_assoc();
+        if ($consulta["BancoExiste"] == 0) {;
+            try {
 
-            $sqlCreateBanco = "CREATE DATABASE IF NOT EXISTS $database";
-            if ($conn->query($sqlCreateBanco)) {
-                echo "<h1>banco criado com sucesso</h1>";
-                @include_once __DIR__ . "/../../Data/conexao.php";
-                echo "<br>";
-                echo "<br>";
-                echo "<br>";
+                $sqlCreateBanco = "CREATE DATABASE IF NOT EXISTS $database";
+                if ($conn->query($sqlCreateBanco)) {
+                    echo "<h1>banco criado com sucesso</h1>";
+                    @include_once __DIR__ . "/../../Data/conexao.php";
+                    echo "<br>";
+                    echo "<br>";
+                    echo "<br>";
 
-                $conexao->select_db($database);
-                $conn->select_db("dados");
+                    $conexao->select_db($database);
+                    $conn->select_db("dados");
 
-                $sqlCreateTabelaCategoria = "CREATE TABLE `cadcategoria` (
+                    $sqlCreateTabelaCategoria = "CREATE TABLE `cadcategoria` (
                     `idCat` int(11) NOT NULL AUTO_INCREMENT,
                     `DescricaoCat` varchar(20) DEFAULT NULL,
                     `Tipo` varchar(2) NOT NULL,
@@ -41,7 +45,7 @@ if (isset($_POST["NomeEmpresa"])) {
                     KEY `idCat2` (`idCat`)
                     ) ENGINE=MyISAM DEFAULT CHARSET=utf8";
 
-                $sqlCreateTabelaEmpresa = "CREATE TABLE IF NOT EXISTS `cadempresa` (
+                    $sqlCreateTabelaEmpresa = "CREATE TABLE IF NOT EXISTS `cadempresa` (
                     `idEmpresa` int(11) NOT NULL AUTO_INCREMENT,
                     `ativo` int(2) NOT NULL DEFAULT '0',
                     `NomeEmpresa` varchar(50) NOT NULL DEFAULT '0',
@@ -53,7 +57,7 @@ if (isset($_POST["NomeEmpresa"])) {
                     UNIQUE KEY `id` (`idEmpresa`)
                     ) ENGINE=MyISAM DEFAULT CHARSET=utf8;";
 
-                $sqlCreateTabelaPessoa = "CREATE TABLE IF NOT EXISTS `cadpessoas` (
+                    $sqlCreateTabelaPessoa = "CREATE TABLE IF NOT EXISTS `cadpessoas` (
                     `idPessoa` int(11) NOT NULL AUTO_INCREMENT,
                     `NomePessoa` varchar(100) NOT NULL,
                     `EnderecoPessoa` varchar(500) NOT NULL,
@@ -65,7 +69,7 @@ if (isset($_POST["NomeEmpresa"])) {
                     KEY `idPessoa1` (`idPessoa`)
                     ) ENGINE=MyISAM DEFAULT CHARSET=utf8;";
 
-                $sqlCreateTabelaUsuario = "CREATE TABLE IF NOT EXISTS `caduser` (
+                    $sqlCreateTabelaUsuario = "CREATE TABLE IF NOT EXISTS `caduser` (
                     `idUser` int(11) NOT NULL AUTO_INCREMENT,
                     `ativo` int(2) NOT NULL DEFAULT '0',
                     `NomeUser` varchar(50) NOT NULL,
@@ -77,7 +81,7 @@ if (isset($_POST["NomeEmpresa"])) {
                     KEY `idUser2` (`idUser`)
                     ) ENGINE=MyISAM DEFAULT CHARSET=utf8;";
 
-                $sqlCreateTabelasubcategoria = "CREATE TABLE IF NOT EXISTS `catsubcategoria` (
+                    $sqlCreateTabelasubcategoria = "CREATE TABLE IF NOT EXISTS `catsubcategoria` (
                     `idSub` int(11) NOT NULL AUTO_INCREMENT,
                     `idCat` int(11) DEFAULT '0',
                     `DescricaoSub` int(11) NOT NULL,
@@ -86,7 +90,7 @@ if (isset($_POST["NomeEmpresa"])) {
                     KEY `idSub2` (`idSub`)
                     ) ENGINE=MyISAM DEFAULT CHARSET=utf8;";
 
-                $sqlCreateTabelaCP = "CREATE TABLE IF NOT EXISTS `cp_lancamentos` (
+                    $sqlCreateTabelaCP = "CREATE TABLE IF NOT EXISTS `cp_lancamentos` (
                     `idCR` int(11) NOT NULL AUTO_INCREMENT,
                     `idPessoa` int(11) NOT NULL DEFAULT '0',
                     `idConta` int(11) NOT NULL DEFAULT '0',
@@ -111,7 +115,7 @@ if (isset($_POST["NomeEmpresa"])) {
                     KEY `idCR1` (`idCR`) USING BTREE
                     ) ENGINE=MyISAM DEFAULT CHARSET=utf8 ROW_FORMAT=DYNAMIC;";
 
-                $sqlCreateTabelaCR = "CREATE TABLE IF NOT EXISTS `cr_lancamentos` (
+                    $sqlCreateTabelaCR = "CREATE TABLE IF NOT EXISTS `cr_lancamentos` (
                     `idCR` int(11) NOT NULL AUTO_INCREMENT,
                     `idPessoa` int(11) NOT NULL DEFAULT '0',
                     `idConta` int(11) NOT NULL DEFAULT '0',
@@ -136,7 +140,7 @@ if (isset($_POST["NomeEmpresa"])) {
                     KEY `idCR1` (`idCR`)
                     ) ENGINE=MyISAM DEFAULT CHARSET=utf8;";
 
-                $sqlCreateTabelaSaldo = "CREATE TABLE IF NOT EXISTS `saldo_historico` (
+                    $sqlCreateTabelaSaldo = "CREATE TABLE IF NOT EXISTS `saldo_historico` (
                     `idHistorico` int(11) NOT NULL AUTO_INCREMENT,
                     `idConta` int(11) DEFAULT '0',
                     `DataMovimentacao` datetime DEFAULT NULL,
@@ -148,72 +152,101 @@ if (isset($_POST["NomeEmpresa"])) {
                     ";
 
 
-                $sqlInsertLogin = "INSERT INTO cadlogin (Empresa, Cpf_Cnpj, Email, Ativo) VALUES ('$Empresa', '$CPF_CNPJ', '$Email', 0)" ; 
-                $sqlInsertLoginBD = "INSERT INTO caduser (NomeUser, EmailUser, SenhaUser, cpf_cnpj, Ativo) VALUES ('$Empresa', '$Email', '$Senha' , '$CPF_CNPJ', 0)"; 
+                    $sqlInsertLogin = "INSERT INTO cadlogin (Empresa, Cpf_Cnpj, Email, Ativo) VALUES ('$Empresa', '$CPF_CNPJ', '$Email', 0)";
+                    $sqlInsertLoginBD = "INSERT INTO caduser (NomeUser, EmailUser, SenhaUser, cpf_cnpj, Ativo) VALUES ('$Empresa', '$Email', '$Senha' , '$CPF_CNPJ', 0)";
 
-                if ($conexao->query($sqlCreateTabelaCategoria)) {
-                    echo "Tabela Categoria criada";
-                    echo "<br>";
+                    if ($conexao->query($sqlCreateTabelaCategoria)) {
+                        echo "Tabela Categoria criada";
+                        echo "<br>";
+                    }
+
+                    if ($conexao->query($sqlCreateTabelaEmpresa)) {
+                        echo "Tabela Empresa criada";
+                        echo "<br>";
+                    }
+
+                    if ($conexao->query($sqlCreateTabelaPessoa)) {
+                        echo "Tabela Pessoa criada";
+                        echo "<br>";
+                    }
+
+                    if ($conexao->query($sqlCreateTabelaUsuario)) {
+                        echo "Tabela Usuario criada";
+                        echo "<br>";
+                    }
+
+                    if ($conexao->query($sqlCreateTabelasubcategoria)) {
+                        echo "Tabela sub categoria criada";
+                        echo "<br>";
+                    }
+
+                    if ($conexao->query($sqlCreateTabelaCP)) {
+                        echo "Tabela contas a pagar criada";
+                        echo "<br>";
+                    }
+
+                    if ($conexao->query($sqlCreateTabelaCR)) {
+                        echo "Tabela contas a receber criada";
+                        echo "<br>";
+                    }
+
+                    if ($conexao->query($sqlCreateTabelaSaldo)) {
+                        echo "Tabela Saldo criada";
+                        echo "<br>";
+                    }
+
+                    if ($conn->query($sqlInsertLogin)) {
+                        echo "Usuario e Senha Criados";
+                        echo "<br>";
+                    }
+
+                    if ($conexao->query($sqlInsertLoginBD)) {
+                        echo "Usuario e Senha Criados no BD";
+                        echo "<br>";
+                    }
+
+                    header('Refresh:2 url="../../model/logoff.php"');
+                } else { /* CREAT BANCO  */
+                    echo "erro";
                 }
-
-                if ($conexao->query($sqlCreateTabelaEmpresa)) {
-                    echo "Tabela Empresa criada";
-                    echo "<br>";
-                }
-
-                if ($conexao->query($sqlCreateTabelaPessoa)) {
-                    echo "Tabela Pessoa criada";
-                    echo "<br>";
-                }
-
-                if ($conexao->query($sqlCreateTabelaUsuario)) {
-                    echo "Tabela Usuario criada";
-                    echo "<br>";
-                }
-
-                if ($conexao->query($sqlCreateTabelasubcategoria)) {
-                    echo "Tabela sub categoria criada";
-                    echo "<br>";
-                }
-
-                if ($conexao->query($sqlCreateTabelaCP)) {
-                    echo "Tabela contas a pagar criada";
-                    echo "<br>";
-                }
-
-                if ($conexao->query($sqlCreateTabelaCR)) {
-                    echo "Tabela contas a receber criada";
-                    echo "<br>";
-                }
-
-                if ($conexao->query($sqlCreateTabelaSaldo)) {
-                    echo "Tabela Saldo criada";
-                    echo "<br>";
-                }
-
-                if($conn->query($sqlInsertLogin)){
-                    echo "Usuario e Senha Criados";
-                    echo "<br>";
-                }
-
-                if($conexao->query($sqlInsertLoginBD)){
-                    echo "Usuario e Senha Criados no BD";
-                    echo "<br>";   
-                }
-
-                header('Refresh:2 url="../../model/logoff.php"');
-                
-            } else {
-                echo "erro";
+            } catch (\Throwable $th) {
+                //header("location: ../../model/logoff.php");
+                die($th->getMessage());
             }
-        } catch (\Throwable $th) {
-            //header("location: ../../model/logoff.php");
-            die($th->getMessage());
+        } else { /* SE EXISTE BANCO */
+?>
+            <script>
+                let RespCNPJ = alert("Já existe um cadastro com algum desses dados")
+                if (RespCNPJ == true) {
+                    console.log("Já existe um cadastro com algum desses dados")
+                } else {
+                    location.assign("../../model/logoff.php");
+                }
+            </script>
+        <?php
+            die("Cadastro já existe!");
         }
     } else {
-        header('Refresh:1 url="../../model/logoff.php"');
-        die("Cadastro já existe!");
+        ?>
+        <script>
+            let RespUser = alert("Existe já alguem com esse e-mail")
+            if (RespUser == true) {
+                console.log("Existe já alguem com esse e-mail")
+            } else {
+                location.assign("../../model/logoff.php");
+            }
+        </script>
+    <?php
     }
 } else {
-    die("acesso negado!");
+    ?>
+    <script>
+        let RespErro = alert("FATAL ERROR")
+        if (RespErro == true) {
+            console.log("Sessao não encontrada")
+        } else {
+            location.assign("../../model/logoff.php");
+        }
+    </script>
+<?php
 }

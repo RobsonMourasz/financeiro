@@ -9,46 +9,58 @@ if (!isset($_SESSION)) {
 if (isset($_POST['email'])) {
     $email = strtolower($_POST['email']);
     $senha = $_POST['senha'];
-    if($email !== ""){
+    if ($email !== "") {
 
         $verificaBD = $conn->query("SELECT * FROM cadlogin a WHERE a.Email = '$email'");
         if ($verificaBD->num_rows > 0) {
-
+            $teste = "asdasda@asdasd.com";
             $verificaBD = $verificaBD->fetch_assoc();
-            $database = "f_".$verificaBD['Cpf_Cnpj'];
-            $_SESSION["cpf_cnpj"] = $verificaBD['Cpf_Cnpj'] ;
+            $database = "f_" . $verificaBD['Cpf_Cnpj'];
+            $_SESSION["cpf_cnpj"] = $verificaBD['Cpf_Cnpj'];
             $conexao->select_db($database);
             $verificaLogin = $conexao->prepare("SELECT * FROM caduser a WHERE a.EmailUser = ?");
             $verificaLogin->bind_param("s", $email);
             $verificaLogin->execute();
-            if ($verificaLogin->num_rows > 0) {
+
+            if ($verificaLogin->fetch()) {
                 $verificaLogin->close();
-                $tempSenha = $conexao->query("SELECT SenhaUser FROM caduser WHERE EmailUser = '$email'");
+                $tempSenha = $conexao->query("SELECT SenhaUser FROM caduser WHERE EmailUser = '$email' AND Ativo = 0");
                 $tempSenha = $tempSenha->fetch_assoc();
-                
-                if(password_verify($senha, $tempSenha['SenhaUser'])){
-                    $_SESSION['usuario'] = "Robson Moura";
-                    $_SESSION['nivel'] = "Administrador";
+
+                if (password_verify($senha, $tempSenha['SenhaUser'])) {
+                    $Usuario = $conexao->query("SELECT * FROM caduser WHERE EmailUser = '$email'");
+                    $Usuario = $Usuario->fetch_assoc();
+                    $_SESSION['usuario'] = $Usuario["NomeUser"];
+                    $_SESSION['nivel'] = $Usuario["Nivel"];
                     $_SESSION['sessao'] = "ativa";
-                    header("location: ../index.php");
-                }else{
-                    die("senha nao deu certo ");
-                    header("location: ../../../index.html");
+                    header("location: ../../index.php");
+                } else {?>
+
+                    <script>
+                        let respostaPass = alert("Senha incorreta!")
+                        if (respostaPass == true) {
+                            console.log("verdadeiro")
+                        } else {
+                            location.assign("../../../index.html");
+                        }
+                    </script>
+            <?php
                 }
-
-            }else{
-                echo $email ;
-                echo"<br>";
-                var_dump($verificaLogin);
-                echo"<br>";
-                echo $verificaLogin->num_rows ;
-                echo"<br>";
-                echo "menor que 0";
+            } else {
+                die("asdas");
+                header("location: ../../../index.html");
             }
-
         } else {
-            header("location: ../../../index.html");
+            ?>
+            <script>
+                let respostaUser = alert("Usuário não encontrado!")
+                if (respostaUser == true) {
+                    console.log("verdadeiro")
+                } else {
+                    location.assign("../../../index.html");
+                }
+            </script>
+<?php
         }
     }
-
 }
