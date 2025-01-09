@@ -6,7 +6,7 @@ if (isset($_POST["NomeEmpresa"])) {
     $database = "f_" . $_POST["cpf_cnpj"];
     $Empresa = $_POST["NomeEmpresa"];
     $Email = $_POST["email"];
-    $Senha = $_POST["senha"];
+    $Senha = password_hash($_POST["senha"], PASSWORD_DEFAULT);
     $CPF_CNPJ = $_POST["cpf_cnpj"];
     if(!isset($_SESSION)){
         session_start();
@@ -149,6 +149,7 @@ if (isset($_POST["NomeEmpresa"])) {
 
 
                 $sqlInsertLogin = "INSERT INTO cadlogin (Empresa, Cpf_Cnpj, Email, Ativo) VALUES ('$Empresa', '$CPF_CNPJ', '$Email', 0)" ; 
+                $sqlInsertLoginBD = "INSERT INTO caduser (NomeUser, EmailUser, SenhaUser, cpf_cnpj, Ativo) VALUES ('$Empresa', '$Email', '$Senha' , '$CPF_CNPJ', 0)"; 
 
                 if ($conexao->query($sqlCreateTabelaCategoria)) {
                     echo "Tabela Categoria criada";
@@ -195,13 +196,18 @@ if (isset($_POST["NomeEmpresa"])) {
                     echo "<br>";
                 }
 
+                if($conexao->query($sqlInsertLoginBD)){
+                    echo "Usuario e Senha Criados no BD";
+                    echo "<br>";   
+                }
+
                 header('Refresh:2 url="../../model/logoff.php"');
                 
             } else {
                 echo "erro";
             }
         } catch (\Throwable $th) {
-            header("location: ../../model/logoff.php");
+            //header("location: ../../model/logoff.php");
             die($th->getMessage());
         }
     } else {
