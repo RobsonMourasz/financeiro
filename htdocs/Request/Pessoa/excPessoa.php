@@ -7,26 +7,23 @@ if (!isset($_SESSION)) {
 if(isset($_GET['id'])){
     if(!empty($_GET['id'])){
         $idPessoa = intval($_GET['id']);
-
-        $queryPessoas = $conexao->query("SELECT * FROM cadPessoas where ativo=0 and idpessoa = $idPessoa") ;
-
-        if($queryPessoas->num_rows > 0){
-
-            $queryPessoas = $queryPessoas->fetch_all();
-            $retorno = ["Retorno"=>"OK", "cadPessoa" => $queryPessoas];
-
-        }else{
-            $retorno = ["ERRO"=> "Nenhuma pessoa encontrada"];
+        try {
+            $queryPessoas = $conexao->query("DELETE FROM cadPessoas where idpessoa = $idPessoa") ;
+            $retorno = array("Retorno"=> "OK", "Motivo"=> "Excluido com sucesso!");
+        } catch (\Throwable $th) {
+            $retorno = ["Retorno"=> "ERRO", "Motivo"=> $th->getMessage()];
         }
         
         echo json_encode($retorno);
-        
+        exit;
     }else{
-        echo json_encode("ERRO: id vazio");
+        $retorno = ["Retorno"=> "ERRO", "Motivo"=>"Id Vazio"];
+        echo json_encode($retorno);
         exit;
     }
 
 }else{
-    echo json_encode("ERRO: id não existe");
+    $retorno = ["Retorno"=> "ERRO", "Motivo"=>"ID Não existe"];
+    echo json_encode($retorno);
     exit;
 }

@@ -270,9 +270,9 @@ if (isset($_SESSION['sessao'])) {
             <!-- //Bootstrap Core JavaScript -->
 
             <!-- for amcharts js -->
-            <script src="../app/js/amcharts.js"></script>
-            <script src="../app/js/serial.js"></script>
-            <script src="../app/js/export.min.js"></script>
+            <script src="app/js/amcharts.js"></script>
+            <script src="app/js/serial.js"></script>
+            <script src="app/js/export.min.js"></script>
             <link rel="stylesheet" href="../app/css/export.css" type="text/css" media="all" />
             <script src="../app/js/light.js"></script>
             <!-- for amcharts js -->

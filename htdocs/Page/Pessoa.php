@@ -27,7 +27,7 @@
                     <td>Mark</td>
                     <td>Otto</td>
                     <td>@mdo</td>
-                    <td><button data-toggle="modal" data-target="#modalExcluir" style="border: none; outline: none;"><i class="bi bi-trash"></i></button><button data-toggle="modal" data-target="#modalEditar" style="border: none; outline: none;"><i class="bi bi-clipboard-check-fill"></i></button>
+                    <td><button data-toggle="modal" data-target="#modalExcluir" style="border: none; outline: none;"><i onclick="excluirCadastro('1')" class="bi bi-trash"></i></button><button data-toggle="modal" data-target="#modalEditar" style="border: none; outline: none;"><i onclick="editarCadastro('1')" class="bi bi-clipboard-check-fill"></i></button>
                     </td>
                 </tr>
                 <tr>
@@ -89,6 +89,7 @@
                     <div class="input-group mb-3">
                         <input id="cadTelefone" name="telefone" type="text" class="form-control" placeholder="(00) 0 0000-0000">
                     </div>
+
                     <div class="modal-footer">
                         <button id="btnCadastrar" type="submit" class="form-control btn btn-success">Cadastrar <small class="carregando d-none"></small></button>
                     </div>
@@ -119,14 +120,18 @@
                         <input id="edtSocial" name="nomeSocial" type="text" class="form-control" placeholder="Nome Social" require>
                     </div>
                     <div class="input-group mb-3">
-                        <input id="edtEndereco" name="endereco" type="text" class="form-control" placeholder="Cidade" require>
+                        <input id="edtEndereco" name="endereco" type="text" class="form-control" placeholder="Endereco Completo">
                     </div>
                     <div class="input-group mb-3">
-                        <input id="edtCnpj" name="cnpj" type="text" class="form-control" placeholder="CNPJ" require>
+                        <input id="edtCnpj" name="cnpj" type="text" class="form-control" placeholder="CNPJ">
                     </div>
                     <div class="input-group mb-3">
-                        <input id="edtTelefone" name="telefone" type="text" class="form-control" placeholder="(00) 0 0000-0000" require>
+                        <input id="edtEmail" name="email" type="text" class="form-control" placeholder="E-mail">
                     </div>
+                    <div class="input-group mb-3">
+                        <input id="edtTelefone" name="telefone" type="text" class="form-control" placeholder="(00) 0 0000-0000">
+                    </div>
+
                     <div class="modal-footer">
                         <button id="btnEditar" type="button" class="form-control btn btn-primary">Editar</button>
                     </div>
@@ -142,7 +147,7 @@
     <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable">
         <div class="modal-content">
             <div class="modal-header">
-                <h5 class="modal-title" id="staticBackdropLabel">Deseja Realmente excluir esse cadastro ?'</h5>
+                <h5 class="modal-title" id="staticBackdropLabel">Deseja Realmente excluir esse cadastro ?</h5>
                 <button type="button" class="close" data-dismiss="modal" aria-label="Fechar">
                     <span aria-hidden="true">&times;</span>
                 </button>
@@ -154,10 +159,10 @@
                     </small>
 
                     <div class="input-group mb-3">
-                        <input name="nomeSocial" type="text" class="form-control" placeholder="Nome Social" require disabled>
+                        <input id="excNomeSocial" name="nomeSocial" type="text" class="form-control" placeholder="Nome Social" require disabled>
                     </div>
                     <div class="input-group mb-3">
-                        <input name="cnpj" type="text" class="form-control" placeholder="CNPJ" require disabled>
+                        <input id="excCnpj" name="cnpj" type="text" class="form-control" placeholder="CNPJ" require disabled>
                     </div>
 
                     <div class="modal-footer">
@@ -226,19 +231,57 @@
     });
 </script>
 
+<script>
+    async function editarCadastro(id) {
+        const response = await fetch(`Request/Pessoa/Pessoa.php?id= ${id}`)
+        const dados = await response.json()
+        document.getElementById("edtSocial").value = dados.Dados.NomePessoa;
+        document.getElementById("edtEndereco").value = dados.Dados.EnderecoPessoa;
+        document.getElementById("edtCnpj").value = dados.Dados.Cpf_Cnpj;
+        document.getElementById("edtEmail").value = dados.Dados.Email;
+        document.getElementById("edtTelefone").value = dados.Dados.Telefone;
+    }
+
+    async function excluirCadastro(id) {
+        const idRec = id
+        const response = await fetch(`Request/Pessoa/Pessoa.php?id= ${idRec}`)
+        const dados = await response.json()
+        document.getElementById("excNomeSocial").value = dados.Dados.NomePessoa;
+        document.getElementById("excCnpj").value = dados.Dados.Cpf_Cnpj;
+    }
+</script>
+
 
 
 <script>
     /* FETCH PARA EDITAR */
-    document.getElementById("btnEditar").addEventListener("click", () => {
-        console.log("clicou")
+    document.getElementById("btnEditar").addEventListener("click", async () => {
+        event.preventDefault(); // Evita o comportamento padrão do formulário
+        document.getElementById("btnCadastrar").querySelector(".carregando").classList.remove("d-none")
+        const url = 'Request/Pessoa/edtPessoa.php'; // Substitua pela sua URL de destino
+        const Formulario = document.querySelector("#formEditar");
+        const form = new FormData(Formulario);
+
+        const response = await fetch(url, {
+            method: 'POST',
+            body: form, // Use o FormData diretamente como corpo da requisição
+        });
+
+        if(response.ok){
+            const dados = await response.json()
+        }
     })
 </script>
 
 <script>
     /* FETCH PARA EXCLUIR */
-    document.getElementById("btnExcluir").addEventListener("click", () => {
-        console.log("clicou")
+    document.getElementById("btnExcluir").addEventListener("click", async () => {
+        async function excluirCadastro(id) {
+            const response = await fetch(`Request/Pessoa/excPessoa.php?id= ${idRec}`)
+            if(response.ok){
+                console.log("ok");
+            }
+        }
     })
 </script>
 
