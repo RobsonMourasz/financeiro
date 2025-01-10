@@ -90,7 +90,7 @@
                         <input id="cadTelefone" name="telefone" type="text" class="form-control" placeholder="(00) 0 0000-0000">
                     </div>
                     <div class="modal-footer">
-                        <button id="btnCadastrar" type="submit" class="form-control btn btn-success">Cadastrar</button>
+                        <button id="btnCadastrar" type="submit" class="form-control btn btn-success">Cadastrar <small class="carregando d-none"></small></button>
                     </div>
 
                 </form>
@@ -110,9 +110,9 @@
                 </button>
             </div>
             <div class="modal-body">
-                <form id="formCadastro" method="post">
+                <form id="formEditar" method="post">
                     <small>
-                        <div id="alertaCadastro-mensagem" align="center"></div>
+                        <div id="alertaEditar-mensagem" align="center"></div>
                     </small>
 
                     <div class="input-group mb-3">
@@ -130,7 +130,7 @@
                     <div class="modal-footer">
                         <button id="btnEditar" type="button" class="form-control btn btn-primary">Editar</button>
                     </div>
-                    
+
                 </form>
             </div>
         </div>
@@ -173,7 +173,7 @@
 <script>
     document.getElementById("btnCadastrar").addEventListener("click", async (event) => {
         event.preventDefault(); // Evita o comportamento padrão do formulário
-
+        document.getElementById("btnCadastrar").querySelector(".carregando").classList.remove("d-none")
         const url = 'Request/Pessoa/cadPessoa.php'; // Substitua pela sua URL de destino
         const nome = document.getElementById('cadSocial').value;
         const Formulario = document.querySelector("#formCadastro");
@@ -182,23 +182,51 @@
 
         if (nome !== "") {
             try {
+
                 const response = await fetch(url, {
                     method: 'POST',
                     body: form, // Use o FormData diretamente como corpo da requisição
                 });
 
                 if (response.ok) {
-                    console.log('Requisição POST bem-sucedida!');
-                    // Lógica adicional após o sucesso
-                } else {
-                    console.error('Erro na requisição:', response.status);
+                    const data = await response.json(); // Parse do JSON retornado pelo servidor
+
+                    if (data.Retorno == "OK") {
+
+                        document.getElementById("btnCadastrar").querySelector(".carregando").classList.add("d-none")
+                        document.querySelector("#alertaCadastro-mensagem").textContent = data.Motivo
+                        document.querySelector("#alertaCadastro-mensagem").style.color = "green"
+                        setTimeout(() => {
+                            document.querySelector("#alertaCadastro-mensagem").textContent = ""
+                        }, 2000)
+
+                    } else {
+
+                        document.getElementById("btnCadastrar").querySelector(".carregando").classList.add("d-none")
+                        document.querySelector("#alertaCadastro-mensagem").textContent = data.Motivo
+                        document.querySelector("#alertaCadastro-mensagem").style.color = "green"
+                        setTimeout(() => {
+                            document.querySelector("#alertaCadastro-mensagem").textContent = ""
+                        }, 2000)
+                        console.error('Erro na requisição:', data.Motivo);
+
+                    }
                 }
             } catch (error) {
+
+                document.getElementById("btnCadastrar").querySelector(".carregando").classList.add("d-none")
+                document.querySelector("#alertaCadastro-mensagem").textContent = "Erro na requisição"
+                setTimeout(() => {
+                    document.querySelector("#alertaCadastro-mensagem").textContent = ""
+                }, 2000)
                 console.error('Erro na requisição:', error);
+
             }
         }
     });
 </script>
+
+
 
 <script>
     /* FETCH PARA EDITAR */

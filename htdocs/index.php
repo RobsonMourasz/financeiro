@@ -15,9 +15,8 @@ if (isset($_SESSION['sessao'])) {
         }
 ?>
 
-        <!DOCTYPE HTML>
-        <html>
-
+    <!DOCTYPE HTML>
+    <html>
         <head>
             <title>Bem vindo</title>
             <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -34,6 +33,9 @@ if (isset($_SESSION['sessao'])) {
 
             <!-- Bootstrap Core CSS -->
             <link href="app/css/bootstrap.css" rel='stylesheet' type='text/css' />
+
+            <!-- Bootstrap personalizado para botoes -->
+            <link href="app/css/button.css" rel='stylesheet' type='text/css' />
 
             <!-- Custom CSS -->
             <link href="app/css/style.css" rel='stylesheet' type='text/css' />
@@ -285,4 +287,4 @@ if (isset($_SESSION['sessao'])) {
     header("location: model/logoff.php");
 } ?>
 
-        </html>
+    </html>
