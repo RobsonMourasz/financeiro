@@ -14,7 +14,7 @@ if (isset($_POST['nomeSocial'])) {
             $Update->bind_param("sssss", $_POST['nomeSocial'], $_POST['endereco'], $Cpf_Cnpj, $_POST['email'], $Telefone);
             $Update->execute();
             $Update->close();
-            $retorno = ["Retorno" => "OK", "Motivo" => "Cliente cadastrado com sucesso!"];
+            $retorno = ["Retorno" => "OK", "Motivo" => "Pessoa alterado com sucesso!"];
         } catch (\Throwable $th) {
             $retorno = ["Retorno" => "ERRO", "Motivo" => $th->getMessage()];
         }

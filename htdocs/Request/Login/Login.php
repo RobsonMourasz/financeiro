@@ -34,7 +34,7 @@ if (isset($_POST['email'])) {
                     $_SESSION['nivel'] = $Usuario["Nivel"];
                     $_SESSION['sessao'] = "ativa";
                     header("location: ../../index.php");
-                } else {?>
+                } else { ?>
 
                     <script>
                         let respostaPass = alert("Senha incorreta!")
@@ -60,7 +60,18 @@ if (isset($_POST['email'])) {
                     location.assign("../../../index.html");
                 }
             </script>
-<?php
+        <?php
         }
+    } else {
+        ?>
+        <script>
+            let respostaUser1 = alert("Usuário não encontrado!")
+            if (respostaUser1 == true) {
+                console.log("verdadeiro")
+            } else {
+                location.assign("../../../index.html");
+            }
+        </script>
+<?php
     }
 }
