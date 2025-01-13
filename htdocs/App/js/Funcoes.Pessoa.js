@@ -93,37 +93,44 @@
     });
 
     /* FETCH PARA EXCLUIR */
-    document.getElementById("btnExcluir").addEventListener("click", async () => {
-        async function excluirCadastro(id) {
-            const response = await fetch(`Request/Pessoa/excPessoa.php?id= ${idRec}`)
-            if (response.ok) {
-                console.log("ok");
-            }
-        }
-    });
+    // document.getElementById("btnExcluir").addEventListener("click", async () => {
+    //     async function excluirCadastro(id) {
+    //         const response = await fetch(`Request/Pessoa/excPessoa.php?id= ${idRec}`)
+    //         if (response.ok) {
+    //             console.log("ok");
+    //         }
+    //     }
+    // });
 
     ListarTabela();
 })();
 
-function ListarTabela() {
-    const response = fetch(`Request/Pessoa/Pessoa.php?id= 0`)
-    if (response.ok) {
-        const cadPessoa = response.json()
-        let tbody = document.getElementById("tbody")
-        tbody.innerText = ''
-        for (let i = 0; i < cadPessoa.length; i++) {
-            let tr = tbody.insertRow()
-            let td_id = tr.insertCell()
-            let td_Nome = tr.insertCell()
-            let td_Telefone = tr.insertCell()
-            let td_Acoes = tr.insertCell()
+async function ListarTabela() {
+    try {
+        const response = await fetch('Request/Pessoa/Pessoa.php?id=todos');
+        if (response.ok) {
+            const result = await response.json();
+            const cadP = result.Dados;
+            const tbody = document.getElementById('tbody');
+            tbody.innerText = '';
+            console.log(cadP)
+            for (let i = 0; i < cadP.length; i++) {
+                const tr = tbody.insertRow();
+                const td_id = tr.insertCell();
+                const td_Nome = tr.insertCell();
+                const td_Telefone = tr.insertCell();
 
-            td_id = cadPessoa[i].idPessoa
-            td_Nome = cadPessoa[i].idPessoa
-            td_Telefone = cadPessoa[i].idPessoa
-            td_Acoes = `<button data-toggle="modal" data-target="#modalExcluir" style="border: none; outline: none;"><i onclick="excluirCadastro('${cadPessoa[i].idPessoa}')" class="bi bi-trash"></i></button><button data-toggle="modal" data-target="#modalEditar" style="border: none; outline: none;"><i onclick="editarCadastro('${cadPessoa[i].idPessoa}')" class="bi bi-clipboard-check-fill"></i></button>`
+                td_id.innerText = cadP[i].idPessoa;
+                td_Nome.innerText = cadP[i].NomePessoa;
+                td_Telefone.innerText = cadP[i].Telefone;
+            }
+
+            console.log('Dados carregados com sucesso!');
+        } else {
+            console.error('Erro na resposta da API.');
         }
-
+    } catch (error) {
+        console.error('Erro ao buscar dados:', error);
     }
-};
+}
 
