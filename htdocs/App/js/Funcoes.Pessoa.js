@@ -56,23 +56,7 @@
 
     });
 
-    async function editarCadastro(id) {
-        const response = await fetch(`Request/Pessoa/Pessoa.php?id= ${id}`)
-        const dadosEdt = await response.json()
-        document.getElementById("edtSocial").value = dadosEdt.Dados.NomePessoa;
-        document.getElementById("edtEndereco").value = dadosEdt.Dados.EnderecoPessoa;
-        document.getElementById("edtCnpj").value = dadosEdt.Dados.Cpf_Cnpj;
-        document.getElementById("edtEmail").value = dadosEdt.Dados.Email;
-        document.getElementById("edtTelefone").value = dadosEdt.Dados.Telefone;
-    };
 
-    async function excluirCadastro(id) {
-        const idRec = id
-        const response = await fetch(`Request/Pessoa/Pessoa.php?id= ${idRec}`)
-        const dadosCad = await response.json()
-        document.getElementById("excNomeSocial").value = dadosCad.Dados.NomePessoa;
-        document.getElementById("excCnpj").value = dadosCad.Dados.Cpf_Cnpj;
-    };
 
     /* FETCH PARA EDITAR */
     document.getElementById("btnEditar").addEventListener("click", async (event) => {
@@ -102,35 +86,66 @@
     //     }
     // });
 
-    ListarTabela();
+    PreencherTabela()
 })();
 
-async function ListarTabela() {
+async function editarCadastro(id) {
     try {
-        const response = await fetch('Request/Pessoa/Pessoa.php?id=todos');
+        const response = await fetch(`Request/Pessoa/Pessoa.php?id= ${id}`)
         if (response.ok) {
-            const result = await response.json();
-            const cadP = result.Dados;
-            const tbody = document.getElementById('tbody');
-            tbody.innerText = '';
-            console.log(cadP)
-            for (let i = 0; i < cadP.length; i++) {
-                const tr = tbody.insertRow();
-                const td_id = tr.insertCell();
-                const td_Nome = tr.insertCell();
-                const td_Telefone = tr.insertCell();
-
-                td_id.innerText = cadP[i].idPessoa;
-                td_Nome.innerText = cadP[i].NomePessoa;
-                td_Telefone.innerText = cadP[i].Telefone;
-            }
-
-            console.log('Dados carregados com sucesso!');
-        } else {
-            console.error('Erro na resposta da API.');
+            const dadosEdt = await response.json()
+            document.getElementById("edtSocial").value = dadosEdt.Dados.NomePessoa;
+            document.getElementById("edtEndereco").value = dadosEdt.Dados.EnderecoPessoa;
+            document.getElementById("edtCnpj").value = dadosEdt.Dados.Cpf_Cnpj;
+            document.getElementById("edtEmail").value = dadosEdt.Dados.Email;
+            document.getElementById("edtTelefone").value = dadosEdt.Dados.Telefone;
+            document.addEventListener("click", function() {
+                const editIcon = document.querySelector('.bi-pencil-square'); // Selecione o ícone de edição
+                console.log("clicou")
+                if (editIcon) {
+                    editIcon.setAttribute('data-target', '#modalEditar'); // Adicione o atributo data-target
+                }
+            });
+            
         }
+        return "ok"
     } catch (error) {
-        console.error('Erro ao buscar dados:', error);
+        alert(error)
+    }
+};
+
+async function excluirCadastro(id) {
+    try {
+        const idRec = id
+        const response = await fetch(`Request/Pessoa/Pessoa.php?id= ${idRec}`)
+        const dadosCad = await response.json()
+        document.getElementById("excNomeSocial").value = dadosCad.Dados.NomePessoa;
+        document.getElementById("excCnpj").value = dadosCad.Dados.Cpf_Cnpj;
+    } catch (error) {
+        alert(error)
+    }
+
+};
+
+async function PreencherTabela() {
+    const response = await fetch('Request/Pessoa/Pessoa.php?id=todos');
+    if (response.ok) {
+        const CadPessoa = await response.json();
+        let tbody = document.getElementById("tbody");
+        tbody.innerHTML = ""; // Limpa o conteúdo atual da tabela
+
+        for (let index = 0; index < CadPessoa.Dados.length; index++) {
+            let tr = tbody.insertRow();
+            let td_id = tr.insertCell();
+            let td_Nome = tr.insertCell();
+            let td_CPF = tr.insertCell();
+            let td_Telefone = tr.insertCell();
+            let td_acoes = tr.insertCell();
+            td_id.innerText = CadPessoa.Dados[index].idPessoa
+            td_Nome.innerText = CadPessoa.Dados[index].NomePessoa;
+            td_CPF.innerText = CadPessoa.Dados[index].Cpf_Cnpj;
+            td_Telefone.innerText = CadPessoa.Dados[index].Telefone;
+            td_acoes.innerHTML = `<i data-toggle="modal" class="bi bi-pencil-square" onclick="editarCadastro('${CadPessoa.Dados[index].idPessoa}')" style="cursor: pointer;")></i> <i data-toggle="modal" data-target="#modalExcluir" class="bi bi-trash3" onclick="excluirCadastro('${CadPessoa.Dados[index].idPessoa}')"  style="cursor: pointer;"></i>`;
+        }
     }
 }
-

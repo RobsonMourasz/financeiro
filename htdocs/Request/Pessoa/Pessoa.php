@@ -8,13 +8,9 @@
             try {
                 $cadPessoa = $conexao->query("SELECT * FROM cadpessoas");
                 //$Resultado = $cadPessoa->fetch_assoc();
-                while ($add = $cadPessoa->fetch_assoc()) {
-                    foreach ($add as $key => $value) { 
-                        $addRes .=  $value;
-                    }
-                }
-
-                $resposta = array("Resposta"=> "OK", "Dados"=> $addRes);
+                //$dados = $cadPessoa->fetch_assoc();
+                $dados = $cadPessoa->fetch_all(MYSQLI_ASSOC);
+                $resposta = array("Resposta"=> "OK", "Dados"=> $dados);
             } catch (\Throwable $th) {
                 $resposta = array("Resposta" => "ERRO", "Motivo"=> $th->getMessage());
             }
@@ -31,7 +27,6 @@
             }
 
         }
-
         echo json_encode($resposta);
         exit;
     }else{

@@ -17,7 +17,7 @@
                 <tr>
                     <th scope="col">#</th>
                     <th scope="col">Nome</th>
-                    <th scope="col">Endereco</th>
+                    <th scope="col">CNPJ</th>
                     <th scope="col">telefone</th>
                     <th scope="col"></th>
                 </tr>
