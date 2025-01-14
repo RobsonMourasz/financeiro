@@ -48,9 +48,9 @@
             </div>
             <div class="modal-body">
                 <form id="formCadastro" method="post">
-                    <small>
-                        <div id="alertaCadastro-mensagem" align="center"></div>
-                    </small>
+                    <div id="alertaCadastro-mensagem" align="center">
+                        <small class="alert"></small>
+                    </div>
 
                     <div class="input-group mb-3">
                         <input id="cadSocial" name="nomeSocial" type="text" class="form-control" placeholder="Nome Social" require>
@@ -90,9 +90,11 @@
             </div>
             <div class="modal-body">
                 <form id="formEditar" method="post">
-                    <small>
-                        <div id="alertaEditar-mensagem" align="center"></div>
-                    </small>
+
+
+                    <div id="alertaEditar-mensagem" align="center">
+                        <small class="alert"></small>
+                    </div>
 
                     <div class="input-group mb-3">
                         <input id="edtSocial" name="nomeSocial" type="text" class="form-control" placeholder="Nome Social" require>
@@ -110,8 +112,13 @@
                         <input id="edtTelefone" name="telefone" type="text" class="form-control" placeholder="(00) 0 0000-0000">
                     </div>
 
+                    <div class="input-group mb-3">
+                        <input id="edtidPessoa" name="IdPessoa" type="text" class="form-control" hidden>
+                    </div>
+
                     <div class="modal-footer">
-                        <button id="btnEditar" type="button" class="form-control btn btn-primary">Editar</button>
+                        <button id="btnEditar" type="button" class="form-control btn btn-primary">Editar <small class="carregando d-none"></small></button>
+                        
                     </div>
 
                 </form>
@@ -131,11 +138,12 @@
                 </button>
             </div>
             <div class="modal-body">
-                <form id="formCadastro" method="post">
-                    <small>
-                        <div id="alertaCadastro-mensagem" align="center"></div>
-                    </small>
+                <form id="formExcluir" method="post">
 
+                    <div id="alertaExcluir-mensagem" align="center">
+                        <small class="alert"></small>
+                    </div>
+                    
                     <div class="input-group mb-3">
                         <input id="excNomeSocial" name="nomeSocial" type="text" class="form-control" placeholder="Nome Social" require disabled>
                     </div>
@@ -143,8 +151,12 @@
                         <input id="excCnpj" name="cnpj" type="text" class="form-control" placeholder="CNPJ" require disabled>
                     </div>
 
+                    <div class="input-group mb-3">
+                        <input id="excIdPessoa" name="IdPessoa" type="text" hidden disabled>
+                    </div>
+
                     <div class="modal-footer">
-                        <button id="btnExcluir" type="button" class="form-control btn btn-danger">Excluir</button>
+                        <button id="btnExcluir" type="button" class="form-control btn btn-danger">Excluir <small class="carregando d-none"></small></button>
                         <button id="btnCancelar" type="button" class="form-control btn btn-light" data-dismiss="modal" aria-label="Fechar">Cancelar</button>
                     </div>
                 </form>
@@ -154,5 +166,6 @@
 </div> <!-- FIM MODAL EXCLUIR  -->
 
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
+<script src="App/js/Funcoes.Feitas.js"></script>
 <script src="App/js/Funcoes.Pessoa.js"></script>
 </div><!-- main-page -->
