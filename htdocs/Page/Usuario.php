@@ -17,19 +17,11 @@
                     <th scope="col">#</th>
                     <th scope="col">Nome</th>
                     <th scope="col">E-mail</th>
-                    <th scope="col">NIvel</th>
+                    <th scope="col">Nível</th>
                     <th scope="col"></th>
                 </tr>
             </thead>
             <tbody class="table-group-divider" id="tbody">
-                <tr>
-                    <th scope="row">1</th>
-                    <td>Mark</td>
-                    <td>Otto</td>
-                    <td>@mdo</td>
-                    <td><button data-toggle="modal" data-target="#modalExcluir" style="border: none; outline: none;"><i class="bi bi-trash"></i></button><button data-toggle="modal" data-target="#modalEditar" style="border: none; outline: none;"><i class="bi bi-clipboard-check-fill"></i></button>
-                    </td>
-                </tr>
             </tbody>
         </table>
     </div>
@@ -81,7 +73,7 @@
                         </select>
                     </div>
                     <div class="modal-footer">
-                        <button id="btnCadastrar" type="button" class="form-control btn btn-success">Cadastrar <small class="carregando d-none"></small></button>
+                        <button id="btnCadastrar" type="submit" class="form-control btn btn-success">Cadastrar <small class="carregando d-none"></small></button>
                     </div>
                 </form>
             </div>
@@ -107,16 +99,16 @@
                     </div>
 
                     <div class="input-group mb-3">
-                        <input id="edtNome" name="nome" type="text" class="form-control" placeholder="Nome Completo" require>
+                        <input id="edtNomeUser" name="NomeUser" type="text" class="form-control" placeholder="Nome Completo" require>
                     </div>
                     <div class="input-group mb-3">
-                        <input id="edtEmail" name="email" type="email" class="form-control" placeholder="E-mail" require>
+                        <input id="edtEmailUser" name="EmailUser" type="email" class="form-control" placeholder="E-mail" require>
                     </div>
                     <div class="input-group mb-3">
-                        <input id="edtCnpj" name="cnpj" type="text" class="form-control" placeholder="CNPJ" require>
+                        <input id="edtcpf_cnpj" name="cpf_cnpj" type="text" class="form-control" placeholder="CNPJ" require>
                     </div>
                     <div class="input-group mb-3">
-                        <input id="edtSenha" name="senha" type="password" class="form-control" minlength="4" maxlength="10" placeholder="Mínimo de caracteres 4 máximo 10" require>
+                        <input id="edtSenhaUser" name="SenhaUser" type="password" class="form-control" minlength="4" maxlength="10" placeholder="Mínimo de caracteres 4 máximo 10" require>
                     </div>
                     <div class="input-group mb-3">
                         <input id="edtRepitaSenha" name="repita-senha" type="password" class="form-control" minlength="4" maxlength="10" placeholder="Repita a senha " require>
@@ -128,6 +120,10 @@
                             <option value="Administrador">Administrador</option>
                             <option value="Usuario">Usuario</option>
                         </select>
+                    </div>
+
+                    <div class="input-group mb-3">
+                        <input id="edtIdUser" name="IdUser" type="text" class="form-control" placeholder="Nome Completo" hidden>
                     </div>
 
                     <div class="modal-footer">
@@ -144,7 +140,7 @@
     <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable">
         <div class="modal-content">
             <div class="modal-header">
-                <h5 class="modal-title" id="staticBackdropLabel">Deseja Realmente excluir esse cadastro ?'</h5>
+                <h5 class="modal-title" id="staticBackdropLabel">Deseja Realmente excluir esse cadastro ?</h5>
                 <button type="button" class="close" data-dismiss="modal" aria-label="Fechar">
                     <span aria-hidden="true">&times;</span>
                 </button>
@@ -157,10 +153,10 @@
                     </div>
 
                     <div class="input-group mb-3">
-                        <input name="nome" type="text" class="form-control" placeholder="Nome Completo" require disabled>
+                        <input id="excNome" name="nome" type="text" class="form-control" placeholder="Nome Completo" require disabled>
                     </div>
                     <div class="input-group mb-3">
-                        <input name="cnpj" type="text" class="form-control" placeholder="CNPJ" require disabled>
+                        <input id="excCpf" name="cnpj" type="text" class="form-control" placeholder="CNPJ" require disabled>
                     </div>
 
                     <div class="modal-footer">
@@ -175,5 +171,8 @@
 
 
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
+
+<script src="App/js/Funcoes.Usuario.js"></script>
+<script src="App/js/Funcoes.Feitas.js"></script>
 
 </div><!-- main-page -->
