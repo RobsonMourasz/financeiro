@@ -17,11 +17,11 @@
                     <th scope="col">#</th>
                     <th scope="col">Nome</th>
                     <th scope="col">E-mail</th>
-                    <th scope="col">CPF</th>
+                    <th scope="col">NIvel</th>
                     <th scope="col"></th>
                 </tr>
             </thead>
-            <tbody class="table-group-divider">
+            <tbody class="table-group-divider" id="tbody">
                 <tr>
                     <th scope="row">1</th>
                     <td>Mark</td>
@@ -30,25 +30,8 @@
                     <td><button data-toggle="modal" data-target="#modalExcluir" style="border: none; outline: none;"><i class="bi bi-trash"></i></button><button data-toggle="modal" data-target="#modalEditar" style="border: none; outline: none;"><i class="bi bi-clipboard-check-fill"></i></button>
                     </td>
                 </tr>
-                <tr>
-                    <th scope="row">2</th>
-                    <td>Jacob</td>
-                    <td>Thornton</td>
-                    <td>@fat</td>
-                    <td><button data-toggle="modal" data-target="#modalExcluir" style="border: none; outline: none;"><i class="bi bi-trash"></i></button><button data-toggle="modal" data-target="#modalEditar" style="border: none; outline: none;"><i class="bi bi-clipboard-check-fill"></i></button>
-                    </td>
-                </tr>
-                <tr>
-                    <th scope="row">3</th>
-                    <td>Larry the Bird</td>
-                    <td>@twitter</td>
-                    <td>@twitter</td>
-                    <td><button data-toggle="modal" data-target="#modalExcluir" style="border: none; outline: none;"><i class="bi bi-trash"></i></button><button data-toggle="modal" data-target="#modalEditar" style="border: none; outline: none;"><i class="bi bi-clipboard-check-fill"></i></button>
-                    </td>
-                </tr>
             </tbody>
         </table>
-
     </div>
 
 
@@ -70,36 +53,35 @@
             </div>
             <div class="modal-body">
                 <form id="formCadastro" method="post">
-                    <small>
-                        <div id="alertaCadastro-mensagem" align="center"></div>
-                    </small>
 
-                    <div class="input-group mb-3">
-
-                        <div class="form-check form-switch mx-auto">
-                            <input id="cadAtivo" name="ativo" type="checkbox" class="form-check-input" value="S" checked>
-                            <label class="form-check-label mx-auto" for="cadAtivo" style="user-select: none;">Cadastro Ativo ? </label>
-                        </div>
-
+                    <div id="alertaCadastro-mensagem" align="center">
+                        <small class="alert"></small>
                     </div>
 
                     <div class="input-group mb-3">
-                        <input id="cadNome" name="nome" type="text" class="form-control" placeholder="Nome Completo" require>
+                        <input id="cadNomeUser" name="NomeUser" type="text" class="form-control" placeholder="Nome Completo" require>
                     </div>
                     <div class="input-group mb-3">
-                        <input id="cadEmail" name="email" type="email" class="form-control" placeholder="E-mail" require>
+                        <input id="cadEmailUser" name="EmailUser" type="email" class="form-control" placeholder="E-mail" require>
                     </div>
                     <div class="input-group mb-3">
-                        <input id="cadCnpj" name="cnpj" type="text" class="form-control" placeholder="CNPJ" require>
+                        <input id="cadcpf_cnpj" name="cpf_cnpj" type="text" class="form-control" placeholder="CNPJ" require>
                     </div>
                     <div class="input-group mb-3">
-                        <input id="cadSenha" name="senha" type="password" class="form-control" minlength="4" maxlength="10" placeholder="Mínimo de caracteres 4 máximo 10" require>
+                        <input id="cadSenhaUser" name="SenhaUser" type="password" class="form-control" minlength="4" maxlength="10" placeholder="Mínimo de caracteres 4 máximo 10" require>
                     </div>
                     <div class="input-group mb-3">
-                        <input id="cadRepitaSenha" name="repita-senha" type="password" class="form-control" minlength="4" maxlength="10" placeholder="Repita a senha " require>
+                        <input id="cadRepitaSenhaUser" name="repita-SenhaUser" type="password" class="form-control" minlength="4" maxlength="10" placeholder="Repita a senha " require>
+                    </div>
+                    <div class="input-group mb-3">
+                        <select name="Nivel" id="cadNivel" class="form-select">
+                            <option value="" selected>Selecione Nivel</option>
+                            <option value="Administrador">Administrador</option>
+                            <option value="Usuario">Usuario</option>
+                        </select>
                     </div>
                     <div class="modal-footer">
-                        <button id="btnCadastrar" type="button" class="form-control btn btn-success">Cadastrar</button>
+                        <button id="btnCadastrar" type="button" class="form-control btn btn-success">Cadastrar <small class="carregando d-none"></small></button>
                     </div>
                 </form>
             </div>
@@ -118,18 +100,10 @@
                 </button>
             </div>
             <div class="modal-body">
-                <form id="formCadastro" method="post">
-                    <small>
-                        <div id="alertaCadastro-mensagem" align="center"></div>
-                    </small>
+                <form id="formEditar" method="post">
 
-                    <div class="input-group mb-3">
-
-                        <div class="form-check form-switch mx-auto">
-                            <input id="edtAtivo" name="ativo" type="checkbox" class="form-check-input" value="S" checked>
-                            <label class="form-check-label mx-auto" for="cadAtivo" style="user-select: none;">Cadastro Ativo ? </label>
-                        </div>
-
+                    <div id="alertaEditar-mensagem" align="center">
+                        <small class="alert"></small>
                     </div>
 
                     <div class="input-group mb-3">
@@ -148,8 +122,16 @@
                         <input id="edtRepitaSenha" name="repita-senha" type="password" class="form-control" minlength="4" maxlength="10" placeholder="Repita a senha " require>
                     </div>
 
+                    <div class="input-group mb-3">
+                        <select name="Nivel" id="edtNivel" class="form-select">
+                            <option value="" selected>Selecione Nivel</option>
+                            <option value="Administrador">Administrador</option>
+                            <option value="Usuario">Usuario</option>
+                        </select>
+                    </div>
+
                     <div class="modal-footer">
-                        <button id="btnEditar" type="button" class="form-control btn btn-primary">Editar</button>
+                        <button id="btnEditar" type="button" class="form-control btn btn-primary">Editar <small class="carregando d-none"></small></button>
                     </div>
                 </form>
             </div>
@@ -168,10 +150,11 @@
                 </button>
             </div>
             <div class="modal-body">
-                <form id="formCadastro" method="post">
-                    <small>
-                        <div id="alertaCadastro-mensagem" align="center"></div>
-                    </small>
+                <form id="formExcluir" method="post">
+
+                    <div id="alertaExcluir-mensagem" align="center">
+                        <small class="alert"></small>
+                    </div>
 
                     <div class="input-group mb-3">
                         <input name="nome" type="text" class="form-control" placeholder="Nome Completo" require disabled>
@@ -181,7 +164,7 @@
                     </div>
 
                     <div class="modal-footer">
-                        <button id="btnExcluir" type="button" class="form-control btn btn-danger">Excluir</button>
+                        <button id="btnExcluir" type="button" class="form-control btn btn-danger">Excluir <small class="carregando d-none"></small></button>
                         <button id="btnCancelar" type="button" class="form-control btn btn-light" data-dismiss="modal" aria-label="Fechar">Cancelar</button>
                     </div>
                 </form>

@@ -8,7 +8,7 @@ if (isset($_POST['nomeSocial'])) {
 
     if (!empty($_POST['nomeSocial'])) {
 
-        if (isset($_POST['email']) && !empty("email")) {
+        if (isset($_POST['email']) && !empty($_POST['email'])) {
 
             $emailPessoa = $_POST['email'];
             $Cpf_Cnpj = limpar_texto($_POST['cnpj']);
