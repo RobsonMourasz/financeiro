@@ -16,45 +16,55 @@
         }
     })
 
-    document.getElementById("formCadastro").addEventListener("submit", async (event)=>{
-        console.log("evento cadastrar")
+    document.getElementById("formCadastro").addEventListener("submit", async (event) => {
         event.preventDefault()
-        if(document.getElementById("cadNomeUser") !== ""){
-            if(document.getElementById("cadSenhaUser").value === document.getElementById("cadSenhaUser").value){
-                const url = "Request/Usuario/cadUser.php";
-                const formulario = document.getElementById("formCadastro")
-                let form = new FormData(formulario)
+        if (document.getElementById("cadNivel").value !== "") {
 
-                const response = await fetch(url,{
-                    method: "POST",
-                    body: form,
-                })
+            if (document.getElementById("cadNomeUser").value !== "") {
 
-                if(response.ok){
-                    const resposta = await response.json()
-                    if(resposta.Retorno === "OK"){
-                        alerta("verdadeiro", "alertaCadastro-mensagem", resposta.Motivo)
-                    }else{
-                        alerta("false", "alertaCadastro-mensagem", resposta.Motivo)
+                if (document.getElementById("cadSenhaUser").value === document.getElementById("cadSenhaUser").value) {
+                    const url = "Request/Usuario/cadUser.php";
+                    const formulario = document.getElementById("formCadastro")
+                    let form = new FormData(formulario)
+
+                    const response = await fetch(url, {
+                        method: "POST",
+                        body: form,
+                    })
+                    document.getElementById("btnCadastrar").querySelector(".carregando").classList.remove("d-none")
+                    if (response.ok) {
+                        const resposta = await response.json()
+                        if (resposta.Retorno === "OK") {
+
+                            alerta("verdadeiro", "alertaCadastro-mensagem", resposta.Motivo)
+                            document.getElementById("btnCadastrar").querySelector(".carregando").classList.add("d-none")
+                        } else {
+                            alerta("false", "alertaCadastro-mensagem", resposta.Motivo)
+                            document.getElementById("btnCadastrar").querySelector(".carregando").classList.add("d-none")
+                        }
+                    } else {
+                        alerta("false", "alertaCadastro-mensagem", response.error)
+                        document.getElementById("btnCadastrar").querySelector(".carregando").classList.add("d-none")
                     }
-                }else{
-                    alerta("false", "alertaCadastro-mensagem", response.Motivo)
+                    location.reload()
+                } else {
+                    alerta("falso", "alertaCadastro-mensagem", "Confira a senha!")
                 }
-
-            }else{
-                alerta("falso", "alertaCadastro-mensagem", "Confira a senha!")
+            } else {
+                console.log("Nome vazio")
+                alerta("falso", "alertaCadastro-mensagem", "Campo Nome nao pode ser vazio")
             }
         }else{
-            console.log("Nome vazio")
-            alerta("falso", "alertaCadastro-mensagem", "Campo Nome nao pode ser vazio")
+            console.log("Selecione o Nivel")
+            alerta("falso", "alertaCadastro-mensagem", "Selecione o Nivel")  
         }
     })
 
-    document.getElementById("formEditar").addEventListener("submit", (event)=>{
+    document.getElementById("formEditar").addEventListener("submit", (event) => {
         event.preventDefault()
     })
 
-    document.getElementById("formExcluir").addEventListener("submit", (event)=>{
+    document.getElementById("formExcluir").addEventListener("submit", (event) => {
         event.preventDefault()
     })
 })();
@@ -76,15 +86,15 @@ function alerta(TipoAlerta, IdElemento, mensagem) {
     }
 };
 
-async function EditarUser(id){
+async function EditarUser(id) {
     const response = await fetch(`Request/Usuario/pesqUser.php?id=${id}`)
-    if(response.ok){
+    if (response.ok) {
         const dados = await response.json()
         document.getElementById("edtIdUser").value = dados.Dados[0].IdUser
         document.getElementById("edtNomeUser").value = dados.Dados[0].NomeUser
         document.getElementById("edtEmailUser").value = dados.Dados[0].EmailUser
         document.getElementById("edtcpf_cnpj").value = FormatarCpfCnpj(dados.Dados[0].cpf_cnpj)
-    }else{
+    } else {
         alerta("falso", "alertaEditar-mensagem", "Erro ao buscar")
         console.log(response.error)
     }
@@ -92,21 +102,21 @@ async function EditarUser(id){
 
 async function ExcluirUser(id) {
     const response = await fetch(`Request/Usuario/pesqUser.php?id=${id}`)
-    if(response.ok){
+    if (response.ok) {
         const dados = await response.json()
         document.getElementById("excNome").value = dados.Dados[0].NomeUser
         document.getElementById("excCpf").value = FormatarCpfCnpj(dados.Dados[0].cpf_cnpj)
-    }else{
+    } else {
         alerta("falso", "alertaEditar-mensagem", "Erro ao buscar")
         console.log(response.error)
     }
 }
 
-async function CarregarTabela(){
+async function CarregarTabela() {
     let tbody = document.getElementById("tbody")
-    tbody.innerText =""
+    tbody.innerText = ""
     response = await fetch("Request/Usuario/pesqUser.php?id=todos")
-    if(response.ok){
+    if (response.ok) {
         const user = await response.json()
         for (let i = 0; i < user.Dados.length; i++) {
             let tr = tbody.insertRow();

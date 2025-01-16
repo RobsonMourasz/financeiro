@@ -168,7 +168,16 @@ if (isset($_SESSION['sessao'])) {
                                             <li><a href="?url=Usuario"><i class="fa fa-angle-right"></i> Usuário</a></li>
                                         </ul>
                                     </li>
-
+                                    <li class="treeview">
+                                        <a href="model/logoff.php">
+                                            <i class="bi bi-file-lock2"></i> <span>Logoff</span>
+                                        </a>
+                                    </li>
+                                    <li class="treeview">
+                                        <a href="model/logoff.php">
+                                            <i class="bi bi-indent"></i> <span>Sair</span>
+                                        </a>
+                                    </li>
                                 </ul>
                             </div>
                             <!-- /.navbar-collapse -->
