@@ -1,17 +1,26 @@
 <?php 
 include_once __DIR__ . "/../../Data/conexao.php";
+include_once __DIR__ . "/../../Data/conn.php";
 if (!isset($_SESSION)) {
     session_start();
 }
 
-if(isset($_GET['id'])){
-    if(!empty($_GET['id'])){
-        $idUser = limpar_texto(intval($_GET['id']));
+if(isset($_GET['idUser'])){
+    if(!empty($_GET['idUser'])){
+        $idUser = intval(limpar_texto($_GET['idUser']));
         try {
+
             $excUser = $conexao->prepare("DELETE FROM caduser WHERE idUser = ?");
-            $queryPessoas->bind_param("i",$idUser);
-            $queryPessoas->execute();
+            $excUser->bind_param("i",$idUser);
+            $excUser->execute();
+
+            $conn->select_db("dados");
+            $inativa = $conn->prepare("UPDATE cadlogin SET Ativo = 1 WHERE Email = ?"); 
+            $inativa->bind_param("s",$_GET['EmailUser']);
+            $inativa->execute();
+            $inativa->close();
             $retorno = array("Retorno"=> "OK", "Motivo"=> "Excluido com sucesso!");
+
         } catch (\Throwable $th) {
             $retorno = ["Retorno"=> "ERRO", "Motivo"=> $th->getMessage()];
         }

@@ -123,7 +123,7 @@
                     </div>
 
                     <div class="input-group mb-3">
-                        <input id="edtIdUser" name="IdUser" type="number" class="form-control">
+                        <input id="edtIdUser" name="idUser" type="number" class="form-control" hidden>
                     </div>
 
                     <div class="modal-footer">
@@ -156,11 +156,14 @@
                         <input id="excNome" name="nome" type="text" class="form-control" placeholder="Nome Completo" require disabled>
                     </div>
                     <div class="input-group mb-3">
-                        <input id="excCpf" name="cnpj" type="text" class="form-control" placeholder="CNPJ" require disabled>
+                        <input id="excEmailUser" name="EmailUser" type="text" class="form-control" placeholder="CNPJ" require disabled>
+                    </div>
+                    <div class="input-group mb-3">
+                        <input id="excidUser" name="idUser" type="number" class="form-control" hidden>
                     </div>
 
                     <div class="modal-footer">
-                        <button id="btnExcluir" type="button" class="form-control btn btn-danger">Excluir <small class="carregando d-none"></small></button>
+                        <button id="btnExcluir" type="submit" class="form-control btn btn-danger">Excluir <small class="carregando d-none"></small></button>
                         <button id="btnCancelar" type="button" class="form-control btn btn-light" data-dismiss="modal" aria-label="Fechar">Cancelar</button>
                     </div>
                 </form>

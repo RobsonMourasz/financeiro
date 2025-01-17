@@ -103,7 +103,8 @@
 
                         if(dados.Retorno == "OK"){
 
-                            alerta("false", "alertaEditar-mensagem", dados.Motivo)
+                            alerta("verdadeiro", "alertaEditar-mensagem", dados.Motivo)
+                            location.reload()
 
                         }else{
                             alerta("false", "alertaEditar-mensagem", dados.Motivo);
@@ -126,9 +127,11 @@
         }
     });
 
-    document.getElementById("formExcluir").addEventListener("submit", (event) => {
+    document.getElementById("formExcluir").addEventListener("submit", async (event) => {
         event.preventDefault()
+        const response = await fetch(`Request/Usuario/excUser.php?idUser=${document.getElementById("excidUser").value}&EmailUser=${document.getElementById("excEmailUser").value}`)
     });
+
 })();
 
 
@@ -153,10 +156,10 @@ async function EditarUser(id) {
     const response = await fetch(`Request/Usuario/pesqUser.php?id=${id}`)
     if (response.ok) {
         const dados = await response.json()
-        document.getElementById("edtIdUser").value = dados.Dados[0].IdUser
-        console.log(`${dados.Dados[0].IdUser}`)
+        document.getElementById("edtIdUser").value = id
         document.getElementById("edtNomeUser").value = dados.Dados[0].NomeUser
         document.getElementById("edtEmailUser").value = dados.Dados[0].EmailUser
+        document.getElementById("edtEmailUser").disabled =true
         document.getElementById("edtcpf_cnpj").value = FormatarCpfCnpj(dados.Dados[0].cpf_cnpj)
         const Select = document.getElementById("edtNivel")
         for (let i = 0; i < Select.options.length; i++) {
@@ -177,14 +180,15 @@ async function ExcluirUser(id) {
     const response = await fetch(`Request/Usuario/pesqUser.php?id=${id}`)
     if (response.ok) {
         const dados = await response.json()
+        document.getElementById("excidUser").value = id
         document.getElementById("excNome").value = dados.Dados[0].NomeUser
-        document.getElementById("excCpf").value = FormatarCpfCnpj(dados.Dados[0].cpf_cnpj)
+        document.getElementById("excEmailUser").value = dados.Dados[0].EmailUser
     } else {
         alerta("falso", "alertaEditar-mensagem", "Erro ao buscar")
         console.log(response.error)
     }
     document.querySelector(".tela-cadastrar").classList.toggle("d-none")
-}
+};
 
 async function CarregarTabela() {
     document.querySelector(".tela-cadastrar").classList.toggle("d-none")
