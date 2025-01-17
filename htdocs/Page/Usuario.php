@@ -123,11 +123,11 @@
                     </div>
 
                     <div class="input-group mb-3">
-                        <input id="edtIdUser" name="IdUser" type="text" class="form-control" placeholder="Nome Completo" hidden>
+                        <input id="edtIdUser" name="IdUser" type="number" class="form-control">
                     </div>
 
                     <div class="modal-footer">
-                        <button id="btnEditar" type="button" class="form-control btn btn-primary">Editar <small class="carregando d-none"></small></button>
+                        <button id="btnEditar" type="submit" class="form-control btn btn-primary">Editar <small class="carregando d-none"></small></button>
                     </div>
                 </form>
             </div>

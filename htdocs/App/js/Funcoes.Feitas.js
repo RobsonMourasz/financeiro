@@ -15,7 +15,6 @@ function FormatarCpfCnpj(str) {
     } else {
         console.log("Formato inválido: a entrada deve ter 11 (CPF) ou 14 (CNPJ) dígitos.");
     }
-    console.log(temp);
     return temp;
 }
 

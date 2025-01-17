@@ -14,7 +14,22 @@
                 }, 3000)
             }
         }
-    })
+    });
+
+    document.getElementById("edtRepitaSenha").addEventListener("focusout", () => {
+        let senha = document.getElementById("edtSenhaUser")
+        let Rep_senha = document.getElementById("edtRepitaSenhaUser")
+        if (Rep_senha.value != "" && Rep_senha.value != undefined) {
+            if (senha.value !== Rep_senha.value) {
+                alerta("falso", "alertaCadastro-mensagem", "Senhas não conferem")
+                Rep_senha.style.backgroundColor = "#fb4747"
+                setInterval(() => {
+                    Rep_senha.style.backgroundColor = "transparent"
+                    Rep_senha.focus()
+                }, 3000)
+            }
+        }
+    });
 
     document.getElementById("formCadastro").addEventListener("submit", async (event) => {
         event.preventDefault()
@@ -52,8 +67,8 @@
                     } else {
                         alerta("falso", "alertaCadastro-mensagem", "Confira a senha!")
                     }
-                    
-                }else {
+
+                } else {
                     console.log("Nome vazio")
                     alerta("falso", "alertaCadastro-mensagem", "Campo senha nao pode ser vazio")
                 }
@@ -66,15 +81,54 @@
             console.log("Selecione o Nivel")
             alerta("falso", "alertaCadastro-mensagem", "Selecione o Nivel")
         }
-    })
+    });
 
-    document.getElementById("formEditar").addEventListener("submit", (event) => {
+    document.getElementById("formEditar").addEventListener("submit", async (event) => {
         event.preventDefault()
-    })
+        if (document.getElementById("edtNomeUser").value != "") {
+
+            if(document.getElementById("edtSenhaUser").value === document.getElementById("edtRepitaSenha").value){
+
+                if(document.getElementById("edtNivel").value !== "" ){
+                    const formEdt = new FormData(document.getElementById("formEditar"))
+                    const url = "Request/Usuario/edtUser.php"
+                    const response = await fetch(url,{
+                        method: "POST",
+                        body: formEdt,
+                    })
+
+                    if(response.ok){
+
+                        const dados = await response.json()
+
+                        if(dados.Retorno == "OK"){
+
+                            alerta("false", "alertaEditar-mensagem", dados.Motivo)
+
+                        }else{
+                            alerta("false", "alertaEditar-mensagem", dados.Motivo);
+                        }
+
+                    }else{
+                        alerta("false", "alertaEditar-mensagem", "ERRO AO GERAR CONSULTA")
+                    }
+
+                }else{
+                    alerta("false", "alertaEditar-mensagem", "Campo Nivel não pode ser vazio!")
+                }
+
+            }else{
+                alerta("false", "alertaEditar-mensagem", "Verifique a senha!")
+            }
+
+        }else {
+            alerta("false", "alertaEditar-mensagem", "Campo Nome não pode ser vazio!")
+        }
+    });
 
     document.getElementById("formExcluir").addEventListener("submit", (event) => {
         event.preventDefault()
-    })
+    });
 })();
 
 
@@ -100,11 +154,17 @@ async function EditarUser(id) {
     if (response.ok) {
         const dados = await response.json()
         document.getElementById("edtIdUser").value = dados.Dados[0].IdUser
+        console.log(`${dados.Dados[0].IdUser}`)
         document.getElementById("edtNomeUser").value = dados.Dados[0].NomeUser
         document.getElementById("edtEmailUser").value = dados.Dados[0].EmailUser
         document.getElementById("edtcpf_cnpj").value = FormatarCpfCnpj(dados.Dados[0].cpf_cnpj)
-        if(dados.Dados[0].Nivel)
-        document.getElementById("edtNivel").querySelector("option")
+        const Select = document.getElementById("edtNivel")
+        for (let i = 0; i < Select.options.length; i++) {
+            if (Select.options[i].value == dados.Dados[0].Nivel) {
+                Select.options[i].selected = true
+            }
+
+        }
     } else {
         alerta("falso", "alertaEditar-mensagem", "Erro ao buscar")
         console.log(response.error)
