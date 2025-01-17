@@ -22,41 +22,49 @@
 
             if (document.getElementById("cadNomeUser").value !== "") {
 
-                if (document.getElementById("cadSenhaUser").value === document.getElementById("cadSenhaUser").value) {
-                    const url = "Request/Usuario/cadUser.php";
-                    const formulario = document.getElementById("formCadastro")
-                    let form = new FormData(formulario)
+                if (document.getElementById("cadSenhaUser").value != "") {
 
-                    const response = await fetch(url, {
-                        method: "POST",
-                        body: form,
-                    })
-                    document.getElementById("btnCadastrar").querySelector(".carregando").classList.remove("d-none")
-                    if (response.ok) {
-                        const resposta = await response.json()
-                        if (resposta.Retorno === "OK") {
+                    if (document.getElementById("cadSenhaUser").value == document.getElementById("cadRepitaSenhaUser").value) {
+                        const url = "Request/Usuario/cadUser.php";
+                        const formulario = document.getElementById("formCadastro")
+                        let form = new FormData(formulario)
 
-                            alerta("verdadeiro", "alertaCadastro-mensagem", resposta.Motivo)
-                            document.getElementById("btnCadastrar").querySelector(".carregando").classList.add("d-none")
+                        const response = await fetch(url, {
+                            method: "POST",
+                            body: form,
+                        })
+                        document.getElementById("btnCadastrar").querySelector(".carregando").classList.remove("d-none")
+                        if (response.ok) {
+                            const resposta = await response.json()
+                            if (resposta.Retorno === "OK") {
+
+                                alerta("verdadeiro", "alertaCadastro-mensagem", resposta.Motivo)
+                                document.getElementById("btnCadastrar").querySelector(".carregando").classList.add("d-none")
+                            } else {
+                                alerta("false", "alertaCadastro-mensagem", resposta.Motivo)
+                                document.getElementById("btnCadastrar").querySelector(".carregando").classList.add("d-none")
+                            }
                         } else {
-                            alerta("false", "alertaCadastro-mensagem", resposta.Motivo)
+                            alerta("false", "alertaCadastro-mensagem", response.error)
                             document.getElementById("btnCadastrar").querySelector(".carregando").classList.add("d-none")
                         }
+                        location.reload()
                     } else {
-                        alerta("false", "alertaCadastro-mensagem", response.error)
-                        document.getElementById("btnCadastrar").querySelector(".carregando").classList.add("d-none")
+                        alerta("falso", "alertaCadastro-mensagem", "Confira a senha!")
                     }
-                    location.reload()
-                } else {
-                    alerta("falso", "alertaCadastro-mensagem", "Confira a senha!")
+                    
+                }else {
+                    console.log("Nome vazio")
+                    alerta("falso", "alertaCadastro-mensagem", "Campo senha nao pode ser vazio")
                 }
+
             } else {
                 console.log("Nome vazio")
-                alerta("falso", "alertaCadastro-mensagem", "Campo Nome nao pode ser vazio")
+                alerta("falso", "alertaCadastro-mensagem", "Campo nome nao pode ser vazio")
             }
-        }else{
+        } else {
             console.log("Selecione o Nivel")
-            alerta("falso", "alertaCadastro-mensagem", "Selecione o Nivel")  
+            alerta("falso", "alertaCadastro-mensagem", "Selecione o Nivel")
         }
     })
 
@@ -87,6 +95,7 @@ function alerta(TipoAlerta, IdElemento, mensagem) {
 };
 
 async function EditarUser(id) {
+    document.querySelector(".tela-cadastrar").classList.toggle("d-none")
     const response = await fetch(`Request/Usuario/pesqUser.php?id=${id}`)
     if (response.ok) {
         const dados = await response.json()
@@ -94,13 +103,17 @@ async function EditarUser(id) {
         document.getElementById("edtNomeUser").value = dados.Dados[0].NomeUser
         document.getElementById("edtEmailUser").value = dados.Dados[0].EmailUser
         document.getElementById("edtcpf_cnpj").value = FormatarCpfCnpj(dados.Dados[0].cpf_cnpj)
+        if(dados.Dados[0].Nivel)
+        document.getElementById("edtNivel").querySelector("option")
     } else {
         alerta("falso", "alertaEditar-mensagem", "Erro ao buscar")
         console.log(response.error)
     }
+    document.querySelector(".tela-cadastrar").classList.toggle("d-none")
 }
 
 async function ExcluirUser(id) {
+    document.querySelector(".tela-cadastrar").classList.toggle("d-none")
     const response = await fetch(`Request/Usuario/pesqUser.php?id=${id}`)
     if (response.ok) {
         const dados = await response.json()
@@ -110,9 +123,11 @@ async function ExcluirUser(id) {
         alerta("falso", "alertaEditar-mensagem", "Erro ao buscar")
         console.log(response.error)
     }
+    document.querySelector(".tela-cadastrar").classList.toggle("d-none")
 }
 
 async function CarregarTabela() {
+    document.querySelector(".tela-cadastrar").classList.toggle("d-none")
     let tbody = document.getElementById("tbody")
     tbody.innerText = ""
     response = await fetch("Request/Usuario/pesqUser.php?id=todos")
@@ -132,4 +147,5 @@ async function CarregarTabela() {
             td_acoes.innerHTML = `<i class="bi bi-pencil-square"  data-toggle="modal" data-target="#modalEditar"  style="cursor:pointer;" onclick="EditarUser(${user.Dados[i].idUser})"></i> <i class="bi bi-trash3" data-toggle="modal" data-toggle="modal" data-target="#modalExcluir" style="cursor:pointer;" onclick="ExcluirUser(${user.Dados[i].idUser})"></i>`;
         }
     }
+    document.querySelector(".tela-cadastrar").classList.toggle("d-none")
 };

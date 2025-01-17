@@ -15,8 +15,9 @@ if (isset($_SESSION['sessao'])) {
         }
 ?>
 
-    <!DOCTYPE HTML>
-    <html>
+        <!DOCTYPE HTML>
+        <html>
+
         <head>
             <title>Bem vindo</title>
             <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -222,6 +223,9 @@ if (isset($_SESSION['sessao'])) {
                     <div class="clearfix"> </div>
                 </div>
                 <!-- //header-ends -->
+                <div class="tela-cadastrar d-none">
+                    <small class="tela-cadastrar-carregando"></small>
+                </div>
                 <!-- main content start-->
                 <div id="page-wrapper">
                     <?php include_once($url) ?>
@@ -296,4 +300,4 @@ if (isset($_SESSION['sessao'])) {
     header("location: model/logoff.php");
 } ?>
 
-    </html>
+        </html>
