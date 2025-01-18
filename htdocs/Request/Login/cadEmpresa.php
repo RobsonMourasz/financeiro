@@ -71,15 +71,16 @@ if (isset($_POST["NomeEmpresa"])) {
 
                     $sqlCreateTabelaUsuario = "CREATE TABLE IF NOT EXISTS `caduser` (
                     `idUser` int(11) NOT NULL AUTO_INCREMENT,
-                    `ativo` int(2) NOT NULL DEFAULT '0',
+                    `Ativo` int(2) NOT NULL DEFAULT 0,
                     `NomeUser` varchar(50) NOT NULL,
                     `EmailUser` varchar(50) NOT NULL,
                     `SenhaUser` varchar(255) NOT NULL,
                     `cpf_cnpj` varchar(50) NOT NULL DEFAULT '00000000000',
+                    `Nivel` varchar(50) NOT NULL DEFAULT 'Usuario',
                     PRIMARY KEY (`idUser`),
                     UNIQUE KEY `idUser` (`idUser`),
                     KEY `idUser2` (`idUser`)
-                    ) ENGINE=MyISAM DEFAULT CHARSET=utf8;";
+                    ) ENGINE=MyISAM AUTO_INCREMENT=6 DEFAULT CHARSET=utf8mb3 COLLATE=utf8mb3_uca1400_ai_ci;";
 
                     $sqlCreateTabelasubcategoria = "CREATE TABLE IF NOT EXISTS `catsubcategoria` (
                     `idSub` int(11) NOT NULL AUTO_INCREMENT,
@@ -151,6 +152,15 @@ if (isset($_POST["NomeEmpresa"])) {
                     ) ENGINE=MyISAM DEFAULT CHARSET=utf8;
                     ";
 
+                    $sqlCreateTabelaCadConta = "CREATE TABLE IF NOT EXISTS `cadconta` (
+                    `IdConta` int(11) NOT NULL AUTO_INCREMENT,
+                    `DescricaoConta` varchar(50) DEFAULT NULL,
+                    `SaldoConta` double(14,2) NOT NULL DEFAULT 0.00,
+                    PRIMARY KEY (`IdConta`) USING BTREE,
+                    UNIQUE KEY `idConta` (`IdConta`) USING BTREE,
+                    KEY `idConta2` (`IdConta`) USING BTREE
+                    ) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_uca1400_ai_ci;";
+
 
                     $sqlInsertLogin = "INSERT INTO cadlogin (Empresa, Cpf_Cnpj, Email, Ativo) VALUES ('$Empresa', '$CPF_CNPJ', '$Email', 0)";
                     $sqlInsertLoginBD = "INSERT INTO caduser (NomeUser, EmailUser, SenhaUser, cpf_cnpj, Ativo) VALUES ('$Empresa', '$Email', '$Senha' , '$CPF_CNPJ', 0)";
@@ -192,6 +202,11 @@ if (isset($_POST["NomeEmpresa"])) {
 
                     if ($conexao->query($sqlCreateTabelaSaldo)) {
                         echo "Tabela Saldo criada";
+                        echo "<br>";
+                    }
+
+                    if($conexao->query($sqlCreateTabelaCadConta)){
+                        echo "Tabela Conta criada";
                         echo "<br>";
                     }
 

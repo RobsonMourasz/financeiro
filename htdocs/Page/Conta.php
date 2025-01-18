@@ -19,28 +19,8 @@
                     <th scope="col"></th>
                 </tr>
             </thead>
-            <tbody class="table-group-divider">
-                <tr>
-                    <th scope="row">1</th>
-                    <td>Pic Pay</td>
-                    <td>R$ 0,00</td>
-                    <td><button data-toggle="modal" data-target="#modalExcluir" style="border: none; outline: none;"><i class="bi bi-trash"></i></button><button data-toggle="modal" data-target="#modalEditar" style="border: none; outline: none;"><i class="bi bi-clipboard-check-fill"></i></button>
-                    </td>
-                </tr>
-                <tr>
-                    <th scope="row">2</th>
-                    <td>Carteira</td>
-                    <td>R$ 0,00</td>
-                    <td><button data-toggle="modal" data-target="#modalExcluir" style="border: none; outline: none;"><i class="bi bi-trash"></i></button><button data-toggle="modal" data-target="#modalEditar" style="border: none; outline: none;"><i class="bi bi-clipboard-check-fill"></i></button>
-                    </td>
-                </tr>
-                <tr>
-                    <th scope="row">3</th>
-                    <td>Nu Bank</td>
-                    <td>R$ 0,00</td>
-                    <td><button data-toggle="modal" data-target="#modalExcluir" style="border: none; outline: none;"><i class="bi bi-trash"></i></button><button data-toggle="modal" data-target="#modalEditar" style="border: none; outline: none;"><i class="bi bi-clipboard-check-fill"></i></button>
-                    </td>
-                </tr>
+            <tbody class="table-group-divider" id="tbody">
+
             </tbody>
         </table>
 
@@ -61,20 +41,22 @@
                 </div>
                 <div class="modal-body">
                     <form id="formCadastro" method="post">
-                        <small>
-                            <div id="alertaCadastro-mensagem" align="center"></div>
-                        </small>
+
+                       <div id="alertaCadastro-mensagem" align="center">
+                            <small class="alert"></small>
+                       </div>
 
                         <div class="input-group mb-3">
-                            <input id="cadDescricao" name="descricao" type="text" class="form-control" placeholder="Descrição Carteira" require>
+                            <input id="cadDescricaoConta" name="DescricaoConta" type="text" class="form-control" placeholder="Descrição Carteira" require>
                         </div>
                         <div class="input-group mb-3">
-                            <input id="cadSaldo" name="tipo" type="text" class="form-control" placeholder="Qual Saldo atual ? R$ 0,00" require>
+                            <input id="cadSaldoConta" name="SaldoConta" type="text" class="form-control" placeholder="Qual Saldo atual ? R$ 0,00" require>
                         </div>
 
                         <div class="modal-footer">
-                            <button id="btnCadastrar" type="button" class="form-control btn btn-success">Cadastrar</button>
+                            <button id="btnCadastrar" type="submit" class="form-control btn btn-success">Cadastrar <small class="carregando d-none"></small></button>
                         </div>
+
                     </form>
                 </div>
             </div>
@@ -93,19 +75,21 @@
                 </div>
                 <div class="modal-body">
                     <form id="formCadastro" method="post">
-                        <small>
-                            <div id="alertaCadastro-mensagem" align="center"></div>
-                        </small>
 
-                        <div class="input-group mb-3">
-                            <input id="edtDescricao" name="descricao" type="text" class="form-control" placeholder="Descrição Carteira" require>
+                        <div id="alertaCadastro-mensagem" align="center">
+                            <small class="alert"></small>
                         </div>
                         <div class="input-group mb-3">
-                            <input id="edtSaldo" name="tipo" type="text" class="form-control" placeholder="Qual Saldo atual ? R$ 0,00" require>
+                            <input id="edtDescricaoConta" name="DescricaoConta" type="text" class="form-control" placeholder="Descrição Carteira" require>
                         </div>
-
+                        <div class="input-group mb-3">
+                            <input id="edtSaldoConta" name="SaldoConta" type="text" class="form-control" placeholder="Qual Saldo atual ? R$ 0,00" require>
+                        </div>
+                        <div class="input-group mb-3">
+                            <input id="edtIdConta" name="IdConta" type="number" class="form-control" hidden>
+                        </div>
                         <div class="modal-footer">
-                            <button id="btnEditar" type="button" class="form-control btn btn-primary">Alterar</button>
+                            <button id="btnEditar" type="button" class="form-control btn btn-primary">Alterar <small class="carregando d-none"></small></button>
                         </div>
                     </form>
                 </div>
@@ -125,25 +109,31 @@
                 </div>
                 <div class="modal-body">
                     <form id="formCadastro" method="post">
-                        <small>
-                            <div id="alertaCadastro-mensagem" align="center"></div>
-                        </small>
 
-                        <div class="input-group mb-3">
-                            <input name="descricao" type="text" class="form-control" placeholder="Descrição Carteira" require disabled>
-                        </div>
-                        <div class="input-group mb-3">
-                            <input name="tipo" type="text" class="form-control" placeholder="Qual Saldo atual ? R$ 0,00" require disabled>
+                        <div id="alertaCadastro-mensagem" align="center">
+                            <small class="alert"></small>
                         </div>
 
+                        <div class="input-group mb-3">
+                            <input id="excDescricaoConta" name="DescricaoConta" type="text" class="form-control" placeholder="Descrição Carteira" require disabled>
+                        </div>
+                        <div class="input-group mb-3">
+                            <input id="excSaldoConta" name="SaldoConta" type="text" class="form-control" placeholder="Qual Saldo atual ? R$ 0,00" require disabled>
+                        </div>
+                        <div class="input-group mb-3">
+                            <input id="excidConta" name="idConta" type="number" class="form-control" hidden>
+                        </div>
                         <div class="modal-footer">
-                            <button id="btnEditar" type="button" class="form-control btn btn-danger">Excluir</button>
+                            <button id="btnEditar" type="button" class="form-control btn btn-danger">Excluir <small class="carregando d-none"></small></button>
                             <button id="btnCancelar" type="button" class="form-control btn btn-light" data-dismiss="modal" aria-label="Fechar">Cancelar</button>
                         </div>
+
                     </form>
                 </div>
             </div>
         </div>
     </div> <!-- FIM MODAL EXCLUIR  -->
+
+    <script src="App/js/Funcoes.Conta.js"></script>
 
 </div><!-- main-page -->
