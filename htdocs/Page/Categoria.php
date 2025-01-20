@@ -15,32 +15,13 @@
                 <tr>
                     <th scope="col">#</th>
                     <th scope="col">Descrição</th>
+                    <th scope="col">Sub </th>
                     <th scope="col">Tipo</th>
                     <th scope="col"></th>
                 </tr>
             </thead>
-            <tbody class="table-group-divider">
-                <tr>
-                    <th scope="row">1</th>
-                    <td>Carro</td>
-                    <td>Despesa</td>
-                    <td><button data-toggle="modal" data-target="#modalExcluir" style="border: none; outline: none;"><i class="bi bi-trash"></i></button><button data-toggle="modal" data-target="#modalEditar" style="border: none; outline: none;"><i class="bi bi-clipboard-check-fill"></i></button>
-                    </td>
-                </tr>
-                <tr>
-                    <th scope="row">2</th>
-                    <td>Casa</td>
-                    <td>Despesa</td>
-                    <td><button data-toggle="modal" data-target="#modalExcluir" style="border: none; outline: none;"><i class="bi bi-trash"></i></button><button data-toggle="modal" data-target="#modalEditar" style="border: none; outline: none;"><i class="bi bi-clipboard-check-fill"></i></button>
-                    </td>
-                </tr>
-                <tr>
-                    <th scope="row">3</th>
-                    <td>Carteira</td>
-                    <td>Receita</td>
-                    <td><button data-toggle="modal" data-target="#modalExcluir" style="border: none; outline: none;"><i class="bi bi-trash"></i></button><button data-toggle="modal" data-target="#modalEditar" style="border: none; outline: none;"><i class="bi bi-clipboard-check-fill"></i></button>
-                    </td>
-                </tr>
+            <tbody class="table-group-divider" id="tbody">
+                
             </tbody>
         </table>
 
@@ -61,19 +42,29 @@
                 </div>
                 <div class="modal-body">
                     <form id="formCadastro" method="post">
-                        <small>
-                            <div id="alertaCadastro-mensagem" align="center"></div>
-                        </small>
+
+                        <div id="alertaCadastro-mensagem" align="center"> 
+                            <small class="alert"></small>
+                        </div>
 
                         <div class="input-group mb-3">
-                            <input id="cadDescricao" name="descricao" type="text" class="form-control" placeholder="Descrição Categoria" require>
+                            <input id="cadDescricaoCat" name="DescricaoCat" type="text" class="form-control" placeholder="Descrição Categoria" require>
                         </div>
+
                         <div class="input-group mb-3">
-                            <input id="cadTipo" name="tipo" type="text" class="form-control" placeholder="Tipo (Receita ou Despesa)" require>
+                            <select name="Tipo" id="cadTipo" class="form-select">
+                                <option value="" selected>Selecione o Tipo</option>
+                                <option value="D">Despesa</option>
+                                <option value="R">Receita</option>
+                            </select>
+                        </div>
+
+                        <div class="input-group mb-3">
+                            <input id="cadSub" name="SubCategoria" type="text" class="form-control" placeholder="Descrição Sub Categoria">
                         </div>
 
                         <div class="modal-footer">
-                            <button id="btnCadastrar" type="button" class="form-control btn btn-success">Cadastrar</button>
+                            <button id="btnCadastrar" type="submit" class="form-control btn btn-success">Cadastrar <small class="carregando d-none"></small></button>
                         </div>
                     </form>
                 </div>
@@ -101,9 +92,15 @@
                             <input id="edtDescricao" name="descricao" type="text" class="form-control" placeholder="Descrição Categoria" require>
                         </div>
                         <div class="input-group mb-3">
-                            <input id="edtTipo" name="tipo" type="text" class="form-control" placeholder="Tipo (Receita ou Despesa)" require>
+                            <select name="Tipo" id="edtTipo" class="form-select">
+                                <option value="" selected>Selecione o Tipo</option>
+                                <option value="D">Despesa</option>
+                                <option value="R">Receita</option>
+                            </select>
                         </div>
-
+                        <div class="input-group mb-3">
+                            <input id="edtSub" name="SubCategoria" type="text" class="form-control" placeholder="Descrição Sub Categoria">
+                        </div>
                         <div class="modal-footer">
                             <button id="btnEditar" type="button" class="form-control btn btn-primary">Alterar</button>
                         </div>
@@ -145,5 +142,7 @@
             </div>
         </div>
     </div> <!-- FIM MODAL EXCLUIR  -->
+
+    <script src="App/js/Funcoes.Categoria.js"></script>
 
 </div><!-- main-page -->
