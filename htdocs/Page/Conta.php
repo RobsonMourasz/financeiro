@@ -74,9 +74,9 @@
                     </button>
                 </div>
                 <div class="modal-body">
-                    <form id="formCadastro" method="post">
+                    <form id="formEditar" method="post">
 
-                        <div id="alertaCadastro-mensagem" align="center">
+                        <div id="alertaEditar-mensagem" align="center">
                             <small class="alert"></small>
                         </div>
                         <div class="input-group mb-3">
@@ -89,7 +89,7 @@
                             <input id="edtIdConta" name="IdConta" type="number" class="form-control" hidden>
                         </div>
                         <div class="modal-footer">
-                            <button id="btnEditar" type="button" class="form-control btn btn-primary">Alterar <small class="carregando d-none"></small></button>
+                            <button id="btnEditar" type="submit" class="form-control btn btn-primary" >Alterar <small class="carregando d-none"></small></button>
                         </div>
                     </form>
                 </div>
@@ -108,9 +108,9 @@
                     </button>
                 </div>
                 <div class="modal-body">
-                    <form id="formCadastro" method="post">
+                    <form id="formExcluir" method="post">
 
-                        <div id="alertaCadastro-mensagem" align="center">
+                        <div id="alertaExcluir-mensagem" align="center">
                             <small class="alert"></small>
                         </div>
 
@@ -124,7 +124,7 @@
                             <input id="excidConta" name="idConta" type="number" class="form-control" hidden>
                         </div>
                         <div class="modal-footer">
-                            <button id="btnEditar" type="button" class="form-control btn btn-danger">Excluir <small class="carregando d-none"></small></button>
+                            <button id="btnExcluir" type="submit" class="form-control btn btn-danger">Excluir <small class="carregando d-none"></small></button>
                             <button id="btnCancelar" type="button" class="form-control btn btn-light" data-dismiss="modal" aria-label="Fechar">Cancelar</button>
                         </div>
 
