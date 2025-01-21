@@ -35,9 +35,9 @@
 
     document.getElementById("formEditar").addEventListener("submit", async (event) => {
         event.preventDefault()
-        if (document.getElementById("cadDescricaoCat").value !== "") {
-            if (document.getElementById("cadTipo").value !== "") {
-                document.getElementById("btnCadastrar").querySelector(".carregando").classList.toggle("d-none")
+        if (document.getElementById("edtDescricaoCat").value !== "") {
+            if (document.getElementById("edtTipo").value !== "") {
+                document.getElementById("btnEditar").querySelector(".carregando").classList.toggle("d-none")
                 try {
                     const url = "Request/Categoria/edtCategoria.php"
                     const formEdit = new FormData(document.getElementById("formEditar"))
@@ -52,6 +52,8 @@
                         } else {
                             alerta("falso", "alertaEditar-mensagem", dados.Motivo)
                         }
+
+                        location.reload()
 
                     } else {
                         alert("Erro na requisição")

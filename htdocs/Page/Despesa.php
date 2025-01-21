@@ -6,12 +6,69 @@
 
         <!-- Button trigger modal -->
 
-        <div class="col_6">
+        <div class="col_6 pb-5">
             <button id="btnCadastro" type="button" class="btn btn-danger" data-toggle="modal" data-target="#modalCadastro"><i class="bi bi-plus"></i> Despesas</button>
-
         </div>
 
     </div> <!-- d-grid gap-2 -->
+
+    <div class="btnfiltro" id="btnfiltro">
+        <i class="bi bi-sort-down"></i>
+    </div>
+
+    <div id="display-filtro" class="row px-5 d-none">
+        <div class="col">
+            <form method="post">
+                <div class="col-md-2">
+                    <div class="input-group mb-3">
+                        <input id="Data1" name="DataInicial" type="date" class="form-control">
+                    </div>
+                </div>
+                <div class="col-md-2">
+                    <div class="input-group mb-3">
+                        <input id="Data2" name="DataFinal" type="date" class="form-control">
+                    </div>
+                </div>
+                <div class="col-md-2 mb-3">
+                    <select name="" id="" class="form-select">
+                        <option value="" selected>Categoria</option>
+                        <option value="">Carro</option>
+                        <option value="">Moto</option>
+                        <option value="">Aluguel</option>
+                        <option value="">Farmacia</option>
+                    </select>
+                </div>
+                <div class="col-md-2 mb-3">
+                    <select name="" id="" class="form-select">
+                        <option value="" selected>Tipo</option>
+                        <option value="">Receita</option>
+                        <option value="">Despesa</option>
+                    </select>
+                </div>
+                <div class="col-md-2 mb-3">
+                    <select name="" id="" class="form-select">
+                        <option value="" selected>Situacao</option>
+                        <option value="">Confirmado</option>
+                        <option value="">Aberto</option>
+                    </select>
+                </div>
+
+                <div class="col-md-2">
+                    <button type="submit" class="btn btn-primary">Pesqisar</button>
+                </div>
+
+            </form>
+        </div>
+
+    </div>
+
+    <div class="d-grid gap-2">
+
+        <div class="col_6">
+
+        </div>
+
+    </div>
 
     <div class="mt-4">
         <table class="table table-hover">
@@ -25,41 +82,18 @@
                     <th scope="col"></th>
                 </tr>
             </thead>
-            <tbody class="table-group-divider">
+            <tbody class="table-group-divider" id="tbody">
                 <tr>
                     <th scope="row">1</th>
-                    <td>10-01-2025</td>
-                    <td>Aluguel Casa</td>
-                    <td>R$ 700,00</td>
-                    <td>Não</td>
-                    <td>
-                        <button id="confirma1" style="border: none; outline: none;" onclick="Confirma('confirma1')"><i class="bi bi-hand-thumbs-down"></i></button>
-                        <button data-toggle="modal" data-target="#modalExcluir" style="border: none; outline: none;"><i class="bi bi-trash"></i></button>
-                        <button data-toggle="modal" data-target="#modalEditar" style="border: none; outline: none;"><i class="bi bi-clipboard-check-fill"></i></button>
+                    <td scope="row">10-01-2025</td>
+                    <td scope="row">Aluguel Casa</td>
+                    <td scope="row">R$ 700,00</td>
+                    <td scope="row">
+                        <i class="bi bi-hand-thumbs-down" id="confirma1" onclick="Confirma('confirma1')"></i>
                     </td>
-                </tr>
-                <tr>
-                    <th scope="row">2</th>
-                    <td>10-01-2025</td>
-                    <td>Carro</td>
-                    <td>R$ 753,00</td>
-                    <td>Não</td>
-                    <td>
-                        <button id="confirma2" style="border: none; outline: none;" onclick="Confirma('confirma2')"><i class="bi bi-hand-thumbs-down"></i></button>
-                        <button data-toggle="modal" data-target="#modalExcluir" style="border: none; outline: none;"><i class="bi bi-trash"></i></button>
-                        <button data-toggle="modal" data-target="#modalEditar" style="border: none; outline: none;"><i class="bi bi-clipboard-check-fill"></i></button>
-                    </td>
-                </tr>
-                <tr>
-                    <th scope="row">3</th>
-                    <td>10-01-2025</td>
-                    <td>Financiamento</td>
-                    <td>R$ 1280,00</td>
-                    <td>Não</td>
-                    <td>
-                        <button id="confirma3" style="border: none; outline: none;" onclick="Confirma('confirma3')"><i class="bi bi-hand-thumbs-down"></i></button>
-                        <button data-toggle="modal" data-target="#modalExcluir" style="border: none; outline: none;"><i class="bi bi-trash"></i></button>
-                        <button data-toggle="modal" data-target="#modalEditar" style="border: none; outline: none;"><i class="bi bi-clipboard-check-fill"></i></button>
+                    <td scope="row">
+                        <i class="bi bi-trash" data-toggle="modal" data-target="#modalExcluir"></i>
+                        <i class="bi bi-clipboard-check-fill" data-toggle="modal" data-target="#modalEditar"></i>
                     </td>
                 </tr>
             </tbody>
@@ -138,6 +172,7 @@
     <link href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" rel="stylesheet" />
     <script src="App/js/Botao.Confirma.js"></script>
     <script src="App/js/Funcoes.lancamento.js"></script>
+    <script src="App/js/Funcoes.Despesa.js"></script>
 
 
 </div> <!-- manin-page -->

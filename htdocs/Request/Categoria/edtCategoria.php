@@ -4,11 +4,10 @@ if (!isset($_SESSION)) {
     session_start();
 }
 
-if (isset($_GET['idCat'])) {
-    if (!empty($_GET['idCat'])) {
-        $idCat = intval(limpar_texto($_GET['idCat']));
-        $idSub = intval(limpar_texto($_GET['idSub']));
-
+if (isset($_POST['IdCat'])) {
+    if (!empty($_POST['IdCat'])) {
+        $idCat = intval(limpar_texto($_POST['IdCat']));
+        $idSub = intval(limpar_texto($_POST['IdSub']));
         try {
             $update = $conexao->prepare("UPDATE cadcategoria SET DescricaoCat = ?, Tipo = ? WHERE idCat = ?");
             $update->bind_param("ssi", $_POST['DescricaoCat'], $_POST['Tipo'], $idCat);
@@ -20,12 +19,20 @@ if (isset($_GET['idCat'])) {
             $update->execute();
             $update->close();
             $conexao->close();
-            $retorno = array("Retorno"=> "OK", "Motivo" => "Alterado com sucesso !");
+            $retorno = array("Retorno" => "OK", "Motivo" => "Alterado com sucesso !");
         } catch (\Throwable $th) {
             $retorno = array("Retorno" => "ERRO", "Motivo" => "Erro interno: " . $th->getMessage());
         }
 
         echo json_encode($retorno);
         exit;
+    }else{
+        $retorno = array("Retorno" => "ERRO", "Motivo" => "Campo id vazio");
+        echo json_encode($retorno);
+        exit;
     }
+} else {
+    $retorno = array("Retorno" => "ERRO", "Motivo" => "Não existe POST idcat");
+    echo json_encode($retorno);
+    exit;
 }

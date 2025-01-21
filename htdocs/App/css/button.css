@@ -8,6 +8,15 @@
     animation: ModoCarregando 1s infinite linear;
 }
 
+.btnfiltro{
+    cursor: pointer;
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: end;
+    padding-right: 10%;
+}
+
 @keyframes ModoCarregando {
     0% {
         transform: rotate(0deg); 
@@ -56,4 +65,10 @@
     .esconder{
         display: none;
     }
+
+    .btnfiltro{
+        display: inline-block; 
+    }
+
+    
 }

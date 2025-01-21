@@ -83,10 +83,19 @@ document.getElementById("cadValor").addEventListener("focusout", () => {
     document.getElementById("cadValor").value = valorTemporario
 });
 
+document.getElementById("btnfiltro").addEventListener("click", ()=>{
+    document.getElementById("display-filtro").classList.toggle("d-none")
+})
+
 (function() {
 
     if (document.getElementById("cadVencimento").value === "") {
         document.getElementById("cadVencimento").value = formatDate("");
     }
+
+})();
+
+(()=>{
+
 
 })();

@@ -107,7 +107,7 @@
                             <input id="edtIdSub" name="IdSub" type="number">
                         </div>
                         <div class="modal-footer">
-                            <button id="btnEditar" type="submit" class="form-control btn btn-primary">Alterar</button>
+                            <button id="btnEditar" type="submit" class="form-control btn btn-primary">Alterar <small class="carregando d-none"></small></button>
                         </div>
                     </form>
                 </div>
