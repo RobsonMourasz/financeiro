@@ -52,4 +52,8 @@
     .tela-cadastrar{
         width: 100%;
     }
+
+    .esconder{
+        display: none;
+    }
 }

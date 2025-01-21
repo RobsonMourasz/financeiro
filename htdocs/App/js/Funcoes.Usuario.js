@@ -205,9 +205,12 @@ async function CarregarTabela() {
             let td_Nivel = tr.insertCell();
             let td_acoes = tr.insertCell();
             td_id.innerText = user.Dados[i].idUser;
+            td_id.classList.add("esconder")
             td_Nome.innerText = user.Dados[i].NomeUser;
+            td_Nome.classList.add("esconder")
             td_Email.innerText = user.Dados[i].EmailUser;
             td_Nivel.innerText = user.Dados[i].Nivel;
+            td_Nivel.classList.add("esconder")
             td_acoes.innerHTML = `<i class="bi bi-pencil-square"  data-toggle="modal" data-target="#modalEditar"  style="cursor:pointer;" onclick="EditarUser(${user.Dados[i].idUser})"></i> <i class="bi bi-trash3" data-toggle="modal" data-toggle="modal" data-target="#modalExcluir" style="cursor:pointer;" onclick="ExcluirUser(${user.Dados[i].idUser})"></i>`;
         }
     }

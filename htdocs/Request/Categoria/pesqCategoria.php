@@ -13,10 +13,10 @@ if(isset($_GET['id'])){
         $retorno = array("Retorno" => "OK", "Dados" => $PesqCat);
     }else{
         $id= intval(limpar_texto($_GET['id']));
-        $PesqCat = $conexao->query("SELECT a.*, b.DescricaoSub
+        $PesqCat = $conexao->query("SELECT a.*, b.DescricaoSub, b.idSub
         FROM cadcategoria a 
         LEFT JOIN catsubcategoria b ON a.idCat = b.idCat 
-        WHERE idCat = $id");
+        WHERE a.idCat =  $id");
         if($PesqCat->num_rows > 0){
             $PesqCat = $PesqCat->fetch_all(MYSQLI_ASSOC);
             $retorno = array("Retorno" => "OK", "Dados" => $PesqCat);  

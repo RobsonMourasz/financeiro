@@ -14,10 +14,10 @@
         <table class="table table-hover">
             <thead>
                 <tr>
-                    <th scope="col">#</th>
-                    <th scope="col">Nome</th>
+                    <th scope="col" class="esconder">#</th>
+                    <th scope="col" class="esconder">Nome</th>
                     <th scope="col">E-mail</th>
-                    <th scope="col">Nível</th>
+                    <th scope="col" class="esconder">Nível</th>
                     <th scope="col"></th>
                 </tr>
             </thead>

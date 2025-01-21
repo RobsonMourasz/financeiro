@@ -194,9 +194,12 @@ async function PreencherTabela() {
             let td_Telefone = tr.insertCell();
             let td_acoes = tr.insertCell();
             td_id.innerText = CadPessoa.Dados[index].idPessoa
+            td_id.classList.add("esconder")
             td_Nome.innerText = CadPessoa.Dados[index].NomePessoa;
             td_CPF.innerText = FormatarCpfCnpj(CadPessoa.Dados[index].Cpf_Cnpj);
+            td_CPF.classList.add("esconder")
             td_Telefone.innerText = FormatarTelefoneCelular(CadPessoa.Dados[index].Telefone);
+            td_Telefone.classList.add("esconder")
             td_acoes.innerHTML = `<i data-toggle="modal" data-target="#modalEditar" class="bi bi-pencil-square" onclick="editarCadastro('${CadPessoa.Dados[index].idPessoa}')" style="cursor: pointer;")></i> <i data-toggle="modal" data-target="#modalExcluir" class="bi bi-trash3" onclick="excluirCadastro('${CadPessoa.Dados[index].idPessoa}')"  style="cursor: pointer;"></i>`;
         }
     }

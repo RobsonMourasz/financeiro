@@ -16,12 +16,12 @@
                     <th scope="col">#</th>
                     <th scope="col">Descrição</th>
                     <th scope="col">Sub </th>
-                    <th scope="col">Tipo</th>
+                    <th scope="col" class="esconder">Tipo</th>
                     <th scope="col"></th>
                 </tr>
             </thead>
             <tbody class="table-group-divider" id="tbody">
-                
+
             </tbody>
         </table>
 
@@ -43,7 +43,7 @@
                 <div class="modal-body">
                     <form id="formCadastro" method="post">
 
-                        <div id="alertaCadastro-mensagem" align="center"> 
+                        <div id="alertaCadastro-mensagem" align="center">
                             <small class="alert"></small>
                         </div>
 
@@ -83,13 +83,14 @@
                     </button>
                 </div>
                 <div class="modal-body">
-                    <form id="formCadastro" method="post">
-                        <small>
-                            <div id="alertaCadastro-mensagem" align="center"></div>
-                        </small>
+                    <form id="formEditar" method="post">
+
+                        <div id="alertaEditar-mensagem" align="center">
+                            <small class="alert"></small>
+                        </div>
 
                         <div class="input-group mb-3">
-                            <input id="edtDescricao" name="descricao" type="text" class="form-control" placeholder="Descrição Categoria" require>
+                            <input id="edtDescricaoCat" name="DescricaoCat" type="text" class="form-control" placeholder="Descrição Categoria" require>
                         </div>
                         <div class="input-group mb-3">
                             <select name="Tipo" id="edtTipo" class="form-select">
@@ -99,10 +100,14 @@
                             </select>
                         </div>
                         <div class="input-group mb-3">
-                            <input id="edtSub" name="SubCategoria" type="text" class="form-control" placeholder="Descrição Sub Categoria">
+                            <input id="edtDescricaoSub" name="DescricaoSub" type="text" class="form-control" placeholder="Descrição Sub Categoria">
+                        </div>
+                        <div class="input-group mb-3" hidden>
+                            <input id="edtIdCat" name="IdCat" type="number">
+                            <input id="edtIdSub" name="IdSub" type="number">
                         </div>
                         <div class="modal-footer">
-                            <button id="btnEditar" type="button" class="form-control btn btn-primary">Alterar</button>
+                            <button id="btnEditar" type="submit" class="form-control btn btn-primary">Alterar</button>
                         </div>
                     </form>
                 </div>
@@ -121,20 +126,28 @@
                     </button>
                 </div>
                 <div class="modal-body">
-                    <form id="formCadastro" method="post">
-                        <small>
-                            <div id="alertaCadastro-mensagem" align="center"></div>
-                        </small>
+                    <form id="formExcluir" method="post">
+                        
+                        <div id="alertaExcluir-mensagem" align="center">
+                            <small class="alert"></small>
+                        </div>
+
 
                         <div class="input-group mb-3">
-                            <input name="descricao" type="text" class="form-control" placeholder="Descrição Categoria" require disabled>
+                            <input id="excDescricaoCat" name="DescricaoCat" type="text" class="form-control" disabled>
                         </div>
+
                         <div class="input-group mb-3">
-                            <input name="tipo" type="text" class="form-control" placeholder="Tipo (Receita ou Despesa)" require disabled>
+                            <input id="excDescricaoSub" name="DescricaoSub" type="text" class="form-control" disabled>
+                        </div>
+
+                        <div class="input-group mb-3">
+                            <input id="excIdCat" name="IdCat" type="number">
+                            <input id="excIdSub" name="IdSub" type="number">
                         </div>
 
                         <div class="modal-footer">
-                            <button id="btnEditar" type="button" class="form-control btn btn-danger">Excluir</button>
+                            <button id="btnExcluir" type="submit" class="form-control btn btn-danger">Excluir <small class="carregando d-none"></small></button>
                             <button id="btnCancelar" type="button" class="form-control btn btn-light" data-dismiss="modal" aria-label="Fechar">Cancelar</button>
                         </div>
                     </form>

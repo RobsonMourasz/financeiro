@@ -15,10 +15,10 @@
         <table class="table table-hover">
             <thead>
                 <tr>
-                    <th scope="col">#</th>
+                    <th scope="col" class="escoonder">#</th>
                     <th scope="col">Nome</th>
-                    <th scope="col">CNPJ</th>
-                    <th scope="col">telefone</th>
+                    <th scope="col" class="esconder">CNPJ</th>
+                    <th scope="col" class="esconder">telefone</th>
                     <th scope="col"></th>
                 </tr>
             </thead>
