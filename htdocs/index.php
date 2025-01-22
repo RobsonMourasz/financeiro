@@ -131,6 +131,7 @@ if (isset($_SESSION['sessao'])) {
         </head>
 
         <body class="cbp-spmenu-push">
+
             <div class="main-content">
                 <div class="cbp-spmenu cbp-spmenu-vertical cbp-spmenu-left" id="cbp-spmenu-s1">
                     <!--left-fixed -navigation-->
@@ -226,8 +227,12 @@ if (isset($_SESSION['sessao'])) {
                 <div class="tela-cadastrar d-none">
                     <small class="tela-cadastrar-carregando"></small>
                 </div>
+
                 <!-- main content start-->
                 <div id="page-wrapper">
+                    <div class="alertas">
+                        <small class="alertas-mensagens"></small>
+                    </div>
                     <?php include_once($url) ?>
                 </div> <!-- main content start-->
 
@@ -290,6 +295,7 @@ if (isset($_SESSION['sessao'])) {
             <script src="../app/js/light.js"></script>
             <!-- for amcharts js -->
             <script src="../app/js/index1.js"></script>
+            <script src="App/js/Funcoes.Feitas.js"></script>
         </body>
 
 

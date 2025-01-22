@@ -18,7 +18,7 @@
 
     <div id="display-filtro" class="row px-5 d-none">
         <div class="col">
-            <form method="post">
+            <form method="post" id="form-pesquisa">
                 <div class="col-md-2">
                     <div class="input-group mb-3">
                         <input id="Data1" name="DataInicial" type="date" class="form-control">
@@ -170,6 +170,7 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
     <link href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" rel="stylesheet" />
+    
     <script src="App/js/Botao.Confirma.js"></script>
     <script src="App/js/Funcoes.lancamento.js"></script>
     <script src="App/js/Funcoes.Despesa.js"></script>

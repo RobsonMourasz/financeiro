@@ -26,6 +26,34 @@
     }
 }
 
+.alertas{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 30%;
+    height: 100px;
+    position: absolute;
+    bottom: 2%;
+    left: 45%;
+    z-index: 1000;
+    border-radius: 10px;
+}
+
+.sucess{
+    background-color: #0666f1;
+    color: white;
+}
+.error{
+    background-color: red;
+    color: white;
+    animation: outColor .5s forwards;
+    animation: inColor .5s;
+}
+.warning{
+    background-color: orange;
+    animation: outColor .5s;
+    animation: inColor .5s;
+}
 
 .tela-cadastrar{
     display: flex;
@@ -68,6 +96,11 @@
 
     .btnfiltro{
         display: inline-block; 
+    }
+
+    .alertas{
+        width: 80%;
+        left: 10%;
     }
 
     

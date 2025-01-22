@@ -90,3 +90,34 @@ function formatDate(data) {
     return tempData
 }
 /* FORMATAR DATA ATUAL */
+
+function TelaAvisos(parametro, mensagem) {
+    if(parametro == "verdadeiro"){
+
+        document.querySelector(".alertas").classList.add("sucess");
+        document.querySelector(".alertas").querySelector(".alertas-mensagens").textContent = mensagem;
+        setInterval(()=>{
+            document.querySelector(".alertas").classList.remove("sucess");
+            document.querySelector(".alertas").querySelector(".alertas-mensagens").textContent ="";
+        },5000)
+
+    } else if(parametro == "falso"){
+
+        document.querySelector(".alertas").classList.add("warning");
+        document.querySelector(".alertas").querySelector(".alertas-mensagens").textContent = mensagem;
+        setInterval(()=>{
+            document.querySelector(".alertas").classList.remove("warning");
+            document.querySelector(".alertas").querySelector(".alertas-mensagens").textContent ="";
+        },3000)
+
+    }else{
+
+        document.querySelector(".alertas").classList.add("error");
+        document.querySelector(".alertas").querySelector(".alertas-mensagens").textContent = mensagem;
+        setInterval(()=>{
+            document.querySelector(".alertas").classList.remove("error");
+            document.querySelector(".alertas").querySelector(".alertas-mensagens").textContent ="";
+        },3000)
+
+    }
+}
