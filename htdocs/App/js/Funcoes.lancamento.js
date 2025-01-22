@@ -27,23 +27,6 @@ function getDoubleString(valor) {
 
 /* FORMATAR DOUBLE PARA STRING */
 
-/* FORMATAR DATA ATUAL */
-function formatDate(data) {
-    const dataNova = new Date()
-    let tempData = "nada"
-
-    if (data == "") {
-        const tempDia = dataNova.getDate()
-        const tempMes = dataNova.getMonth() + 1
-        const tempAno = dataNova.getFullYear()
-        tempData = `${tempAno}-${tempMes.toString().padStart(2, '0')}-${tempDia.toString().padStart(2, '0')}`
-
-    }
-
-    return tempData
-}
-/* FORMATAR DATA ATUAL */
-
 document.getElementById("cadFixa").addEventListener("click", () => {
     if (document.getElementById("cadFixa").checked) {
         document.getElementById("cadFixa").setAttribute("data-id", "1")

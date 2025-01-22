@@ -30,26 +30,26 @@
                     </div>
                 </div>
                 <div class="col-md-2 mb-3">
-                    <select name="" id="" class="form-select">
+                    <select name="categoria" id="pesqCategoria" class="form-select">
                         <option value="" selected>Categoria</option>
-                        <option value="">Carro</option>
-                        <option value="">Moto</option>
-                        <option value="">Aluguel</option>
-                        <option value="">Farmacia</option>
+                        <option value="1">Carro</option>
+                        <option value="2">Moto</option>
+                        <option value="3">Aluguel</option>
+                        <option value="4">Farmacia</option>
                     </select>
                 </div>
                 <div class="col-md-2 mb-3">
-                    <select name="" id="" class="form-select">
+                    <select name="Tipo" id="pesqTipo" class="form-select">
                         <option value="" selected>Tipo</option>
-                        <option value="">Receita</option>
-                        <option value="">Despesa</option>
+                        <option value="R">Receita</option>
+                        <option value="D">Despesa</option>
                     </select>
                 </div>
                 <div class="col-md-2 mb-3">
-                    <select name="" id="" class="form-select">
+                    <select name="Situacao" id="pesqSituacao" class="form-select">
                         <option value="" selected>Situacao</option>
-                        <option value="">Confirmado</option>
-                        <option value="">Aberto</option>
+                        <option value="S">Confirmado</option>
+                        <option value="N">Aberto</option>
                     </select>
                 </div>
 
@@ -74,7 +74,6 @@
         <table class="table table-hover">
             <thead>
                 <tr>
-                    <th scope="col">#</th>
                     <th scope="col">Vencimento</th>
                     <th scope="col">Descrição</th>
                     <th scope="col">Valor R$</th>
@@ -83,19 +82,7 @@
                 </tr>
             </thead>
             <tbody class="table-group-divider" id="tbody">
-                <tr>
-                    <th scope="row">1</th>
-                    <td scope="row">10-01-2025</td>
-                    <td scope="row">Aluguel Casa</td>
-                    <td scope="row">R$ 700,00</td>
-                    <td scope="row">
-                        <i class="bi bi-hand-thumbs-down" id="confirma1" onclick="Confirma('confirma1')"></i>
-                    </td>
-                    <td scope="row">
-                        <i class="bi bi-trash" data-toggle="modal" data-target="#modalExcluir"></i>
-                        <i class="bi bi-clipboard-check-fill" data-toggle="modal" data-target="#modalEditar"></i>
-                    </td>
-                </tr>
+
             </tbody>
         </table>
 
@@ -107,7 +94,7 @@
             <div class="modal-content">
                 <div class="modal-header">
                     <h5 class="modal-title" id="staticBackdropLabel">Nova despesa</h5>
-                    <button type="button" class="close" data-dismiss="modal" aria-label="Fechar">
+                    <button onclick="" type="button" class="close" data-dismiss="modal" aria-label="Fechar">
                         <span aria-hidden="true">&times;</span>
                     </button>
                 </div>
@@ -172,6 +159,7 @@
     <link href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" rel="stylesheet" />
     
     <script src="App/js/Botao.Confirma.js"></script>
+    <script src="App/js/Funcoes.Feitas.js"></script>
     <script src="App/js/Funcoes.lancamento.js"></script>
     <script src="App/js/Funcoes.Despesa.js"></script>
 

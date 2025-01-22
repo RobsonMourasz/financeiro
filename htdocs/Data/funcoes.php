@@ -20,6 +20,7 @@ function ConverterDateTimeString($datetime)
 
 function converterDateString($date)
 {
+    
     $temp = explode('/', $date);
     $temp2 = implode('-', array_reverse($temp));
     if (strlen($temp2) == 10) {

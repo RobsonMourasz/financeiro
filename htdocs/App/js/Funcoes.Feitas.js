@@ -85,6 +85,13 @@ function formatDate(data) {
         const tempAno = dataNova.getFullYear()
         tempData = `${tempAno}-${tempMes.toString().padStart(2, '0')}-${tempDia.toString().padStart(2, '0')}`
 
+    }else{ /* CONVERTE DATE TIME PARA STRING MODELO DIA MES ANO */
+        const  dt1 = FormatarSomenteNumero(data);
+        const  dt2 = dt1.substring(0,8)
+        const ano = dt2.substring(0,4)
+        const mes = dt2.substring(4,6)
+        const dia = dt2.substring(6,8)
+        tempData = `${dia}-${mes}-${ano}`
     }
 
     return tempData
@@ -119,5 +126,13 @@ function TelaAvisos(parametro, mensagem) {
             document.querySelector(".alertas").querySelector(".alertas-mensagens").textContent ="";
         },3000)
 
+    }
+}
+
+function ChamarTelaCarregando(fadeInOut) {
+    if(fadeInOut == "FadeIn"){
+        document.querySelector(".tela-cadastrar").classList.remove("d-none")
+    }else{
+        document.querySelector(".tela-cadastrar").classList.add("d-none")
     }
 }
