@@ -99,6 +99,7 @@ function formatDate(data) {
 /* FORMATAR DATA ATUAL */
 
 function TelaAvisos(parametro, mensagem) {
+    document.querySelector(".alertas").classList.remove("d-none")
     if(parametro == "verdadeiro"){
 
         document.querySelector(".alertas").classList.add("sucess");
@@ -125,8 +126,8 @@ function TelaAvisos(parametro, mensagem) {
             document.querySelector(".alertas").classList.remove("error");
             document.querySelector(".alertas").querySelector(".alertas-mensagens").textContent ="";
         },3000)
-
     }
+    document.querySelector(".alertas").classList.add("d-none")
 }
 
 function ChamarTelaCarregando(fadeInOut) {

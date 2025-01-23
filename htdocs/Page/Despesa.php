@@ -96,21 +96,22 @@
                 </div>
                 <div class="modal-body">
                     <form id="formCadastro" method="post">
-                        <small>
-                            <div id="alertaCadastro-mensagem" align="center"></div>
-                        </small>
+
+                        <div id="alertaCadastro-mensagem" align="center"> 
+                            <small class="alert"></small>
+                        </div>
 
                         <div class="input-group mb-3">
-                            <input id="cadDescricao" name="descricao" type="text" class="form-control" placeholder="Descrição" require>
+                            <input id="cadDescricao" name="Descricao" type="text" class="form-control" placeholder="Descrição" require>
                         </div>
                         <div class="input-group mb-3">
-                            <input id="cadValor" name="valor" type="text" class="form-control" placeholder="R$ 0,00" require>
+                            <input id="cadValor" name="ValorParcela" type="text" class="form-control" placeholder="R$ 0,00" require>
                         </div>
                         <div class="input-group mb-3">
-                            <input id="cadVencimento" name="vencimento" type="date" class="form-control" require>
+                            <input id="cadVencimento" name="DataVencimento" type="date" class="form-control" require>
                         </div>
                         <div class="input-group mb-3">
-                            <select name="conta" id="cadConta" class="form-select mb-3">
+                            <select name="idConta" id="cadConta" class="form-select mb-3">
                                 <option value="" selected>Selecione uma Conta</option>
                             </select>
                         </div>
@@ -123,25 +124,27 @@
                         <div class="row">
                             <div class="col-5 d-flex justify-content-center" style="background-color: transparent;">
                                 <div class="form-check form-switch mb-3">
-                                    <input data-id="0" id="cadFixa" name="fixa" type="checkbox" class="form-check-input" style="cursor: pointer;">
+                                    <input data-id="N" id="cadFixa" name="fixa" type="checkbox" class="form-check-input" style="cursor: pointer;" value="N">
                                     <label for="cadFixa" class="form-check-label" style="user-select: none; cursor: pointer;" title="É uma despesa fixa ? então marque essa opção">Fixa</label>
                                 </div>
                             </div>
                             <div class="col-5 d-flex justify-content-center" style="background-color: transparent;">
                                 <div class="form-check form-switch mb-3">
-                                    <input data-id="0" id="cadParcelada" name="parcelada" type="checkbox" class="form-check-input" style="cursor: pointer;">
+                                    <input data-id="N" id="cadParcelada" name="parcelada" type="checkbox" class="form-check-input" style="cursor: pointer;" value="N">
                                     <label for="cadParcelada" class="form-check-label" style="user-select: none; cursor: pointer;" title="Caso desejar parcela essa despesa basta marcar a opção">Parcelar</label>
-                                    <input type="text" name="qtdParcelas" id="cadQtdParcelas" value="0" class="d-none">
+                                    <input type="text" name="QtdParcela" id="cadQtdParcelas" class="d-none" value="1">
                                     <p style="color: red;" id="cadResposta" class="d-none">R$ 0,00</p>
                                 </div>
                             </div>
                             <div class="col-2 d-flex justify-content-center" style="background-color: transparent;">
-                                <i class="bi bi-hand-thumbs-up-fill" style="cursor: pointer;" title="opção de confirmar despesa"></i>
+                                <i id="btnConfirmada" class="bi bi-hand-thumbs-up-fill" style="cursor: pointer;" title="opção de confirmar despesa" data-id="S"></i>
                             </div>
+                            <input type="text" name="ValorTotal" id="cadVrTotal" hidden>
+                            <input type="text" name="Confirmada" id="cadConfirmada" value="S" hidden>
                         </div>
 
                         <div class="modal-footer">
-                            <button id="btnCadastrar" type="button" class="form-control btn btn-danger">Cadastrar</button>
+                            <button id="btnCadastrar" type="submit" class="form-control btn btn-danger">Cadastrar</button>
                         </div>
                     </form>
                 </div>

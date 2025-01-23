@@ -103,6 +103,7 @@ if (isset($_POST["NomeEmpresa"])) {
                     `Confirmada` varchar(2) DEFAULT 'N' COMMENT 'S  SIM N NAO',
                     `Tipo` varchar(2) DEFAULT 'D' COMMENT 'R RECEITA D DESPESA',
                     `Controle` varchar(20) DEFAULT 'NAO' COMMENT 'NUMERO QUE IRÁ AGRUPAR TODAS AS PARCELAS ',
+                    `QtdParcela` varchar(10) DEFAULT '1/1',
                     `ValorParcela` double(14,2) DEFAULT '0.00',
                     `ValorTotal` double(14,2) DEFAULT '0.00',
                     `Desconto` double(14,2) DEFAULT '0.00',

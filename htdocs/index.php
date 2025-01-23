@@ -230,7 +230,7 @@ if (isset($_SESSION['sessao'])) {
 
                 <!-- main content start-->
                 <div id="page-wrapper">
-                    <div class="alertas">
+                    <div class="alertas d-none">
                         <small class="alertas-mensagens"></small>
                     </div>
                     <?php include_once($url) ?>

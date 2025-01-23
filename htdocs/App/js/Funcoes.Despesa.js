@@ -90,6 +90,43 @@
         event.preventDefault()
         Carregar_Tabela();
     });
+
+    document.getElementById("formCadastro").addEventListener("submit", async (event)=>{
+        event.preventDefault();
+        if(document.getElementById("cadDescricao").value !== "" ){
+            if(document.getElementById("cadValor").value !== "" ){
+                if(document.getElementById("cadConta").value !== ""){
+                    if(document.getElementById("cadCategoria").value !== ""){
+                        const url = "Request/Despesa/cadDespesa.php";
+                        const formCad = new FormData(document.getElementById("formCadastro")) 
+                        const responseCad = await fetch(url, {
+                            method: "POST",
+                            body: formCad,
+                        })
+                        if(responseCad.ok){
+                            const dadosCad = await responseCad.json();
+                            if( dadosCad.Retorno == "OK" ){
+                                TelaAvisos("falso", "OK"); 
+                            }else{
+                                TelaAvisos("falso", "Falha ao cadastrar"); 
+                            }
+
+                        }else {
+                            TelaAvisos("falso", "Fatal Erro");
+                        }
+                    }else{
+                        TelaAvisos("falso", "Campo Categoria não pode estar vazio");
+                    }
+                }else{
+                    TelaAvisos("falso", "Campo Conta não pode estar vazio");
+                }
+            }else{
+                TelaAvisos("falso", "Campo valor não pode estar vazio");
+            }
+        }else{
+            TelaAvisos("falso", "Campo descricao não pode estar vazio");
+        }
+    });
     
 })();
 

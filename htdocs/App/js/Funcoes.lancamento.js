@@ -3,20 +3,6 @@ function getFloat(str) {
     return str.replace(",", ".")
 }
 
-function formatarReal(valor) {
-    // Arredonda o valor para duas casas decimais
-    const valorFormatado = parseFloat(valor).toFixed(2);
-
-    // Divide o valor em reais e centavos
-    const [reais, centavos] = valorFormatado.split('.');
-
-    // Formata o valor com vírgula e o símbolo de R$
-    const valorFinal = `R$ ${reais},${centavos.padEnd(2, '0')}`;
-
-    return valorFinal;
-}
-
-/* FORMATA EM REAL */
 
 /* FORMATAR DOUBLE PARA STRING */
 
@@ -29,11 +15,13 @@ function getDoubleString(valor) {
 
 document.getElementById("cadFixa").addEventListener("click", () => {
     if (document.getElementById("cadFixa").checked) {
-        document.getElementById("cadFixa").setAttribute("data-id", "1")
+        document.getElementById("cadFixa").setAttribute("data-id", "S")
+        document.getElementById("cadFixa").value ="S"
         document.getElementById("cadParcelada").checked = false
-        document.getElementById("cadParcelada").setAttribute("data-id", "0")
+        document.getElementById("cadParcelada").setAttribute("data-id", "N")
     }else{
-        document.getElementById("cadFixa").setAttribute("data-id", "0")
+        document.getElementById("cadFixa").setAttribute("data-id", "N")
+        document.getElementById("cadFixa").value ="N"
     }
     if (!document.getElementById("cadQtdParcelas").classList.contains("d-none")) {
         document.getElementById("cadQtdParcelas").classList.add("d-none")
@@ -44,14 +32,28 @@ document.getElementById("cadFixa").addEventListener("click", () => {
 document.getElementById("cadParcelada").addEventListener("click", () => {
     if (document.getElementById("cadParcelada").checked) {
         document.getElementById("cadFixa").checked = false
-        document.getElementById("cadFixa").setAttribute("data-id", "0")
-        document.getElementById("cadParcelada").setAttribute("data-id", "1")
+        document.getElementById("cadFixa").setAttribute("data-id", "N")
+        document.getElementById("cadFixa").value ="N"
+        document.getElementById("cadParcelada").setAttribute("data-id", "S")
+        document.getElementById("cadParcelada").value ="S"
+        document.getElementById("cadQtdParcelas").classList.remove("d-none")
+        document.getElementById("cadResposta").classList.remove("d-none")
     }else{
-        document.getElementById("cadParcelada").setAttribute("data-id", "0")
+        document.getElementById("cadParcelada").setAttribute("data-id", "N")
+        document.getElementById("cadParcelada").value ="N"
+        document.getElementById("cadResposta").textContent = "";
+        document.getElementById("cadVrTotal").value = "";
+        document.getElementById("cadQtdParcelas").value = "1";
+        document.getElementById("cadQtdParcelas").classList.add("d-none")
+        document.getElementById("cadResposta").classList.add("d-none")
+
     }
-    document.getElementById("cadQtdParcelas").classList.toggle("d-none")
-    document.getElementById("cadResposta").classList.toggle("d-none")
+
 });
+
+document.getElementById("cadQtdParcelas").addEventListener("focus", (event)=>{
+    event.preventDefault();
+})
 
 document.getElementById("cadQtdParcelas").addEventListener("focusout", () => {
     const valor = getDoubleString(document.getElementById("cadValor").value)
@@ -59,6 +61,7 @@ document.getElementById("cadQtdParcelas").addEventListener("focusout", () => {
     const total = valor * parcelas
     document.getElementById("cadResposta").style.fontSize = ".8em"
     document.getElementById("cadResposta").textContent = `Valor final total será de ${formatarReal(total)}`
+    document.getElementById("cadVrTotal").value = formatarReal(total)
 });
 
 document.getElementById("cadValor").addEventListener("focusout", () => {
@@ -69,3 +72,16 @@ document.getElementById("cadValor").addEventListener("focusout", () => {
 document.getElementById("btnfiltro").addEventListener("click", ()=>{
     document.getElementById("display-filtro").classList.toggle("d-none")
 });
+
+document.getElementById("btnConfirmada").addEventListener("click", ()=>{
+    
+    if(document.getElementById("btnConfirmada").classList.contains("bi-hand-thumbs-up-fill")){
+        document.getElementById("btnConfirmada").classList.remove("bi-hand-thumbs-up-fill")
+        document.getElementById("btnConfirmada").classList.add("bi-hand-thumbs-down")
+        document.getElementById("cadConfirmada").value = "N"
+    }else{
+        document.getElementById("btnConfirmada").classList.remove("bi-hand-thumbs-down")
+        document.getElementById("btnConfirmada").classList.add("bi-hand-thumbs-up-fill")
+        document.getElementById("cadConfirmada").value = "S"
+    }
+})
