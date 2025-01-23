@@ -32,10 +32,6 @@
                 <div class="col-md-2 mb-3">
                     <select name="categoria" id="pesqCategoria" class="form-select">
                         <option value="" selected>Categoria</option>
-                        <option value="1">Carro</option>
-                        <option value="2">Moto</option>
-                        <option value="3">Aluguel</option>
-                        <option value="4">Farmacia</option>
                     </select>
                 </div>
                 <div class="col-md-2 mb-3">
@@ -77,7 +73,7 @@
                     <th scope="col">Vencimento</th>
                     <th scope="col">Descrição</th>
                     <th scope="col">Valor R$</th>
-                    <th scope="col">Confirmado</th>
+                    <th scope="col" class="esconder">Confirmado</th>
                     <th scope="col"></th>
                 </tr>
             </thead>
@@ -116,32 +112,31 @@
                         <div class="input-group mb-3">
                             <select name="conta" id="cadConta" class="form-select mb-3">
                                 <option value="" selected>Selecione uma Conta</option>
-                                <option value="inicial">Inicial</option>
-                                <option value="outro">Outro Banco</option>
                             </select>
                         </div>
                         <div class="input-group mb-3">
                             <select name="categoria" id="cadCategoria" class="form-select mb-3">
                                 <option value="" selected>Selecione uma categoria</option>
-                                <option value="aluguel">Aluguel</option>
-                                <option value="carro">Carro</option>
                             </select>
                         </div>
 
                         <div class="row">
-                            <div class="col-6 d-flex justify-content-center" style="background-color: transparent;">
+                            <div class="col-5 d-flex justify-content-center" style="background-color: transparent;">
                                 <div class="form-check form-switch mb-3">
-                                    <input data-id="0" id="cadFixa" name="fixa" type="checkbox" class="form-check-input" require>
-                                    <label for="cadFixa" class="form-check-label" style="user-select: none;">Despesa Fixa?</label>
+                                    <input data-id="0" id="cadFixa" name="fixa" type="checkbox" class="form-check-input" style="cursor: pointer;">
+                                    <label for="cadFixa" class="form-check-label" style="user-select: none; cursor: pointer;" title="É uma despesa fixa ? então marque essa opção">Fixa</label>
                                 </div>
                             </div>
-                            <div class="col-6 d-flex justify-content-center" style="background-color: transparent;">
+                            <div class="col-5 d-flex justify-content-center" style="background-color: transparent;">
                                 <div class="form-check form-switch mb-3">
-                                    <input data-id="0" id="cadParcelada" name="parcelada" type="checkbox" class="form-check-input" require>
-                                    <label for="cadParcelada" class="form-check-label" style="user-select: none;">Despesa Parcelada?</label>
+                                    <input data-id="0" id="cadParcelada" name="parcelada" type="checkbox" class="form-check-input" style="cursor: pointer;">
+                                    <label for="cadParcelada" class="form-check-label" style="user-select: none; cursor: pointer;" title="Caso desejar parcela essa despesa basta marcar a opção">Parcelar</label>
                                     <input type="text" name="qtdParcelas" id="cadQtdParcelas" value="0" class="d-none">
                                     <p style="color: red;" id="cadResposta" class="d-none">R$ 0,00</p>
                                 </div>
+                            </div>
+                            <div class="col-2 d-flex justify-content-center" style="background-color: transparent;">
+                                <i class="bi bi-hand-thumbs-up-fill" style="cursor: pointer;" title="opção de confirmar despesa"></i>
                             </div>
                         </div>
 
@@ -157,7 +152,7 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
     <link href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" rel="stylesheet" />
-    
+
     <script src="App/js/Botao.Confirma.js"></script>
     <script src="App/js/Funcoes.Feitas.js"></script>
     <script src="App/js/Funcoes.lancamento.js"></script>
