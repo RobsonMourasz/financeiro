@@ -1,19 +1,24 @@
 /* FORMATA EM REAL */
 function getFloat(str) {
+
     return str.replace(",", ".")
-}
+
+};
 
 
 /* FORMATAR DOUBLE PARA STRING */
 
 function getDoubleString(valor) {
+
     const temp = valor.replace(/[^0-9,]/g, '').replace(/,/g, '.');
     return parseFloat(temp);
-}
+
+};
 
 /* FORMATAR DOUBLE PARA STRING */
 
 document.getElementById("cadFixa").addEventListener("click", () => {
+
     if (document.getElementById("cadFixa").checked) {
         document.getElementById("cadFixa").setAttribute("data-id", "S")
         document.getElementById("cadFixa").value ="S"
@@ -27,9 +32,11 @@ document.getElementById("cadFixa").addEventListener("click", () => {
         document.getElementById("cadQtdParcelas").classList.add("d-none")
         document.getElementById("cadResposta").classList.add("d-none")
     }
+
 });
 
 document.getElementById("cadParcelada").addEventListener("click", () => {
+
     if (document.getElementById("cadParcelada").checked) {
         document.getElementById("cadFixa").checked = false
         document.getElementById("cadFixa").setAttribute("data-id", "N")
@@ -51,26 +58,28 @@ document.getElementById("cadParcelada").addEventListener("click", () => {
 
 });
 
-document.getElementById("cadQtdParcelas").addEventListener("focus", (event)=>{
-    event.preventDefault();
-})
-
 document.getElementById("cadQtdParcelas").addEventListener("focusout", () => {
+
     const valor = getDoubleString(document.getElementById("cadValor").value)
     const parcelas = getDoubleString(document.getElementById("cadQtdParcelas").value)
     const total = valor * parcelas
     document.getElementById("cadResposta").style.fontSize = ".8em"
     document.getElementById("cadResposta").textContent = `Valor final total será de ${formatarReal(total)}`
     document.getElementById("cadVrTotal").value = formatarReal(total)
+
 });
 
 document.getElementById("cadValor").addEventListener("focusout", () => {
+
     let valorTemporario = formatarReal(getFloat(document.getElementById("cadValor").value))
     document.getElementById("cadValor").value = valorTemporario
+
 });
 
 document.getElementById("btnfiltro").addEventListener("click", ()=>{
+
     document.getElementById("display-filtro").classList.toggle("d-none")
+
 });
 
 document.getElementById("btnConfirmada").addEventListener("click", ()=>{
@@ -84,4 +93,5 @@ document.getElementById("btnConfirmada").addEventListener("click", ()=>{
         document.getElementById("btnConfirmada").classList.add("bi-hand-thumbs-up-fill")
         document.getElementById("cadConfirmada").value = "S"
     }
-})
+    
+});

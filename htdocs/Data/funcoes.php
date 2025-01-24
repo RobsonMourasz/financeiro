@@ -5,6 +5,11 @@ function limpar_texto($str)
     return preg_replace("/[^0-9]/", "", $str);
 }
 
+function FormatarFloat($str)
+{
+    return preg_replace("/[^0-9,.]/", "", $str);
+}
+
 function ConverterDateTimeString($datetime)
 {
     if (strlen($datetime) == 19) {

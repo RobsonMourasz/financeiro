@@ -106,25 +106,32 @@
                         if(responseCad.ok){
                             const dadosCad = await responseCad.json();
                             if( dadosCad.Retorno == "OK" ){
-                                TelaAvisos("falso", "OK"); 
+                                TelaAvisos("FadeIn", "falso", "OK"); 
+                                TelaAvisos("FadeOut", "", ""); 
                             }else{
-                                TelaAvisos("falso", "Falha ao cadastrar"); 
+                                TelaAvisos("FadeIn","falso", "Falha ao cadastrar"); 
+                                TelaAvisos("FadeOut", "", ""); 
                             }
 
                         }else {
-                            TelaAvisos("falso", "Fatal Erro");
+                            TelaAvisos("FadeIn","falso", "Fatal Erro");
+                            TelaAvisos("FadeOut", "", ""); 
                         }
                     }else{
-                        TelaAvisos("falso", "Campo Categoria não pode estar vazio");
+                        TelaAvisos("FadeIn","falso", "Campo Categoria não pode estar vazio");
+                        TelaAvisos("FadeOut", "", ""); 
                     }
                 }else{
-                    TelaAvisos("falso", "Campo Conta não pode estar vazio");
+                    TelaAvisos("FadeIn","falso", "Campo Conta não pode estar vazio");
+                    TelaAvisos("FadeOut", "", ""); 
                 }
             }else{
-                TelaAvisos("falso", "Campo valor não pode estar vazio");
+                TelaAvisos("FadeIn","falso", "Campo valor não pode estar vazio");
+                TelaAvisos("FadeOut", "", ""); 
             }
         }else{
-            TelaAvisos("falso", "Campo descricao não pode estar vazio");
+            TelaAvisos("FadeIn","falso", "Campo descricao não pode estar vazio");
+            TelaAvisos("FadeOut", "", ""); 
         }
     });
     
@@ -192,7 +199,7 @@ async function Carregar_Tabela() {
         TelaAvisos("falso", "error");
     }
     ChamarTelaCarregando("FadeOut")
-}
+};
 
 async function Confirma(idElemento) {
 
@@ -223,4 +230,22 @@ async function Confirma(idElemento) {
         }
     }
 
-}
+};
+
+function alerta(TipoAlerta, IdElemento, mensagem) {
+    
+    if (TipoAlerta == "verdadeiro") {
+        document.getElementById(IdElemento).querySelector(".alert").textContent = `${mensagem}`
+        document.getElementById(IdElemento).querySelector(".alert").style = "font-size: 1.5em; color:#26a632;"
+        setInterval(() => {
+            document.getElementById(IdElemento).querySelector(".alert").textContent = ""
+        }, 3000)
+    } else {
+        document.getElementById(IdElemento).querySelector(".alert").textContent = `${mensagem}`
+        document.getElementById(IdElemento).querySelector(".alert").style = "font-size: 1.5em; color:#f10d06;"
+        setInterval(() => {
+            document.getElementById(IdElemento).querySelector(".alert").textContent = ""
+        }, 3000)
+    }
+
+};

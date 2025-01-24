@@ -99,36 +99,46 @@ function formatDate(data) {
 /* FORMATAR DATA ATUAL */
 
 function TelaAvisos(parametro, mensagem) {
-    document.querySelector(".alertas").classList.remove("d-none")
-    if(parametro == "verdadeiro"){
+
+    if (document.getElementById("alerta").classList.contains("d-none")) {
+        document.getElementById("alerta").classList.remove("d-none");
+    }
+
+    if (parametro === "verdadeiro") {
 
         document.querySelector(".alertas").classList.add("sucess");
-        document.querySelector(".alertas").querySelector(".alertas-mensagens").textContent = mensagem;
-        setInterval(()=>{
+        document.querySelector(".alertas .alertas-mensagens").textContent = mensagem;
+        setInterval(() => {
             document.querySelector(".alertas").classList.remove("sucess");
-            document.querySelector(".alertas").querySelector(".alertas-mensagens").textContent ="";
-        },5000)
+            document.querySelector(".alertas .alertas-mensagens").textContent = "";
+        }, 5000);
 
-    } else if(parametro == "falso"){
+    } else if (parametro === "falso") {
 
         document.querySelector(".alertas").classList.add("warning");
-        document.querySelector(".alertas").querySelector(".alertas-mensagens").textContent = mensagem;
-        setInterval(()=>{
+        document.querySelector(".alertas .alertas-mensagens").textContent = mensagem;
+        setInterval(() => {
             document.querySelector(".alertas").classList.remove("warning");
-            document.querySelector(".alertas").querySelector(".alertas-mensagens").textContent ="";
-        },3000)
+            document.querySelector(".alertas .alertas-mensagens").textContent = "";
+        }, 3000);
 
-    }else{
+    } else {
 
         document.querySelector(".alertas").classList.add("error");
-        document.querySelector(".alertas").querySelector(".alertas-mensagens").textContent = mensagem;
-        setInterval(()=>{
+        document.querySelector(".alertas .alertas-mensagens").textContent = mensagem;
+        setInterval(() => {
             document.querySelector(".alertas").classList.remove("error");
-            document.querySelector(".alertas").querySelector(".alertas-mensagens").textContent ="";
-        },3000)
+            document.querySelector(".alertas .alertas-mensagens").textContent = "";
+        }, 3000);
+
     }
-    document.querySelector(".alertas").classList.add("d-none")
+
+    if (!document.getElementById("alerta").classList.contains("d-none")) {
+        document.getElementById("alerta").classList.add("d-none");
+    }
+
 }
+
 
 function ChamarTelaCarregando(fadeInOut) {
     if(fadeInOut == "FadeIn"){
