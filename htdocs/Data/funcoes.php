@@ -130,3 +130,24 @@ function gerarExcel($arquivo, $html)
     // Envia o conteúdo do arquivo
     echo $html;
 }
+
+function acrescentarDias($data, $qtdDias) {
+    if (!empty($data)) {
+        $temp = new DateTime($data); // Cria um objeto DateTime com a data fornecida
+        $temp->add(new DateInterval('P' . $qtdDias . 'D')); // Acrescenta a quantidade de dias especificada
+        return $temp->format('Y-m-d'); // Formata a data e retorna
+    }else{
+        return null; // Retorna null se a data estiver vazia
+    }
+}
+
+function acrescentarMes($data, $qtdMes) {
+    if (!empty($data)) {
+        $temp = new DateTime($data); // Cria um objeto DateTime com a data fornecida
+        $temp->add(new DateInterval('P' . $qtdMes . 'M')); // Acrescenta a quantidade de dias especificada
+        return $temp->format('Y-m-d'); // Formata a data e retorna
+    }else{
+        return null; // Retorna null se a data estiver vazia
+    }
+}
+

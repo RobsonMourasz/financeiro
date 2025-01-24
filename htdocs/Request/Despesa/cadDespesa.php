@@ -7,7 +7,7 @@ if (!isset($_SESSION)) {
 if(isset($_POST['Descricao'])){
     if(!empty($_POST['Descricao'])){
         $ValorParcela = FormatarFloat($_POST['ValorParcela']);
-        $QtdParcela = limpar_texto($_POST['QtdParcela']);
+        $QtdParcela = intval(limpar_texto($_POST['QtdParcela']));
         $Descricao = $_POST['Descricao'];
         $Vencimento = $_POST['DataVencimento']." 00:00:00";
         $Emissao = date("Y-m-d H:i:s");
@@ -15,7 +15,12 @@ if(isset($_POST['Descricao'])){
         $Controle = limpar_texto(date("Y-m-d H:i:s"));
         $IdConta = limpar_texto($_POST['idConta']);
         $IdCategoria = limpar_texto($_POST['categoria']);
-        $IdSub = limpar_texto($_POST['sub']);
+
+        if(isset($_POST['sub']) && !empty($_POST['sub'])){
+            $IdSub = intval(limpar_texto($_POST['sub']));
+        }else{
+            $IdSub = 0;
+        }
 
         if(isset($_POST['fixa'])){
             $ParcelaFixa = $_POST['fixa'];
@@ -43,19 +48,30 @@ if(isset($_POST['Descricao'])){
 
 
         try {
-            $sqlInser = "INSERT INTO cp_lancamentos (idPessoa, idConta, idCategoria, id_SubCategoria, Descricao, Fixa, Parcelada, Confirmada, Tipo, Controle, QtdParcela, ValorParcela, ValorTotal, Desconto, Acrescimo, Abate, DataEmissao, DataVencimento, Alterado) VALUES (1,?,?,?,?,?,?,?,?,?,?,?,?,0.00,0.00,0.00,?,?,?)";
+            $sqlInser = "INSERT INTO cp_lancamentos (idPessoa, idConta, idCategoria, id_SubCategoria, Descricao, Fixa, Parcelada, Confirmada, Tipo, Controle, QtdParcela, ValorParcela, ValorTotal, Desconto, Acrescimo, Abate, DataEmissao, DataVencimento, Alterado) VALUES (1,?,?,?,?,?,?,?,'D',?,?,?,?,0.00,0.00,0.00,?,?,?)";
 
-            if($ParcelaFixa === "S"){
+            if ($ParcelaFixa === "S") {
                 $VencimentoParcela = $Vencimento;
-                for ($i=0; $i < 60; $i++) { 
-                    $VencimentoParcela = $VencimentoParcela + 30;
+                for ($i = 0; $i < 60; $i++) {
+                    $VencimentoParcela = acrescentarMes($VencimentoParcela, 1);
+                    echo $VencimentoParcela ."<br>";
                 }
             }
-    
-            if(count($QtdParcela) < 1 ){
-    
+            
+            if($QtdParcela === 1 ){
+                echo"Menor que 2 parcelas";
             }else{
-    
+                $VencimentoParcela = $Vencimento;
+                for ($i = 0; $i < $QtdParcela; $i++) {
+                    $addParcela = 1;
+                    $VencimentoParcela = acrescentarDias($VencimentoParcela, 30);
+                    $parcela = $addParcela. "/" .$QtdParcela;
+                    $Descricao .= " ". $parcela;
+                    $addParcela = $addParcela + 1;
+                    $insert = $conexao->prepare($sqlInser);
+                    $insert->bind_param("iiissssssddsss",$IdConta, $IdCategoria, $IdSub, $Descricao, $ParcelaFixa, $Parcelado, $ParcelaConfirmada, $Controle, $parcela, $ValorParcela, $ValorTotal, $Emissao, $VencimentoParcela, $Alterado);
+                    $insert->execute();
+                }
             }
 
             $retorno = array("Retorno"=> "OK", "Motivo" => "Despesa Cadastrada com sucesso!");
