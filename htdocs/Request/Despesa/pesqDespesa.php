@@ -34,7 +34,6 @@ if (isset($_POST['DataInicial']) && isset($_POST['DataFinal'])) {
     $sqlPesq .= $sqlAndTipo ?? "";
     $sqlPesq .= $sqlAndSituacao ?? "";
 
-
     try {
         $PesqCpLancamentos = $conexao->query($sqlPesq);
         $PesqCpLancamentos = $PesqCpLancamentos->fetch_all(MYSQLI_ASSOC);
