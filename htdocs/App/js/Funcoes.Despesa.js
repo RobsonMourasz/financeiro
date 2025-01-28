@@ -69,8 +69,6 @@
             }
         }
 
-        document.getElementById("cadVencimento").value = formatDate("");
-
         ChamarTelaCarregando("FadeOut");
     })
 
@@ -84,6 +82,7 @@
             if (document.getElementById("cadValor").value !== "") {
                 if (document.getElementById("cadConta").value !== "") {
                     if (document.getElementById("cadCategoria").value !== "") {
+                        document.getElementById("btnCadastrar").querySelector(".carregando").classList.toggle("d-none");
                         const url = "Request/Despesa/cadDespesa.php";
                         const formCad = new FormData(document.getElementById("formCadastro"))
                         const responseCad = await fetch(url, {
@@ -93,6 +92,7 @@
                         if (responseCad.ok) {
                             const dadosCad = await responseCad.json();
                             if (dadosCad.Retorno == "OK") {
+                                document.getElementById("btnCadastrar").querySelector(".carregando").classList.add("d-none");
                                 alerta("verdadeiro", "alertaCadastro-mensagem", dadosCad.Motivo);
                                 setInterval(() => {
                                     location.reload();
@@ -117,7 +117,12 @@
         } else {
             alerta("falso", "alertaCadastro-mensagem", "Campo descricao não pode estar vazio");
         }
+        if(!document.getElementById("btnCadastrar").querySelector(".carregando").classList.contains("d-none")){
+            document.getElementById("btnCadastrar").querySelector(".carregando").classList.add("d-none");
+        }
     });
+
+    document.getElementById("").addEventListener()
 
 })();
 
@@ -235,6 +240,20 @@ async function Confirma(idElemento) {
         }
     }
 
+};
+
+async function Editar(idDespesa) {
+    const id = FormatarSomenteNumero(idDespesa);
+    const response = await fetch(`Request/Despesa/pesqDespesa.php?id=${id}`)
+    if(response.ok){
+        const resposta = await response;
+        if(resposta.Retorno == "OK"){
+            document.getElementById("edtDescricao").value = resposta.Dados.Descricao
+            document.getElementById("edtValor").value = resposta.Dados.ValorParcela
+            document.getElementById("edtVencimento").value = resposta.Dados.DataVencimento
+            document.getElementById("edtConta").value = resposta.Dados.idConta
+        }
+    }
 };
 
 function alerta(TipoAlerta, IdElemento, mensagem) {

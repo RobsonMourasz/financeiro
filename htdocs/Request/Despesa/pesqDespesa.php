@@ -45,6 +45,23 @@ if (isset($_POST['DataInicial']) && isset($_POST['DataFinal'])) {
         echo json_encode($retorno);
         exit;
     }
+} else if (isset($_GET['idCR'])) {
+    $id = intval(limpar_texto($_GET['idCR']));
+    try {
+        $sqlPesq = "SELECT * 
+        FROM cp_lancamentos a 
+        WHERE a.idCR in($id)";
+
+        $PesqCpLancamentos = $conexao->query($sqlPesq);
+        $PesqCpLancamentos = $PesqCpLancamentos->fetch_all(MYSQLI_ASSOC);
+        $retorno = array("Retorno" => "OK", "Dados" => $PesqCpLancamentos);
+        echo json_encode($retorno);
+        
+    } catch (\Throwable $th) {
+        $retorno = array("Retorno" => "ERRO", "Motivo" => "Consulta SQL: " . $th->getMessage());
+        echo json_encode($retorno);
+        exit;
+    }
 } else {
     $retorno = array("Retorno" => "ERRO", "Motivo" => "Nao encontrada POST");
     echo json_encode($retorno);

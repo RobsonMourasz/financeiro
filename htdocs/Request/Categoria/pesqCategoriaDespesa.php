@@ -9,7 +9,7 @@ if(isset($_GET['id'])){
         $PesqCat = $conexao->query("SELECT a.*, b.DescricaoSub,b.idSub
         FROM cadcategoria a 
         LEFT JOIN catsubcategoria b ON a.idCat = b.idCat
-        WHERE a.Tipo = 'D'");
+        WHERE a.Tipo = 'D' ORDER BY a.DescricaoCat");
         $PesqCat = $PesqCat->fetch_all(MYSQLI_ASSOC);
         $retorno = array("Retorno" => "OK", "Dados" => $PesqCat);
     }else{

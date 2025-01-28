@@ -24,6 +24,8 @@ document.getElementById("cadFixa").addEventListener("click", () => {
         document.getElementById("cadFixa").value ="S"
         document.getElementById("cadParcelada").checked = false
         document.getElementById("cadParcelada").setAttribute("data-id", "N")
+        document.getElementById("btnConfirmada").classList.remove("bi-hand-thumbs-up-fill")
+        document.getElementById("btnConfirmada").classList.add("bi-hand-thumbs-down")
     }else{
         document.getElementById("cadFixa").setAttribute("data-id", "N")
         document.getElementById("cadFixa").value ="N"
@@ -45,6 +47,8 @@ document.getElementById("cadParcelada").addEventListener("click", () => {
         document.getElementById("cadParcelada").value ="S"
         document.getElementById("cadQtdParcelas").classList.remove("d-none")
         document.getElementById("cadResposta").classList.remove("d-none")
+        document.getElementById("btnConfirmada").classList.remove("bi-hand-thumbs-up-fill")
+        document.getElementById("btnConfirmada").classList.add("bi-hand-thumbs-down")
     }else{
         document.getElementById("cadParcelada").setAttribute("data-id", "N")
         document.getElementById("cadParcelada").value ="N"
