@@ -56,11 +56,13 @@
                 Cat.Dados.forEach(Categoria => {
                     const optionCat = document.createElement("option")
                     if (Categoria.idSub !== 0 && Categoria.idSub !== null) {
-                        optionCat.value = Categoria.idSub
+                        optionCat.value = Categoria.idCat
                         optionCat.textContent = Categoria.DescricaoCat + " -> " + Categoria.DescricaoSub
+                        optionCat.setAttribute("data-sub", Categoria.idSub)                       
                     } else {
                         optionCat.value = Categoria.idCat
                         optionCat.textContent = Categoria.DescricaoCat
+                        optionCat.setAttribute("data-sub", Categoria.idSub)
                     }
                     document.getElementById("cadCategoria").appendChild(optionCat)
                 });
@@ -179,6 +181,7 @@ async function Carregar_Tabela() {
                             if (Cat.idSub !== 0 && Cat.idSub !== null) {
                                 option.value = Cat.idSub
                                 option.textContent = Cat.DescricaoCat + " -> " + Cat.DescricaoSub
+
                             } else {
                                 option.value = Cat.idCat
                                 option.textContent = Cat.DescricaoCat
@@ -251,3 +254,9 @@ function alerta(TipoAlerta, IdElemento, mensagem) {
     }
 
 };
+
+document.getElementById('cadCategoria').addEventListener('change', function(event) {
+    const selectedOption = event.target.options[event.target.selectedIndex];
+    const atributo = selectedOption.getAttribute('data-sub');
+    document.getElementById("cadSub").value = atributo;
+});

@@ -56,10 +56,10 @@ if(isset($_POST['Descricao'])){
                 for ($i = 0; $i < 18250; $i++) {
                     $parcela = "1 / 1";
                     $ValorParcela = $ValorTotal;
-                    $VencimentoParcela = acrescentarMes($VencimentoParcela, 1);
                     $insert = $conexao->prepare($sqlInser);
                     $insert->bind_param("iiissssssddsss",$IdConta, $IdCategoria, $IdSub, $Descricao, $ParcelaFixa, $Parcelado, $ParcelaConfirmada, $Controle, $parcela, $ValorParcela, $ValorTotal, $Emissao, $VencimentoParcela, $Alterado);
                     $insert->execute();
+                    $VencimentoParcela = acrescentarMes($VencimentoParcela, 1);
 
                 }
 
@@ -75,17 +75,21 @@ if(isset($_POST['Descricao'])){
             }else{
 
                 $VencimentoParcela = $Vencimento;
+                if($ValorParcela == $ValorTotal){
+                    $ValorTotal = $ValorParcela * $QtdParcela;
+                }
+
                 for ($i = 0; $i < $QtdParcela; $i++) {
                     
                     $tempDescricao ="";
                     $addParcela = $i + 1;
-                    $VencimentoParcela = acrescentarDias($VencimentoParcela, 30);
                     $parcela = $addParcela. "/" .$QtdParcela;
                     $tempDescricao = $Descricao. " ". $addParcela. "/" .$QtdParcela;
                     $insert = $conexao->prepare($sqlInser);
                     $insert->bind_param("iiissssssddsss",$IdConta, $IdCategoria, $IdSub, $tempDescricao, $ParcelaFixa, $Parcelado, $ParcelaConfirmada, $Controle, $parcela, $ValorParcela, $ValorTotal, $Emissao, $VencimentoParcela, $Alterado);
                     $insert->execute();
-                   
+                    $VencimentoParcela = acrescentarDias($VencimentoParcela, 30);
+                    
                 }
 
             }

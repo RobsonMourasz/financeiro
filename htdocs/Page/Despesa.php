@@ -141,6 +141,7 @@
                             </div>
                             <input type="text" name="ValorTotal" id="cadVrTotal" hidden>
                             <input type="text" name="Confirmada" id="cadConfirmada" value="S" hidden>
+                            <input type="number" name="sub" id="cadSub" hidden>
                         </div>
 
                         <div class="modal-footer">
