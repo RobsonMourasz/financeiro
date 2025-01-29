@@ -41,7 +41,11 @@ function FormatarTelefoneCelular(str) {
 }
 
 function FormatarSomenteNumero(num) {
-    temp = num.replace(/[^0-9]/g, '')
+    if(typeof num === 'string'){
+        temp = num.replace(/[^0-9]/g, '')
+    }else{
+        temp =  num ;
+    }
     return temp
 }
 
@@ -85,18 +89,36 @@ function formatDate(data) {
         const tempAno = dataNova.getFullYear()
         tempData = `${tempAno}-${tempMes.toString().padStart(2, '0')}-${tempDia.toString().padStart(2, '0')}`
 
-    }else{ /* CONVERTE DATE TIME PARA STRING MODELO DIA MES ANO */
+    } else { /* CONVERTE DATE TIME PARA STRING MODELO DIA MES ANO */
         const  dt1 = FormatarSomenteNumero(data);
         const  dt2 = dt1.substring(0,8)
         const ano = dt2.substring(0,4)
         const mes = dt2.substring(4,6)
         const dia = dt2.substring(6,8)
         tempData = `${dia}-${mes}-${ano}`
-    }
+    } 
 
     return tempData
 }
 /* FORMATAR DATA ATUAL */
+
+/* FORMATAR DATA */
+function timeTempParaDate(date) {
+    if(typeof date === 'string'){
+        const temp = new Date(date);
+        let tempDia = temp.getDate();
+        let tempMes = temp.getMonth() + 1;
+        const tempAno = temp.getFullYear();
+        tempDia = tempDia < 10 ? "0" + tempDia : tempDia;
+        tempMes = tempMes < 10 ? "0" + tempMes : tempMes;
+        return `${tempAno}-${tempMes}-${tempDia}`
+    }else{
+        return date
+    }
+    
+    
+}
+/* FORMATAR DATA */
 
 function TelaAvisos(parametro, mensagem) {
 

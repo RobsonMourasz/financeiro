@@ -191,40 +191,28 @@
                         </div>
 
                         <div class="row">
-                            <div class="col-5 d-flex justify-content-center" style="background-color: transparent;">
-                                <div class="form-check form-switch mb-3">
-                                    <input data-id="N" id="edtFixa" name="fixa" type="checkbox" class="form-check-input" style="cursor: pointer;" value="N">
-                                    <label for="edtFixa" class="form-check-label" style="user-select: none; cursor: pointer;" title="É uma despesa fixa ? então marque essa opção">Fixa</label>
-                                </div>
+
+                            <div class="col d-flex justify-content-center" style="background-color: transparent;">
+                                <i id="edtBtnConfirmada" class="bi" style="cursor: pointer;" title="opção de confirmar despesa" data-id="S"></i>
                             </div>
-                            <div class="col-5 d-flex justify-content-center" style="background-color: transparent;">
-                                <div class="form-check form-switch mb-3">
-                                    <input data-id="N" id="edtParcelada" name="parcelada" type="checkbox" class="form-check-input" style="cursor: pointer;" value="N">
-                                    <label for="edtParcelada" class="form-check-label" style="user-select: none; cursor: pointer;" title="Caso desejar parcela essa despesa basta marcar a opção">Parcelar</label>
-                                    <input type="text" name="QtdParcela" id="edtQtdParcelas" class="d-none" value="1">
-                                    <p style="color: red;" id="edtResposta" class="d-none">R$ 0,00</p>
-                                </div>
-                            </div>
-                            <div class="col-2 d-flex justify-content-center" style="background-color: transparent;">
-                                <i id="btnConfirmada" class="bi bi-hand-thumbs-up-fill" style="cursor: pointer;" title="opção de confirmar despesa" data-id="S"></i>
-                            </div>
-                            <input type="text" name="ValorTotal" id="edtVrTotal" hidden>
                             <input type="text" name="Confirmada" id="edtConfirmada" value="S" hidden>
                             <input type="number" name="sub" id="edtSub" hidden>
                             <input type="number" name="idCR" id="edtidCR" hidden>
-                            <input type="number" name="idCR" id="edtControle" hidden>
+                            <input type="number" name="Controle" id="edtControle" hidden>
+                            <input type="text" name="Parcelado" id="edtParcelado" hidden>
+                            <input type="text" name="AlterarTodos" id="edtAlterar" hidden>
                         </div>
 
                         <div class="modal-footer">
-                            <button id="btnEditar" type="submit" class="form-control btn btn-primary">Alterar <small class="carregando d-none"></small></button>
+                            <button id="btnEditar" type="button" class="form-control btn btn-primary">Alterar <small class="carregando d-none"></small></button>
                         </div>
                         <div style="width: 100%; height: 80%; background-color: rgba(0, 0, 0, .8); position: absolute; top: 2%; z-index: 100;" class="d-none tela-confirmar-lancamento">
                             <div class="row d-flex align-self-center">
                                 <div class="row">
-                                    <button type="button" id="btn-alterar-todos-lancamentos" class="btn btn-danger">Alterar para todos os lançamentos</button>
+                                    <button type="submit" id="btn-alterar-todos-lancamentos" class="btn btn-danger">Alterar para todos os lançamentos</button>
                                 </div>
                                 <div class="row">
-                                    <button type="button" id="btn-alterar-lancamento" class="btn btn-success">Alterar apenas para esse lancamento</button>
+                                    <button type="submit" id="btn-alterar-lancamento" class="btn btn-success">Alterar apenas para esse lancamento</button>
                                 </div>
                             </div>
                         </div>
