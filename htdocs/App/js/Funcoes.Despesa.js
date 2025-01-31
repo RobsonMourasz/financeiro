@@ -152,7 +152,7 @@
          document.querySelector(".tela-confirmar-lancamento").classList.toggle("d-none")
     });
 
-    document.getElementById("").addEventListener("submit", async (event)=>{
+    document.getElementById("formEditar").addEventListener("submit", async (event)=>{
         event.preventDefault();
         const url = "Request/Despesa/edtDespesa.php";
         const dados = new FormData(document.getElementById("formEditar"))
@@ -209,6 +209,7 @@ async function Carregar_Tabela() {
                         let td_acao = tr.insertCell();
 
                         td_Vencimento.setAttribute("scope", "row")
+                        td_Vencimento.classList.add("esconder")
                         td_Vencimento.textContent = formatDate(dados.Dados[i].DataVencimento);
                         td_Descricao.setAttribute("scope", "row")
                         td_Descricao.textContent = dados.Dados[i].Descricao;

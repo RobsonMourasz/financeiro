@@ -1,14 +1,15 @@
 <div class="main-page">
+    <!-- Page Heading -->
+    <div class="d-sm-flex align-items-center justify-content-between mb-4">
+        <h1 class="h3 mb-0 text-gray-800">Categoria</h1>
 
+    </div> <!-- Page Heading -->
     <div class="d-grid gap-2">
-
-        <h3 class="title1 mt-2">Categoria</h3>
-
-        <!-- Button trigger modal -->
 
         <button id="btnCadastro" type="button" class="btn btn-primary" data-toggle="modal" data-target="#modalCadastro">Cadastrar</button>
 
-    </div>
+    </div> <!-- d-grid gap-2 -->
+
     <div class="mt-4">
         <table class="table table-hover">
             <thead>

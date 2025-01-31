@@ -1,62 +1,62 @@
 <div class="main-page">
+    <!-- Page Heading -->
+    <div class="d-sm-flex align-items-center justify-content-between mb-4">
+        <h1 class="h3 mb-0 text-gray-800">Despesa</h1>
 
+    </div> <!-- Page Heading -->
     <div class="d-grid gap-2">
 
-        <h3 class="title1 mt-2">Despesa</h3>
-
-        <!-- Button trigger modal -->
-
-        <div class="col_6 pb-5">
-            <button id="btnCadastro" type="button" class="btn btn-danger" data-toggle="modal" data-target="#modalCadastro"><i class="bi bi-plus"></i> Despesas</button>
-        </div>
+        <button id="btnCadastro" type="button" class="btn btn-danger" data-toggle="modal" data-target="#modalCadastro"><i class="bi bi-plus"></i> Despesas</button>
 
     </div> <!-- d-grid gap-2 -->
-
-    <div class="btnfiltro" id="btnfiltro">
+    <div class="btnfiltro p-2" id="btnfiltro">
         <i class="bi bi-sort-down"></i>
-    </div>
+    </div><!-- btnfiltro -->
 
     <div id="display-filtro" class="row px-5 d-none">
-        <div class="col">
+        <div class="row">
             <form method="post" id="form-pesquisa">
-                <div class="col-md-2">
-                    <div class="input-group mb-3">
-                        <input id="Data1" name="DataInicial" type="date" class="form-control">
+                <div class="row">
+                    <div class="col-md-2">
+                        <div class="input-group mb-3">
+                            <input id="Data1" name="DataInicial" type="date" class="form-control">
+                        </div>
+                    </div>
+                    <div class="col-md-2">
+                        <div class="input-group mb-3">
+                            <input id="Data2" name="DataFinal" type="date" class="form-control">
+                        </div>
+                    </div>
+                    <div class="col-md-2 mb-3">
+                        <select name="categoria" id="pesqCategoria" class="form-select">
+                            <option value="" selected>Categoria</option>
+                        </select>
+                    </div>
+                    <div class="col-md-2 mb-3">
+                        <select name="Tipo" id="pesqTipo" class="form-select">
+                            <option value="" selected>Tipo</option>
+                            <option value="R">Receita</option>
+                            <option value="D">Despesa</option>
+                        </select>
+                    </div>
+                    <div class="col-md-2 mb-3">
+                        <select name="Situacao" id="pesqSituacao" class="form-select">
+                            <option value="" selected>Situacao</option>
+                            <option value="S">Confirmado</option>
+                            <option value="N">Aberto</option>
+                        </select>
+                    </div>
+
+                    <div class="col-md-2">
+                        <button type="submit" class="btn btn-primary">Pesqisar</button>
                     </div>
                 </div>
-                <div class="col-md-2">
-                    <div class="input-group mb-3">
-                        <input id="Data2" name="DataFinal" type="date" class="form-control">
-                    </div>
-                </div>
-                <div class="col-md-2 mb-3">
-                    <select name="categoria" id="pesqCategoria" class="form-select">
-                        <option value="" selected>Categoria</option>
-                    </select>
-                </div>
-                <div class="col-md-2 mb-3">
-                    <select name="Tipo" id="pesqTipo" class="form-select">
-                        <option value="" selected>Tipo</option>
-                        <option value="R">Receita</option>
-                        <option value="D">Despesa</option>
-                    </select>
-                </div>
-                <div class="col-md-2 mb-3">
-                    <select name="Situacao" id="pesqSituacao" class="form-select">
-                        <option value="" selected>Situacao</option>
-                        <option value="S">Confirmado</option>
-                        <option value="N">Aberto</option>
-                    </select>
-                </div>
-
-                <div class="col-md-2">
-                    <button type="submit" class="btn btn-primary">Pesqisar</button>
-                </div>
-
             </form>
         </div>
 
-    </div>
+    </div> <!-- display-filtro -->
+
+
 
     <div class="d-grid gap-2">
 
@@ -70,7 +70,7 @@
         <table class="table table-hover">
             <thead>
                 <tr>
-                    <th scope="col">Vencimento</th>
+                    <th scope="col" class="esconder">Vencimento</th>
                     <th scope="col">Descrição</th>
                     <th scope="col">Valor R$</th>
                     <th scope="col" class="esconder">Confirmado</th>
@@ -222,11 +222,7 @@
         </div>
     </div> <!-- FIM MODAL EDITAR  -->
 
-
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
-    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
-    <link href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" rel="stylesheet" />
-    <script src="App/js/Botao.Confirma.js"></script>
+    <!-- <script src="App/js/Botao.Confirma.js"></script> -->
     <script src="App/js/Funcoes.Feitas.js"></script>
     <script src="App/js/Funcoes.lancamento.js"></script>
     <script src="App/js/Funcoes.Despesa.js"></script>

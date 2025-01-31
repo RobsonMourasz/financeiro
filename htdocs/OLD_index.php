@@ -233,7 +233,9 @@ if (isset($_SESSION['sessao'])) {
                     <div id="alerta" class="alertas d-none">
                         <small class="alertas-mensagens"></small>
                     </div>
+
                     <?php include_once($url) ?>
+
                 </div> <!-- main content start-->
 
 

@@ -1,17 +1,12 @@
-
-
 <div class="main-page">
+    <!-- Page Heading -->
+    <div class="d-sm-flex align-items-center justify-content-between mb-4">
+        <h1 class="h3 mb-0 text-gray-800">Receita</h1>
 
+    </div> <!-- Page Heading -->
     <div class="d-grid gap-2">
 
-        <h3 class="title1 mt-2">Receita</h3>
-
-        <!-- Button trigger modal -->
-
-        <div class="col_6">
-            <button id="btnCadastro" type="button" class="btn btn-success" data-toggle="modal" data-target="#modalCadastro"><i class="bi bi-plus"></i> Receita</button>
-
-        </div>
+        <button id="btnCadastro" type="button" class="btn btn-primary" data-toggle="modal" data-target="#modalCadastro">Receita</button>
 
     </div> <!-- d-grid gap-2 -->
 
@@ -68,8 +63,8 @@
         </table>
 
     </div>
-<!-- MODAL CADASTRAR  -->
-<div class="modal fade" id="modalCadastro" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+    <!-- MODAL CADASTRAR  -->
+    <div class="modal fade" id="modalCadastro" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
         <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable">
             <div class="modal-content">
                 <div class="modal-header">
@@ -139,5 +134,5 @@
     <link href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" rel="stylesheet" />
     <script src="App/js/Botao.Confirma.js"></script>
     <script src="App/js/Funcoes.lancamento.js"></script>
- 
+
 </div> <!-- manin-page -->
