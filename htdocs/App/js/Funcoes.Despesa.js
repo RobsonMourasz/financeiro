@@ -69,6 +69,8 @@
             }
         }
 
+        document.getElementById("cadVencimento").value = formatDate("");
+
         ChamarTelaCarregando("FadeOut");
     })
 
@@ -342,12 +344,14 @@ async function Editar(idDespesa) {
             document.getElementById("edtDescricao").value = resposta.Dados[0].Descricao
             document.getElementById("edtValor").value = formatarReal(resposta.Dados[0].ValorParcela)
             document.getElementById("edtVencimento").value = timeTempParaDate(resposta.Dados[0].DataVencimento)
-            document.getElementById("edtidCR").value = resposta.Dados.idCR
-            document.getElementById("edtControle").value = resposta.Dados.Controle
+            document.getElementById("edtidCR").value = id
+            document.getElementById("edtControle").value = resposta.Dados[0].Controle
             document.getElementById("edtConta").value = resposta.Dados[0].idConta
             document.getElementById("edtAlterar").value = "N"
-            if (resposta.Dados.Parcelada == "S" || resposta.Dados.Fixa == "S") {
+            if (resposta.Dados[0].Parcelada == "S" || resposta.Dados[0].Fixa == "S") {
                 document.getElementById("edtParcelado").value = "S"
+            }else{
+                document.getElementById("edtParcelado").value = "N"
             }
             const idCategoria = resposta.Dados[0].idCategoria;
             const idSubCategoria = resposta.Dados[0].id_SubCategoria;
