@@ -80,6 +80,13 @@ document.getElementById("cadValor").addEventListener("focusout", () => {
 
 });
 
+document.getElementById("edtValor").addEventListener("focusout", () => {
+
+    let valorTemporario = formatarReal(getFloat(document.getElementById("edtValor").value))
+    document.getElementById("edtValor").value = valorTemporario
+
+});
+
 document.getElementById("btnfiltro").addEventListener("click", ()=>{
 
     document.getElementById("display-filtro").classList.toggle("d-none")
@@ -96,6 +103,22 @@ document.getElementById("btnConfirmada").addEventListener("click", ()=>{
         document.getElementById("btnConfirmada").classList.remove("bi-hand-thumbs-down")
         document.getElementById("btnConfirmada").classList.add("bi-hand-thumbs-up-fill")
         document.getElementById("cadConfirmada").value = "S"
+    }
+    
+});
+
+document.getElementById("edtBtnConfirmada").addEventListener("click", ()=>{
+    
+    if(document.getElementById("edtBtnConfirmada").classList.contains("bi-hand-thumbs-up-fill")){
+        document.getElementById("edtBtnConfirmada").classList.remove("bi-hand-thumbs-up-fill")
+        document.getElementById("edtBtnConfirmada").classList.add("bi-hand-thumbs-down")
+        document.getElementById("edtBtnConfirmada").setAttribute("data-id", "N")
+        document.getElementById("edtConfirmada").value = "N"
+    }else{
+        document.getElementById("edtBtnConfirmada").classList.remove("bi-hand-thumbs-down")
+        document.getElementById("edtBtnConfirmada").classList.add("bi-hand-thumbs-up-fill")
+        document.getElementById("edtBtnConfirmada").setAttribute("data-id", "S")
+        document.getElementById("edtConfirmada").value = "S"
     }
     
 });

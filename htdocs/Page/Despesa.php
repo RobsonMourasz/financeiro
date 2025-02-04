@@ -195,23 +195,24 @@
                             <div class="col d-flex justify-content-center" style="background-color: transparent;">
                                 <i id="edtBtnConfirmada" class="bi" style="cursor: pointer;" title="opção de confirmar despesa" data-id="S"></i>
                             </div>
-                            <input type="text" name="Confirmada" id="edtConfirmada" value="S" hidden>
+                            <input type="text" name="Confirmada" id="edtConfirmada" hidden>
                             <input type="number" name="sub" id="edtSub" hidden>
                             <input type="number" name="idCR" id="edtidCR" hidden>
                             <input type="number" name="Controle" id="edtControle" hidden>
                             <input type="text" name="Parcelado" id="edtParcelado" hidden>
                             <input type="text" name="AlterarTodos" id="edtAlterar" hidden>
+
                         </div>
 
                         <div class="modal-footer">
                             <button id="btnEditar" type="button" class="form-control btn btn-primary">Alterar <small class="carregando d-none"></small></button>
                         </div>
-                        <div style="width: 100%; height: 80%; background-color: rgba(0, 0, 0, .8); position: absolute; top: 2%; z-index: 100;" class="d-none tela-confirmar-lancamento">
-                            <div class="row d-flex align-self-center">
-                                <div class="row">
+                        <div style="width: 100%; height: 80%; background-color: rgba(0, 0, 0, .8); position: absolute; top: 2%; z-index: 100; display: flex; align-items: center; justify-content: center;" class="d-none tela-confirmar-lancamento">
+                            <div class="flex-column">
+                                <div class="col-md m-2" style="display: flex; justify-content: center; align-items: center;">
                                     <button type="submit" id="btn-alterar-todos-lancamentos" class="btn btn-danger">Alterar para todos os lançamentos</button>
                                 </div>
-                                <div class="row">
+                                <div class="col-md m-2" style="display: flex; justify-content: center; align-items: center;">
                                     <button type="submit" id="btn-alterar-lancamento" class="btn btn-success">Alterar apenas para esse lancamento</button>
                                 </div>
                             </div>
@@ -221,6 +222,52 @@
             </div>
         </div>
     </div> <!-- FIM MODAL EDITAR  -->
+
+    <!-- MODAL EXCLUIR  -->
+    <div class="modal fade" id="modalExcluir" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="staticBackdropLabel">Excluir Despesa</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Fechar">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <form id="formExcluir" method="post" style="position: relative;">
+
+                        <div id="alertaExcluir-mensagem" align="center">
+                            <small class="alert"></small>
+                        </div>
+
+                        <div class="input-group mb-3">
+                            <input id="excDescricao" name="Descricao" type="text" class="form-control" placeholder="Descrição" disabled>
+                        </div>
+
+                        <input type="number" id="excidCR" hidden>
+                        <input type="text" id="excParcelas" hidden>
+
+                        <div class="modal-footer">
+                            <button id="btnExcluir" type="button" class="form-control btn btn-danger">Excluir <small class="carregando d-none"></small></button>
+                        </div>
+                        <div style="width: 100%; height: 100%; background-color: rgba(0, 0, 0, .8); position: absolute; top: 2%; z-index: 100; display: flex; justify-content: center; align-items: center;" class="d-none tela-excluir-lancamento">
+                            <div class="row d-flex align-self-center">
+
+                                <div class="col-md m-2" style="display: flex; justify-content: center; align-items: center;">
+                                    <button type="submit" id="btn-excluir-todos-lancamentos" class="btn btn-danger">Excluir todos os lançamentos</button>
+                                </div>
+                                <div class="col-md  m-2" style="display: flex; justify-content: center; align-items: center;">
+                                    <button type="submit" id="btn-excluir-lancamento" class="btn btn-success">Excluir apenas esse lancamento</button>
+                                </div>
+
+                            </div>
+                        </div>
+
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div> <!-- FIM MODAL EXCLUIR  -->
 
     <!-- <script src="App/js/Botao.Confirma.js"></script> -->
     <script src="App/js/Funcoes.Feitas.js"></script>

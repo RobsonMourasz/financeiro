@@ -17,54 +17,62 @@ if (isset($_GET['id'])) {
     echo json_encode($retorno);
     exit;
 }
-if (isset($_POST['Descricao']) && empty($_POST['Descricao'])) {
+
+if (isset($_POST['Descricao']) && !empty($_POST['Descricao'])) {
     $descricao = $_POST['Descricao'];
-    $vr_parcela = limpar_texto($_POST['ValorParcela']);
+    $vr_parcela = FormatarFloat($_POST['ValorParcela']);
     $vencimento = $_POST['DataVencimento'];
     $idConta = limpar_texto($_POST['idConta']);
     $idCat = limpar_texto($_POST['categoria']);
     $idSub = limpar_texto($_POST['sub']);
-    $idCR = limpar_texto($_POST['idCR']);
+    $idCR = intval(limpar_texto($_POST['idCR']));
     $controle = limpar_texto($_POST['Controle']);
     $parcelado = $_POST['Parcelado'];
     $confimado = $_POST['Confirmada'];
     $alterarTodos = $_POST['AlterarTodos'];
 
-    if ($alterarTodos == "S") {
-        $sql = "UPDATE cp_lancamentos a 
-                SET 
-                    a.idConta = ?, 
-                    a.idCategoria = ?,
-                    a.id_SubCategoria = ?, 
-                    a.Descricao = ?,
-                    a.Confirmada = ?,
-                    a.ValorParcela = ?
-                WHERE 
-                    a.Controle = ?;
-                ";
-        $update = $conexao->prepare($sql);
-        $update->bind_param("iiissds",$idConta, $idCat, $idSub, $descricao, $confimado, $vr_parcela, $controle);
-    } else {
-        $sql = "UPDATE cp_lancamentos a 
-                SET 
-                    a.idConta = ?, 
-                    a.idCategoria = ?,
-                    a.id_SubCategoria = ?, 
-                    a.Descricao = ?,
-                    a.Confirmada = ?,
-                    a.ValorParcela = ?
-                WHERE 
-                    a.idRec = ?;
-                ";
-        $update = $conexao->prepare($sql);
-        $update->bind_param("iiissds",$idConta, $idCat, $idSub, $descricao, $confimado, $vr_parcela, $idCR);
-    }
-
     try {
-        $update->execute();
+        if ($alterarTodos == "S") {
+            $sql = "UPDATE cp_lancamentos a 
+                    SET 
+                        a.idConta = ?, 
+                        a.idCategoria = ?,
+                        a.id_SubCategoria = ?, 
+                        a.Descricao = ?,
+                        a.Confirmada = ?,
+                        a.ValorParcela = ?
+                    WHERE 
+                        a.Controle = ?;
+                    ";
+            $update = $conexao->prepare($sql);
+            $update->bind_param("iiissds",$idConta, $idCat, $idSub, $descricao, $confimado, $vr_parcela, $controle);
+        } else {
+            $sql = "UPDATE cp_lancamentos a 
+                    SET 
+                        a.idConta = ?, 
+                        a.idCategoria = ?,
+                        a.id_SubCategoria = ?, 
+                        a.Descricao = ?,
+                        a.Confirmada = ?,
+                        a.ValorParcela = ?
+                    WHERE 
+                        a.idCR = ?;
+                    ";
+            $update = $conexao->prepare($sql);
+            $update->bind_param("iiissdi",$idConta, $idCat, $idSub, $descricao, $confimado, $vr_parcela, $idCR);
+        }
+    
+        try {
+            $update->execute();
+            $retorno = array("Retorno"=> "OK", "Motivo" => "Alterado com sucesso!");
+        } catch (\Throwable $th) {
+            $retorno = array("Retorno"=> "ERRO", "Motivo"=> "Execute() ".$th->getMessage());
+        }
+
     } catch (\Throwable $th) {
-        $retorno = array("Retorno"=> "ERRO", "Motivo"=> $th->getMessage());
+        $retorno = array("Retorno"=> "ERRO", "Motivo"=> "SQL ".$th->getMessage());
     }
 
+    echo json_encode($retorno);
 
 }

@@ -2,12 +2,12 @@
 
 function limpar_texto($str)
 {
-    return preg_replace("/[^0-9]/", "", $str);
+    return preg_replace("/[^0-9]/","", $str);
 }
 
 function FormatarFloat($str)
-{
-    return preg_replace("/[^0-9,.]/", "", $str);
+{   $temp = preg_replace("/[^0-9,.]/", "", $str);
+    return str_replace(",", ".", $temp);
 }
 
 function ConverterDateTimeString($datetime)

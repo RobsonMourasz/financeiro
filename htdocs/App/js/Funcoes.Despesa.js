@@ -144,34 +144,37 @@
         }
     })
 
-    document.getElementById("btn-alterar-todos-lancamentos").addEventListener("click", ()=>{
+    document.getElementById("btn-alterar-todos-lancamentos").addEventListener("click", () => {
         document.getElementById("edtAlterar").value = "S"
         document.querySelector(".tela-confirmar-lancamento").classList.toggle("d-none")
         ChamarTelaCarregando("FadeIn");
     });
-    document.getElementById("btn-alterar-lancamento").addEventListener("click", ()=>{
-         document.getElementById("edtAlterar").value = "N"
-         document.querySelector(".tela-confirmar-lancamento").classList.toggle("d-none")
+    document.getElementById("btn-alterar-lancamento").addEventListener("click", () => {
+        document.getElementById("edtAlterar").value = "N"
+        document.querySelector(".tela-confirmar-lancamento").classList.toggle("d-none")
     });
 
-    document.getElementById("formEditar").addEventListener("submit", async (event)=>{
+    document.getElementById("formEditar").addEventListener("submit", async (event) => {
         event.preventDefault();
         const url = "Request/Despesa/edtDespesa.php";
         const dados = new FormData(document.getElementById("formEditar"))
         const response = await fetch(url, {
-            method: "POST", 
+            method: "POST",
             body: dados,
         })
-        if(response.ok){
+        if (response.ok) {
             const Envio = await response.json();
             ChamarTelaCarregando("FadeOut");
-            if(Envio.Retorno == "OK"){
-                
-                alerta("verdadeiro", "alertaEditar-mensagem", Envio.Retorno)
-            }else{
-                alerta("falso", "alertaEditar-mensagem", Envio.Retorno)  
+            if (Envio.Retorno == "OK") {
+
+                alerta("verdadeiro", "alertaEditar-mensagem", Envio.Motivo)
+                setInterval(() => {
+                    location.reload()
+                }, 3000)
+            } else {
+                alerta("falso", "alertaEditar-mensagem", Envio.Retorno)
             }
-        }else{  
+        } else {
             ChamarTelaCarregando("FadeOut");
             alerta("falso", "alertaEditar-mensagem", "Erro na sincronização")
         }
@@ -179,6 +182,39 @@
 
 
     /* MODAL EDITAR */
+
+    /* MODAL EXCLUIR */
+
+    document.getElementById("btnExcluir").addEventListener("click", async () => {
+        document.querySelector(".tela-excluir-lancamento").classList.toggle("d-none")
+    });
+
+    document.getElementById("btn-excluir-todos-lancamentos").addEventListener("click", () => {
+        document.getElementById("excParcelas").value = "S"
+    });
+
+    document.getElementById("btn-excluir-lancamento").addEventListener("click", () => {
+        document.getElementById("excParcelas").value = "N"
+    });
+
+    document.getElementById("formExcluir").addEventListener("submit", async () => {
+        ChamarTelaCarregando("FadeIn");
+        const excResponse = await fetch(`Request/Despesa/delDespesa.php?idCR=${document.getElementById("excidCR").value}&todos=${document.getElementById("excParcelas").value}`);
+        if(excResponse.ok){
+            const delDados = await excResponse.json();
+            if (delDados.Retorno =="OK"){
+                alerta("falso", "alertaExcluir-mensagem", delDados.Motivo)
+            }else{
+                alerta("falso", "alertaExcluir-mensagem", delDados.Motivo)
+            }
+
+        }else{
+            alerta("falso", "alertaExcluir-mensagem", "Erro na sincronização")
+        }
+        ChamarTelaCarregando("FadeOut");
+    });
+
+    /* MODAL EXCLUIR */
 
 })();
 
@@ -350,7 +386,7 @@ async function Editar(idDespesa) {
             document.getElementById("edtAlterar").value = "N"
             if (resposta.Dados[0].Parcelada == "S" || resposta.Dados[0].Fixa == "S") {
                 document.getElementById("edtParcelado").value = "S"
-            }else{
+            } else {
                 document.getElementById("edtParcelado").value = "N"
             }
             const idCategoria = resposta.Dados[0].idCategoria;
@@ -373,6 +409,22 @@ async function Editar(idDespesa) {
                 document.getElementById("edtBtnConfirmada").setAttribute("data-id", "N")
             }
         }
+    }
+
+    ChamarTelaCarregando("FadeOut");
+};
+
+async function Excluir(id) {
+    ChamarTelaCarregando("FadeIn");
+
+    const idDespesa = FormatarSomenteNumero(id);
+    const response = await fetch(`Request/Despesa/pesqDespesa.php?idCR=${idDespesa}`)
+    if (response.ok) {
+        const dados = await response.json()
+        document.getElementById("excDescricao").value = dados.Dados[0].Descricao
+        document.getElementById("excidCR").value = idDespesa
+    } else {
+        alerta("falso", "alertaExcluir-mensagem", "Erro na requisição!");
     }
 
     ChamarTelaCarregando("FadeOut");
