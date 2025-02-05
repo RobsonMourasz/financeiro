@@ -59,7 +59,10 @@ function formatarReal(valor) {
     const valorFormatado = parseFloat(valor).toFixed(2);
 
     // Divide o valor em reais e centavos
-    const [reais, centavos] = valorFormatado.split('.');
+    let [reais, centavos] = valorFormatado.split('.');
+
+    // Adiciona o ponto de milhar aos reais
+    reais = reais.replace(/\B(?=(\d{3})+(?!\d))/g, ".");
 
     // Formata o valor com vírgula e o símbolo de R$
     const valorFinal = `R$ ${reais},${centavos.padEnd(2, '0')}`;
