@@ -70,7 +70,7 @@
         }
 
         document.getElementById("cadVencimento").value = formatDate("");
-
+        document.getElementById("cadConfirmada").value = "S"
         ChamarTelaCarregando("FadeOut");
     })
 
