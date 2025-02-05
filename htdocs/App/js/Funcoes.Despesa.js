@@ -200,15 +200,15 @@
     document.getElementById("formExcluir").addEventListener("submit", async () => {
         ChamarTelaCarregando("FadeIn");
         const excResponse = await fetch(`Request/Despesa/delDespesa.php?idCR=${document.getElementById("excidCR").value}&todos=${document.getElementById("excParcelas").value}`);
-        if(excResponse.ok){
+        if (excResponse.ok) {
             const delDados = await excResponse.json();
-            if (delDados.Retorno =="OK"){
+            if (delDados.Retorno == "OK") {
                 alerta("falso", "alertaExcluir-mensagem", delDados.Motivo)
-            }else{
+            } else {
                 alerta("falso", "alertaExcluir-mensagem", delDados.Motivo)
             }
 
-        }else{
+        } else {
             alerta("falso", "alertaExcluir-mensagem", "Erro na sincronização")
         }
         ChamarTelaCarregando("FadeOut");
@@ -222,7 +222,8 @@
 async function Carregar_Tabela() {
     ChamarTelaCarregando("FadeIn");
     try {
-
+        let VrConfirmado = 0;
+        let VrAberto = 0;
         const url = "Request/Despesa/pesqDespesa.php";
         const formPesq = new FormData(document.getElementById("form-pesquisa"));
         const response = await fetch(url, {
@@ -256,13 +257,36 @@ async function Carregar_Tabela() {
                         td_vr.textContent = formatarReal(dados.Dados[i].ValorParcela);
                         if (dados.Dados[i].Confirmada === "S") {
                             td_confirmado.innerHTML = `<i class="bi bi-hand-thumbs-up-fill" id="${dados.Dados[i].idCR}" onclick="Confirma('${dados.Dados[i].idCR}')" style="cursor:pointer;"></i>`;
+                            VrConfirmado += dados.Dados[i].ValorParcela;
                         } else {
                             td_confirmado.innerHTML = `<i class="bi bi-hand-thumbs-down" id="${dados.Dados[i].idCR}" onclick="Confirma('${dados.Dados[i].idCR}')" style="cursor:pointer;"></i>`;
+                            VrAberto += dados.Dados[i].ValorParcela;
                         }
 
                         td_acao.innerHTML = `<i class="bi bi-trash" data-toggle="modal" data-target="#modalExcluir" onclick="Excluir(${dados.Dados[i].idCR})" style="cursor:pointer;"></i> <i class="bi bi-clipboard-check-fill" data-toggle="modal" data-target="#modalEditar" onclick="Editar(${dados.Dados[i].idCR})" style="cursor:pointer;"></i>`
-
                     }
+
+                    const tfoot_linha1 = document.getElementById("tfoot")
+                    const tr = tfoot_linha1.insertRow();
+                    const td_Aberto = tr.insertCell();
+                    td_Aberto.setAttribute("colspan", "5")
+                    td_Aberto.classList.add("text-center")
+                    td_Aberto.textContent = `Valor em Aberto: R$ ${formatarReal(VrAberto)}`;
+
+                    const tfoot_linha2 = document.getElementById("tfoot")
+                    const tr2 = tfoot_linha2.insertRow();
+                    const td_Confirmado = tr2.insertCell();
+                    td_Confirmado.setAttribute("colspan", "5")
+                    td_Confirmado.classList.add("text-center")
+                    td_Confirmado.textContent = `Valor Confirmado: R$ ${formatarReal(VrConfirmado)}`;
+                    
+                    const tfoot_linha3 = document.getElementById("tfoot")
+                    const tr3 = tfoot_linha3.insertRow();
+                    const td_total = tr3.insertCell();
+                    td_total.setAttribute("colspan", "5")
+                    td_total.classList.add("text-center")
+                    const VrTotal = VrConfirmado + VrAberto;
+                    td_total.textContent = `Total: R$ ${formatarReal(VrTotal)}`
                 } else {
                     const tr = tbody.insertRow();
                     const td_linha = tr.insertCell();
@@ -270,6 +294,7 @@ async function Carregar_Tabela() {
                     td_linha.classList.add("text-center")
                     td_linha.textContent = "Nenhum Registro encontrado"
                 }
+
                 const Categoria = document.getElementById("pesqCategoria");
                 const pesqCat = await fetch("Request/Categoria/pesqCategoria.php?id=todos")
                 if (pesqCat.ok) {

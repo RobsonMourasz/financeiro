@@ -67,7 +67,7 @@
     </div>
 
     <div class="mt-4">
-        <table class="table table-hover">
+        <table class="table table-hover" id="table">
             <thead>
                 <tr>
                     <th scope="col" class="esconder">Vencimento</th>
@@ -80,6 +80,9 @@
             <tbody class="table-group-divider" id="tbody">
 
             </tbody>
+            <tfoot id="tfoot">
+                
+            </tfoot>
         </table>
 
     </div>
@@ -140,7 +143,7 @@
                                 <i id="btnConfirmada" class="bi bi-hand-thumbs-up-fill" style="cursor: pointer;" title="opção de confirmar despesa" data-id="S"></i>
                             </div>
                             <input type="text" name="ValorTotal" id="cadVrTotal" hidden>
-                            <input type="text" name="Confirmada" id="cadConfirmada" value="S" hidden>
+                            <input type="text" name="Confirmada" id="cadConfirmada" hidden>
                             <input type="number" name="sub" id="cadSub" hidden>
                         </div>
 
