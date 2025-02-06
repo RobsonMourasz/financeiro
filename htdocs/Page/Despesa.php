@@ -277,5 +277,4 @@
     <script src="App/js/Funcoes.lancamento.js"></script>
     <script src="App/js/Funcoes.Despesa.js"></script>
 
-
 </div> <!-- manin-page -->

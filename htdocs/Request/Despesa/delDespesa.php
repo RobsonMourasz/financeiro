@@ -11,43 +11,47 @@ if(isset($_GET['idCR']) && !empty($_GET['idCR'])){
         if ($Parcelado == "S"){
             try {
                 $selectControle = $conexao->query("SELECT * FROM cp_lancamentos WHERE idCR = $id ");
-                $selectControle = $controle->fetch_assoc();
+                $selectControle = $selectControle->fetch_assoc();
             } catch (\Throwable $th) {
                 $retorno = array("Retorno" => "ERRO", "Motivo" => "SQL(selectControle): ". $th->getMessage());
+                echo json_encode($retorno);
+                exit;
             }
             
             $controle = $selectControle['Controle'];
 
             try {
-                $conexao->query("DELETE FROM cp_lancamentos WHERE Controle = '$controle'");
+                $conexao->query("DELETE FROM cp_lancamentos WHERE Controle LIKE '$controle' AND DataVencimento >= 'NOW()'");
+                $retorno = array("Retorno"=> "OK", "Motivo"=> "Registro excluido!");
             } catch (\Throwable $th) {
                 $retorno = array("Retorno" => "ERRO", "Motivo" => "SQL(DELETE): ". $th->getMessage());
             }
 
-            echo $retorno;
+            echo json_encode($retorno);
             exit;
             
         }else{
 
             try {
                 $conexao->query("DELETE FROM cp_lancamentos WHERE idCR = $id");
+                $retorno = array("Retorno"=> "OK", "Motivo"=> "Registro excluido!");
             } catch (\Throwable $th) {
                 $retorno = array("Retorno" => "ERRO", "Motivo" => "SQL(DELETE): ". $th->getMessage());
             }
 
-            echo $retorno;
+            echo json_encode($retorno);
             exit;
 
         }
         
     }else{
         $retorno = array("Retorno" => "ERRO", "Motivo" => "VALOR  GET TODOS VAZIO OU NAO EXISTE");
-        echo $retorno;
+        echo json_encode($retorno);
         exit;
     }
 
 }else{
     $retorno = array("Retorno" => "ERRO", "Motivo" => "VALOR  GET IDCR VAZIO OU NAO EXISTE");
-    echo $retorno;
+    echo json_encode($retorno);
     exit;
 }

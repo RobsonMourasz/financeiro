@@ -42,7 +42,7 @@ if (isset($_POST['Descricao']) && !empty($_POST['Descricao'])) {
                         a.Confirmada = ?,
                         a.ValorParcela = ?
                     WHERE 
-                        a.Controle = ?;
+                        a.Controle LIKE ?;
                     ";
             $update = $conexao->prepare($sql);
             $update->bind_param("iiissds",$idConta, $idCat, $idSub, $descricao, $confimado, $vr_parcela, $controle);

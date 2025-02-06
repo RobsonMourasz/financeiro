@@ -94,10 +94,8 @@
                             if (dadosCad.Retorno == "OK") {
                                 document.getElementById("btnCadastrar").querySelector(".carregando").classList.add("d-none");
                                 alerta("verdadeiro", "alertaCadastro-mensagem", dadosCad.Motivo);
-                                setInterval(() => {
-                                    Carregar_Tabela();
-                                }, 4000)
-
+                                Carregar_Tabela();
+                                limparInputs('formCadastro');
                             } else {
                                 alerta("falso", "alertaCadastro-mensagem", dadosCad.Motivo);
                             }
@@ -130,6 +128,7 @@
                 if (document.getElementById("edtConta").value !== "") {
                     if (document.getElementById("edtCategoria").value !== "") {
                         document.querySelector(".tela-confirmar-lancamento").classList.toggle("d-none")
+                        Carregar_Tabela();
                     } else {
                         alerta("falso", "alertaEditar-mensagem", "Selecione uma categoria !")
                     }
@@ -156,6 +155,7 @@
 
     document.getElementById("formEditar").addEventListener("submit", async (event) => {
         event.preventDefault();
+        document.querySelector(".tela-confirmar-lancamento").classList.toggle("d-none")
         const url = "Request/Despesa/edtDespesa.php";
         const dados = new FormData(document.getElementById("formEditar"))
         const response = await fetch(url, {
@@ -197,13 +197,17 @@
         document.getElementById("excParcelas").value = "N"
     });
 
-    document.getElementById("formExcluir").addEventListener("submit", async () => {
+    document.getElementById("formExcluir").addEventListener("submit", async (event) => {
+        event.preventDefault();
+        document.querySelector(".tela-excluir-lancamento").classList.toggle("d-none")
         ChamarTelaCarregando("FadeIn");
         const excResponse = await fetch(`Request/Despesa/delDespesa.php?idCR=${document.getElementById("excidCR").value}&todos=${document.getElementById("excParcelas").value}`);
         if (excResponse.ok) {
             const delDados = await excResponse.json();
             if (delDados.Retorno == "OK") {
-                alerta("falso", "alertaExcluir-mensagem", delDados.Motivo)
+                alerta("verdadeiro", "alertaExcluir-mensagem", delDados.Motivo)
+                Carregar_Tabela();
+                limparInputs('formExcluir');
             } else {
                 alerta("falso", "alertaExcluir-mensagem", delDados.Motivo)
             }
@@ -258,7 +262,6 @@ async function Carregar_Tabela() {
                         if (dados.Dados[i].Confirmada === "S") {
                             td_confirmado.innerHTML = `<i class="bi bi-hand-thumbs-up-fill" id="${dados.Dados[i].idCR}" onclick="Confirma('${dados.Dados[i].idCR}')" style="cursor:pointer;"></i>`;
                             VrConfirmado = VrConfirmado + parseFloat(dados.Dados[i].ValorParcela);
-                            console.log(parseFloat(dados.Dados[i].ValorParcela))
                         } else {
                             td_confirmado.innerHTML = `<i class="bi bi-hand-thumbs-down" id="${dados.Dados[i].idCR}" onclick="Confirma('${dados.Dados[i].idCR}')" style="cursor:pointer;"></i>`;
                             VrAberto += parseFloat(dados.Dados[i].ValorParcela);

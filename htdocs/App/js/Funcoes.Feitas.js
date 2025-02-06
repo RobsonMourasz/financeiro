@@ -172,3 +172,27 @@ function ChamarTelaCarregando(fadeInOut) {
         document.querySelector(".tela-cadastrar").classList.add("d-none")
     }
 }
+
+function limparInputs(form) {
+    // Obtém todos os elementos de entrada dentro do formulário
+    const Form = document.getElementById(form);
+    const inputs = Form.querySelectorAll('input');
+    
+    // Itera sobre cada elemento e limpa seu valor
+    inputs.forEach(input => {
+        if(input.getAttribute("type") !== "date" ){
+            input.value = '';
+        }
+    });
+
+    // Opcional: Se houver textareas ou selects
+    const textareas = Form.querySelectorAll('textarea');
+    textareas.forEach(textarea => {
+        textarea.value = '';
+    });
+
+    const selects = Form.querySelectorAll('select');
+    selects.forEach(select => {
+        select.selectedIndex = 0;
+    });
+}
