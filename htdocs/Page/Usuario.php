@@ -102,7 +102,7 @@
                             <input id="edtNomeUser" name="NomeUser" type="text" class="form-control" placeholder="Nome Completo" require>
                         </div>
                         <div class="input-group mb-3">
-                            <input id="edtEmailUser" name="EmailUser" type="email" class="form-control" placeholder="E-mail" require>
+                            <input id="edtEmailUser" name="EmailUser" type="email" class="form-control" placeholder="E-mail" >
                         </div>
                         <div class="input-group mb-3">
                             <input id="edtcpf_cnpj" name="cpf_cnpj" type="text" class="form-control" placeholder="CNPJ" require>

@@ -1,6 +1,6 @@
 <?php 
-include_once __DIR__ . "/../../Data/conexao.php";
-include_once __DIR__ . "/../../Data/conn.php";
+@include_once __DIR__ . "/../../Data/conexao.php";
+@include_once __DIR__ . "/../../Data/conn.php";
 if (!isset($_SESSION)) {
     session_start();
 }

@@ -95,7 +95,7 @@
                                 document.getElementById("btnCadastrar").querySelector(".carregando").classList.add("d-none");
                                 alerta("verdadeiro", "alertaCadastro-mensagem", dadosCad.Motivo);
                                 setInterval(() => {
-                                    location.reload();
+                                    Carregar_Tabela();
                                 }, 4000)
 
                             } else {
@@ -267,25 +267,29 @@ async function Carregar_Tabela() {
                         td_acao.innerHTML = `<i class="bi bi-trash" data-toggle="modal" data-target="#modalExcluir" onclick="Excluir(${dados.Dados[i].idCR})" style="cursor:pointer;"></i> <i class="bi bi-clipboard-check-fill" data-toggle="modal" data-target="#modalEditar" onclick="Editar(${dados.Dados[i].idCR})" style="cursor:pointer;"></i>`
                     }
 
-                    const tfoot_linha1 = document.getElementById("tfoot")
+                    let tfoot_linha1 =  document.getElementById("tfoot");
+                    tfoot_linha1.textContent = "";
+
+                    const tr2 = tfoot_linha1.insertRow();
+                    const td_Confirmado = tr2.insertCell();
+                    td_Confirmado.setAttribute("colspan", "5")
+                    td_Confirmado.classList.add("text-center")
+                    td_Confirmado.style.color="red";
+                    td_Confirmado.textContent = `Valor Confirmado: ${formatarReal(VrConfirmado)}`;
+
+                    
                     const tr = tfoot_linha1.insertRow();
                     const td_Aberto = tr.insertCell();
                     td_Aberto.setAttribute("colspan", "5")
                     td_Aberto.classList.add("text-center")
+                    td_Aberto.style.color="green";
                     td_Aberto.textContent = `Valor em Aberto: ${formatarReal(VrAberto)}`;
-
-                    const tfoot_linha2 = document.getElementById("tfoot")
-                    const tr2 = tfoot_linha2.insertRow();
-                    const td_Confirmado = tr2.insertCell();
-                    td_Confirmado.setAttribute("colspan", "5")
-                    td_Confirmado.classList.add("text-center")
-                    td_Confirmado.textContent = `Valor Confirmado: ${formatarReal(VrConfirmado)}`;
-                    
-                    const tfoot_linha3 = document.getElementById("tfoot")
-                    const tr3 = tfoot_linha3.insertRow();
+                   
+                    const tr3 = tfoot_linha1.insertRow();
                     const td_total = tr3.insertCell();
                     td_total.setAttribute("colspan", "5")
                     td_total.classList.add("text-center")
+                    td_total.style = "font-weight: bold;";
                     const VrTotal = VrConfirmado + VrAberto;
                     td_total.textContent = `Total: ${formatarReal(VrTotal)}`
                 } else {

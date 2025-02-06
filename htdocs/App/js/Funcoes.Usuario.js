@@ -33,6 +33,7 @@
 
     document.getElementById("formCadastro").addEventListener("submit", async (event) => {
         event.preventDefault()
+        document.querySelector("#btnCadastrar .carregando").classList.toggle("d-none")
         if (document.getElementById("cadNivel").value !== "") {
 
             if (document.getElementById("cadNomeUser").value !== "") {
@@ -81,15 +82,18 @@
             console.log("Selecione o Nivel")
             alerta("falso", "alertaCadastro-mensagem", "Selecione o Nivel")
         }
+        document.querySelector("#btnCadastrar .carregando").classList.toggle("d-none")
     });
 
     document.getElementById("formEditar").addEventListener("submit", async (event) => {
         event.preventDefault()
+        document.querySelector("#btnEditar .carregando").classList.toggle("d-none")
         if (document.getElementById("edtNomeUser").value != "") {
 
             if(document.getElementById("edtSenhaUser").value === document.getElementById("edtRepitaSenha").value){
 
                 if(document.getElementById("edtNivel").value !== "" ){
+                    document.getElementById("edtEmailUser").disabled = false;
                     const formEdt = new FormData(document.getElementById("formEditar"))
                     const url = "Request/Usuario/edtUser.php"
                     const response = await fetch(url,{
@@ -98,7 +102,7 @@
                     })
 
                     if(response.ok){
-
+                        document.getElementById("edtEmailUser").disabled = true;
                         const dados = await response.json()
 
                         if(dados.Retorno == "OK"){
@@ -125,11 +129,31 @@
         }else {
             alerta("false", "alertaEditar-mensagem", "Campo Nome não pode ser vazio!")
         }
+        document.querySelector("#btnEditar .carregando").classList.toggle("d-none")
     });
 
     document.getElementById("formExcluir").addEventListener("submit", async (event) => {
         event.preventDefault()
-        const response = await fetch(`Request/Usuario/excUser.php?idUser=${document.getElementById("excidUser").value}&EmailUser=${document.getElementById("excEmailUser").value}`)
+        document.querySelector("#btnExcluir .carregando").classList.toggle("d-none")
+        try {
+            const response = await fetch(`Request/Usuario/excUser.php?idUser=${document.getElementById("excidUser").value}&EmailUser=${document.getElementById("excEmailUser").value}`)
+            if( response.ok ){
+                const excDados = await response.json();
+                if (excDados.Retorno == "OK") {
+                    alerta("verdadeiro", "alertaExcluir-mensagem", excDados.Motivo);
+                    setInterval(()=>{
+                        location.reload();
+                    },3000);
+                }else{
+                    alerta("falso", "alertaExcluir-mensagem", excDados.Motivo);
+                }
+            }else{
+                alerta("falso", "alertaExcluir-mensagem", "Erro de requisição");
+            }
+        } catch (error) {
+            alerta("falso", "alertaExcluir-mensagem", "Erro na requisição");
+        }
+        document.querySelector("#btnExcluir .carregando").classList.toggle("d-none")
     });
 
 })();
@@ -159,7 +183,7 @@ async function EditarUser(id) {
         document.getElementById("edtIdUser").value = id
         document.getElementById("edtNomeUser").value = dados.Dados[0].NomeUser
         document.getElementById("edtEmailUser").value = dados.Dados[0].EmailUser
-        document.getElementById("edtEmailUser").disabled =true
+        document.getElementById("edtEmailUser").disabled = true
         document.getElementById("edtcpf_cnpj").value = FormatarCpfCnpj(dados.Dados[0].cpf_cnpj)
         const Select = document.getElementById("edtNivel")
         for (let i = 0; i < Select.options.length; i++) {
