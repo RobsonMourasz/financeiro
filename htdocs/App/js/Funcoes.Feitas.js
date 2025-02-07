@@ -195,4 +195,36 @@ function limparInputs(form) {
     selects.forEach(select => {
         select.selectedIndex = 0;
     });
+
+    const checkeds = Form.querySelectorAll('input[type="checkbox"], input[type="radio"]');
+    checkeds.forEach(check => {
+        check.checked = false;
+    });
+
+    const esconder = Form.querySelectorAll('.QtdParcelas')
+    esconder.forEach(esconde =>{
+        esconde.classList.add("d-none")
+        esconde.querySelector("input").value = 0;
+    });
 }
+
+// Função para criar e clicar no botão de fechar modal
+function fecharModal(idModal) {
+    const modal = document.getElementById(idModal); // Substitua 'modalCadastro' pelo ID do seu modal
+    
+    // Cria o botão de fechar
+    const closeButton = document.createElement('button');
+    closeButton.type = 'button';
+    closeButton.className = 'close';
+    closeButton.setAttribute('data-dismiss', 'modal');
+    closeButton.setAttribute('aria-label', 'Fechar');
+    closeButton.innerHTML = '<span aria-hidden="true">&times;</span>';
+
+    // Adiciona o botão ao modal
+    modal.appendChild(closeButton);
+
+    // Clica no botão para fechar o modal
+    closeButton.click();
+}
+
+

@@ -81,7 +81,7 @@
 
             </tbody>
             <tfoot id="tfoot">
-                
+
             </tfoot>
         </table>
 
@@ -93,8 +93,8 @@
             <div class="modal-content">
                 <div class="modal-header">
                     <h5 class="modal-title" id="staticBackdropLabel">Nova despesa</h5>
-                    <button onclick="" type="button" class="close" data-dismiss="modal" aria-label="Fechar">
-                        <span aria-hidden="true">&times;</span>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Fechar">
+                        <span aria-hidden="true" onclick="limparInputs('formCadastro')">&times;</span>
                     </button>
                 </div>
                 <div class="modal-body">
@@ -115,28 +115,30 @@
                         </div>
                         <div class="input-group mb-3">
                             <select name="idConta" id="cadConta" class="form-select mb-3">
-                                <option value="" selected>Selecione uma Conta</option>
+                                
                             </select>
                         </div>
                         <div class="input-group mb-3">
                             <select name="categoria" id="cadCategoria" class="form-select mb-3">
-                                <option value="" selected>Selecione uma categoria</option>
+                                
                             </select>
                         </div>
 
                         <div class="row">
                             <div class="col-5 d-flex justify-content-center" style="background-color: transparent;">
                                 <div class="form-check form-switch mb-3">
-                                    <input data-id="N" id="cadFixa" name="fixa" type="checkbox" class="form-check-input" style="cursor: pointer;" value="N">
+                                    <input data-id="N" id="cadFixa" name="fixa" type="checkbox" class="form-check-input" style="cursor: pointer;">
                                     <label for="cadFixa" class="form-check-label" style="user-select: none; cursor: pointer;" title="É uma despesa fixa ? então marque essa opção">Fixa</label>
                                 </div>
                             </div>
                             <div class="col-5 d-flex justify-content-center" style="background-color: transparent;">
                                 <div class="form-check form-switch mb-3">
-                                    <input data-id="N" id="cadParcelada" name="parcelada" type="checkbox" class="form-check-input" style="cursor: pointer;" value="N">
+                                    <input data-id="N" id="cadParcelada" name="parcelada" type="checkbox" class="form-check-input" style="cursor: pointer;">
                                     <label for="cadParcelada" class="form-check-label" style="user-select: none; cursor: pointer;" title="Caso desejar parcela essa despesa basta marcar a opção">Parcelar</label>
-                                    <input type="text" name="QtdParcela" id="cadQtdParcelas" class="d-none" value="1">
-                                    <p style="color: red;" id="cadResposta" class="d-none">R$ 0,00</p>
+                                    <div class="QtdParcelas d-none">
+                                        <input type="number" name="QtdParcela" id="cadQtdParcelas" value="1">
+                                        <p style="color: red;" id="cadResposta">R$ 0,00</p>
+                                    </div>
                                 </div>
                             </div>
                             <div class="col-2 d-flex justify-content-center" style="background-color: transparent;">

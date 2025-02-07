@@ -6,7 +6,7 @@ function limpar_texto($str)
 }
 
 function FormatarFloat($str)
-{   $temp = preg_replace("/[^0-9,.]/", "", $str);
+{   $temp = preg_replace("/[^0-9,]/", "", $str);
     return str_replace(",", ".", $temp);
 }
 

@@ -36,11 +36,13 @@
         if (responseConta.ok) {
             const dadosConta = await responseConta.json();
             if (dadosConta.Retorno == "OK") {
+                const selectConta = document.getElementById("cadConta");
+                selectConta.innerHTML = "";
                 dadosConta.Dados.forEach(Conta => {
-                    const option = document.createElement('option')
-                    option.value = Conta.IdConta;
-                    option.textContent = Conta.DescricaoConta;
-                    document.getElementById("cadConta").appendChild(option)
+                    const optionConta = document.createElement('option')
+                    optionConta.value = Conta.IdConta;
+                    optionConta.textContent = Conta.DescricaoConta;
+                    selectConta.appendChild(optionConta)
                 });
             }
         }
@@ -49,6 +51,9 @@
         if (responseCat.ok) {
             const Cat = await responseCat.json();
             if (Cat.Retorno == "OK") {
+                selectCat = document.getElementById("cadCategoria");
+                selectCat.innerHTML = "";
+                selectCat.innerHTML = "<option value='' selected>Selecione uma categoria</option>"
                 Cat.Dados.forEach(Categoria => {
                     const optionCat = document.createElement("option")
                     if (Categoria.idSub !== 0 && Categoria.idSub !== null) {
@@ -60,15 +65,15 @@
                         optionCat.textContent = Categoria.DescricaoCat
                         optionCat.setAttribute("data-sub", Categoria.idSub)
                     }
-                    document.getElementById("cadCategoria").appendChild(optionCat)
+                    selectCat.appendChild(optionCat)
                 });
             }
         }
 
         document.getElementById("cadVencimento").value = formatDate("");
-        if(document.getElementById("cadConfirmada") == ""){
-            document.getElementById("cadConfirmada").value = "S"
-        }
+        document.getElementById("cadConfirmada").value = "S"
+        document.getElementById("cadFixa").value = "N"
+        document.getElementById("cadParcelada").value = "N"
         ChamarTelaCarregando("FadeOut");
     })
 
@@ -98,6 +103,8 @@
                                 alerta("falso", "alertaCadastro-mensagem", dadosCad.Motivo);
                             }
 
+                            // Fecha o modal usando JavaScript puro e Bootstrap
+                            fecharModal('formCadastro')
                         } else {
                             alerta("falso", "alertaCadastro-mensagem", "Erro de requisição");
                         }
@@ -266,24 +273,24 @@ async function Carregar_Tabela() {
                         td_acao.innerHTML = `<i class="bi bi-trash" data-toggle="modal" data-target="#modalExcluir" onclick="Excluir(${dados.Dados[i].idCR})" style="cursor:pointer;"></i> <i class="bi bi-clipboard-check-fill" data-toggle="modal" data-target="#modalEditar" onclick="Editar(${dados.Dados[i].idCR})" style="cursor:pointer;"></i>`
                     }
 
-                    let tfoot_linha1 =  document.getElementById("tfoot");
+                    let tfoot_linha1 = document.getElementById("tfoot");
                     tfoot_linha1.textContent = "";
 
                     const tr2 = tfoot_linha1.insertRow();
                     const td_Confirmado = tr2.insertCell();
                     td_Confirmado.setAttribute("colspan", "5")
                     td_Confirmado.classList.add("text-center")
-                    td_Confirmado.style.color="red";
+                    td_Confirmado.style.color = "red";
                     td_Confirmado.textContent = `Valor Confirmado: ${formatarReal(VrConfirmado)}`;
 
-                    
+
                     const tr = tfoot_linha1.insertRow();
                     const td_Aberto = tr.insertCell();
                     td_Aberto.setAttribute("colspan", "5")
                     td_Aberto.classList.add("text-center")
-                    td_Aberto.style.color="green";
+                    td_Aberto.style.color = "green";
                     td_Aberto.textContent = `Valor em Aberto: ${formatarReal(VrAberto)}`;
-                   
+
                     const tr3 = tfoot_linha1.insertRow();
                     const td_total = tr3.insertCell();
                     td_total.setAttribute("colspan", "5")
