@@ -1,5 +1,3 @@
-
-
 (async () => {
 
     let data_Inicial = "";
@@ -8,8 +6,6 @@
     const mes = data.getMonth() + 1; // Adicione 1 para obter o mês correto
     const ano = data.getFullYear(); // Obtenha o ano corretamente
     let dia = "";
-
-
 
     // Formate as datas como "YYYY-MM-DD"
     if (mes == "2") {
@@ -70,7 +66,9 @@
         }
 
         document.getElementById("cadVencimento").value = formatDate("");
-        document.getElementById("cadConfirmada").value = "S"
+        if(document.getElementById("cadConfirmada") == ""){
+            document.getElementById("cadConfirmada").value = "S"
+        }
         ChamarTelaCarregando("FadeOut");
     })
 
@@ -155,7 +153,6 @@
 
     document.getElementById("formEditar").addEventListener("submit", async (event) => {
         event.preventDefault();
-        document.querySelector(".tela-confirmar-lancamento").classList.toggle("d-none")
         const url = "Request/Despesa/edtDespesa.php";
         const dados = new FormData(document.getElementById("formEditar"))
         const response = await fetch(url, {
@@ -201,7 +198,7 @@
         event.preventDefault();
         document.querySelector(".tela-excluir-lancamento").classList.toggle("d-none")
         ChamarTelaCarregando("FadeIn");
-        const excResponse = await fetch(`Request/Despesa/delDespesa.php?idCR=${document.getElementById("excidCR").value}&todos=${document.getElementById("excParcelas").value}`);
+        const excResponse = await fetch(`Request/Despesa/delDespesa.php?idCR=${document.getElementById("excidCR").value}&todos=${document.getElementById("excParcelas").value}&vencimento=${document.getElementById("excVencimento").value}`);
         if (excResponse.ok) {
             const delDados = await excResponse.json();
             if (delDados.Retorno == "OK") {
@@ -221,7 +218,6 @@
     /* MODAL EXCLUIR */
 
 })();
-
 
 async function Carregar_Tabela() {
     ChamarTelaCarregando("FadeIn");
@@ -456,6 +452,7 @@ async function Excluir(id) {
         const dados = await response.json()
         document.getElementById("excDescricao").value = dados.Dados[0].Descricao
         document.getElementById("excidCR").value = idDespesa
+        document.getElementById("excVencimento").value = timeTempParaDate(dados.Dados[0].DataVencimento)
     } else {
         alerta("falso", "alertaExcluir-mensagem", "Erro na requisição!");
     }

@@ -26,10 +26,12 @@ document.getElementById("cadFixa").addEventListener("click", () => {
         document.getElementById("cadParcelada").setAttribute("data-id", "N")
         document.getElementById("btnConfirmada").classList.remove("bi-hand-thumbs-up-fill")
         document.getElementById("btnConfirmada").classList.add("bi-hand-thumbs-down")
-        document.getElementById("Confirmada").value = "N"
+        document.getElementById("cadConfirmada").value = "N"
+        
     }else{
         document.getElementById("cadFixa").setAttribute("data-id", "N")
         document.getElementById("cadFixa").value ="N"
+        document.getElementById("cadConfirmada").value = "S"
     }
     if (!document.getElementById("cadQtdParcelas").classList.contains("d-none")) {
         document.getElementById("cadQtdParcelas").classList.add("d-none")
@@ -51,6 +53,7 @@ document.getElementById("cadParcelada").addEventListener("click", () => {
         document.getElementById("btnConfirmada").classList.remove("bi-hand-thumbs-up-fill")
         document.getElementById("btnConfirmada").classList.add("bi-hand-thumbs-down")
         document.getElementById("Confirmada").value = "N"
+        document.getElementById("cadConfirmada").value = "N"
     }else{
         document.getElementById("cadParcelada").setAttribute("data-id", "N")
         document.getElementById("cadParcelada").value ="N"
@@ -59,6 +62,7 @@ document.getElementById("cadParcelada").addEventListener("click", () => {
         document.getElementById("cadQtdParcelas").value = "1";
         document.getElementById("cadQtdParcelas").classList.add("d-none")
         document.getElementById("cadResposta").classList.add("d-none")
+        document.getElementById("cadConfirmada").value = "S"
 
     }
 

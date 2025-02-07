@@ -247,6 +247,10 @@
                             <input id="excDescricao" name="Descricao" type="text" class="form-control" placeholder="Descrição" disabled>
                         </div>
 
+                        <div class="input-group mb-3">
+                            <input id="excVencimento" name="DataVencimento" type="date" class="form-control" hidden>
+                        </div>
+
                         <input type="number" id="excidCR" hidden>
                         <input type="text" id="excParcelas" hidden>
 

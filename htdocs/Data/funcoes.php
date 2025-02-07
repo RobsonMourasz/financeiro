@@ -137,7 +137,9 @@ function acrescentarDias($data, $qtdDias) {
         $temp->add(new DateInterval('P' . $qtdDias . 'D')); // Acrescenta a quantidade de dias especificada
         return $temp->format('Y-m-d'); // Formata a data e retorna
     }else{
-        return null; // Retorna null se a data estiver vazia
+        $temp = new DateTime(date('d-m-Y'));
+        $temp->add(new DateInterval('P' . $qtdDias . 'D'));
+        return $temp; // Retorna null se a data estiver vazia
     }
 }
 
@@ -150,4 +152,22 @@ function acrescentarMes($data, $qtdMes) {
         return null; // Retorna null se a data estiver vazia
     }
 }
+
+// Função para calcular a diferença em meses até 31-12-2050
+function mesesAte2050() {
+    // Data atual
+    $dataAtual = new DateTime();
+    
+    // Data alvo (31-12-2050)
+    $dataAlvo = new DateTime('2050-12-31');
+    
+    // Calcula a diferença entre as datas
+    $diferenca = $dataAtual->diff($dataAlvo);
+    
+    // Calcula os meses totais de diferença
+    $mesesRestantes = ($diferenca->y * 12) + $diferenca->m;
+    
+    return $mesesRestantes +1;
+}
+
 

@@ -6,6 +6,13 @@ if (!isset($_SESSION)) {
 
 if(isset($_GET['idCR']) && !empty($_GET['idCR'])){
     if (isset($_GET['todos']) && !empty($_GET['todos'])) {
+        
+        if(!empty($_GET['vencimento'])){
+            $data = $_GET['vencimento'];
+        }else{
+            $data = date('Y-m-d');
+        }
+
         $id = intval(limpar_texto($_GET['idCR']));
         $Parcelado = $_GET['todos'];
         if ($Parcelado == "S"){
@@ -21,7 +28,7 @@ if(isset($_GET['idCR']) && !empty($_GET['idCR'])){
             $controle = $selectControle['Controle'];
 
             try {
-                $conexao->query("DELETE FROM cp_lancamentos WHERE Controle LIKE '$controle' AND DataVencimento >= 'NOW()'");
+                $conexao->query("DELETE FROM cp_lancamentos WHERE Controle LIKE '$controle' AND DataVencimento >= '$data'");
                 $retorno = array("Retorno"=> "OK", "Motivo"=> "Registro excluido!");
             } catch (\Throwable $th) {
                 $retorno = array("Retorno" => "ERRO", "Motivo" => "SQL(DELETE): ". $th->getMessage());

@@ -53,7 +53,9 @@ if (isset($_POST['Descricao'])) {
             if ($ParcelaFixa === "S") {
 
                 $VencimentoParcela = $Vencimento;
-                for ($i = 0; $i < 18250; $i++) {
+
+                $tempData = mesesAte2050();
+                for ($i = 0; $i < $tempData; $i++) {
                     $parcela = "1 / 1";
                     $ValorParcela = $ValorTotal;
                     $insert = $conexao->prepare($sqlInser);
