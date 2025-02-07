@@ -133,7 +133,6 @@
                 if (document.getElementById("edtConta").value !== "") {
                     if (document.getElementById("edtCategoria").value !== "") {
                         document.querySelector(".tela-confirmar-lancamento").classList.toggle("d-none")
-                        Carregar_Tabela();
                     } else {
                         alerta("falso", "alertaEditar-mensagem", "Selecione uma categoria !")
                     }
@@ -172,9 +171,8 @@
             if (Envio.Retorno == "OK") {
 
                 alerta("verdadeiro", "alertaEditar-mensagem", Envio.Motivo)
-                setInterval(() => {
-                    location.reload()
-                }, 3000)
+                Carregar_Tabela();
+                fecharModal('formEditar');
             } else {
                 alerta("falso", "alertaEditar-mensagem", Envio.Retorno)
             }
@@ -211,7 +209,7 @@
             if (delDados.Retorno == "OK") {
                 alerta("verdadeiro", "alertaExcluir-mensagem", delDados.Motivo)
                 Carregar_Tabela();
-                limparInputs('formExcluir');
+                fecharModal('formExcluir');
             } else {
                 alerta("falso", "alertaExcluir-mensagem", delDados.Motivo)
             }
