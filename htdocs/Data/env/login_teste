@@ -1,0 +1,9 @@
+<?php 
+if(!isset($_SESSION)){
+    session_start();
+}
+
+define("IP", "LOCALHOST");
+define("USER", "root");
+define("PASS", "Qwe1234241+-+");
+define("DATA", "dados");

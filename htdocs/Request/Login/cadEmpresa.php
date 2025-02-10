@@ -1,9 +1,9 @@
 <?php
 
-@include_once __DIR__ . "/../../Data/conn.php";
+include_once __DIR__ . "/../../Data/conn.php";
 if (isset($_POST["NomeEmpresa"])) {
 
-    $database = "f_" . $_POST["cpf_cnpj"];
+    $database = limpar_texto($_POST["cpf_cnpj"]);
     $Empresa = $_POST["NomeEmpresa"];
     $Email = $_POST["email"];
     $Senha = password_hash($_POST["senha"], PASSWORD_DEFAULT);
@@ -13,8 +13,15 @@ if (isset($_POST["NomeEmpresa"])) {
     }
     $_SESSION["cpf_cnpj"] = $CPF_CNPJ;
 
-    $VerificarCadastro = $conn->query("SELECT COUNT(a.Email) AS 'UserCadastrado' FROM cadlogin a WHERE a.Email = '$Email'");
-    $VerificarCadastro = $VerificarCadastro->fetch_assoc();
+    try {
+        echo"acessou";
+        $VerificarCadastro = $conn->query("SELECT COUNT(a.Email) AS 'UserCadastrado' FROM cadlogin a WHERE a.Email = '$Email'");
+        echo"passou";
+        $VerificarCadastro = $VerificarCadastro->fetch_assoc();
+        echo"parou";
+    } catch (\Throwable $th) {
+        echo "carai ". $th->getMessage();
+    }
 
     if ($VerificarCadastro['UserCadastrado'] < 1) {
         $consulta = $conn->query("SELECT COUNT(*) AS BancoExiste
@@ -206,7 +213,7 @@ if (isset($_POST["NomeEmpresa"])) {
                         echo "<br>";
                     }
 
-                    if($conexao->query($sqlCreateTabelaCadConta)){
+                    if ($conexao->query($sqlCreateTabelaCadConta)) {
                         echo "Tabela Conta criada";
                         echo "<br>";
                     }
@@ -227,7 +234,7 @@ if (isset($_POST["NomeEmpresa"])) {
                 }
             } catch (\Throwable $th) {
                 //header("location: ../../model/logoff.php");
-                die($th->getMessage());
+                die("ERRO TRY: " . $th->getMessage());
             }
         } else { /* SE EXISTE BANCO */
 ?>
