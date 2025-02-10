@@ -50,12 +50,12 @@ if (isset($_POST['DataInicial']) && isset($_POST['DataFinal'])) {
     $id = intval(limpar_texto($_GET['idCR']));
     try {
         $sqlPesq = "SELECT * 
-        FROM cp_lancamentos a 
+        FROM cr_lancamentos a 
         WHERE a.idCR in($id)";
 
-        $PesqCpLancamentos = $conexao->query($sqlPesq);
-        $PesqCpLancamentos = $PesqCpLancamentos->fetch_all(MYSQLI_ASSOC);
-        $retorno = array("Retorno" => "OK", "Dados" => $PesqCpLancamentos);
+        $PesqCrLancamentos = $conexao->query($sqlPesq);
+        $PesqCrLancamentos = $PesqCrLancamentos->fetch_all(MYSQLI_ASSOC);
+        $retorno = array("Retorno" => "OK", "Dados" => $PesqCrLancamentos);
         echo json_encode($retorno);
         
     } catch (\Throwable $th) {
