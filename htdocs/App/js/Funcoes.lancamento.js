@@ -50,7 +50,6 @@ document.getElementById("cadParcelada").addEventListener("click", () => {
         document.querySelector(".QtdParcelas").classList.remove("d-none")
         document.getElementById("btnConfirmada").classList.remove("bi-hand-thumbs-up-fill")
         document.getElementById("btnConfirmada").classList.add("bi-hand-thumbs-down")
-        document.getElementById("Confirmada").value = "N"
         document.getElementById("cadConfirmada").value = "N"
     }else{
         document.getElementById("cadParcelada").setAttribute("data-id", "N")

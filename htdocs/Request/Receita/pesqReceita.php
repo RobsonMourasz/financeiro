@@ -8,7 +8,7 @@ if (isset($_POST['DataInicial']) && isset($_POST['DataFinal'])) {
     $Data1 = $_POST['DataInicial'];
     $Data2 = $_POST['DataFinal'];
     $sqlPesq = "SELECT * 
-    FROM cp_lancamentos a 
+    FROM cr_lancamentos a 
     WHERE a.DataVencimento BETWEEN '$Data1' AND '$Data2'
     ORDER BY a.DataVencimento ASC";
 

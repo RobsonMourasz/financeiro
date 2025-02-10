@@ -46,6 +46,10 @@ if (isset($_POST['Descricao'])) {
             $ValorTotal = FormatarFloat($_POST['ValorParcela']);
         }
 
+        if ($QtdParcela == 0){
+            $QtdParcela = 1;
+        }
+
 
         try {
             $sqlInser = "INSERT INTO cp_lancamentos (idPessoa, idConta, idCategoria, id_SubCategoria, Descricao, Fixa, Parcelada, Confirmada, Tipo, Controle, QtdParcela, ValorParcela, ValorTotal, Desconto, Acrescimo, Abate, DataEmissao, DataVencimento, Alterado) VALUES (1,?,?,?,?,?,?,?,'D',?,?,?,?,0.00,0.00,0.00,?,?,?)";
