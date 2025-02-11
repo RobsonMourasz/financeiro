@@ -1,9 +1,11 @@
 <?php
 
-include_once __DIR__ . "/../../Data/conn.php";
+@include_once __DIR__ . "/../../Data/conn.php";
+@include_once __DIR__."/env/config";
 if (isset($_POST["NomeEmpresa"])) {
 
-    $database = limpar_texto($_POST["cpf_cnpj"]);
+    $tempCNPJ = limpar_texto($_POST["cpf_cnpj"]);
+    $database = USER . $tempCNPJ;
     $Empresa = $_POST["NomeEmpresa"];
     $Email = $_POST["email"];
     $Senha = password_hash($_POST["senha"], PASSWORD_DEFAULT);
@@ -14,25 +16,35 @@ if (isset($_POST["NomeEmpresa"])) {
     $_SESSION["cpf_cnpj"] = $CPF_CNPJ;
 
     try {
-        echo"acessou";
+
         $VerificarCadastro = $conn->query("SELECT COUNT(a.Email) AS 'UserCadastrado' FROM cadlogin a WHERE a.Email = '$Email'");
-        echo"passou";
         $VerificarCadastro = $VerificarCadastro->fetch_assoc();
-        echo"parou";
+
     } catch (\Throwable $th) {
-        echo "carai ". $th->getMessage();
+        die("Erro ao VerificarCadastro  ". $th->getMessage());
     }
 
     if ($VerificarCadastro['UserCadastrado'] < 1) {
-        $consulta = $conn->query("SELECT COUNT(*) AS BancoExiste
-        FROM information_schema.SCHEMATA
-        WHERE SCHEMA_NAME = '$database'");
+        try {
+            $consulta = $conn->query("SELECT COUNT(*) AS BancoExiste
+            FROM information_schema.SCHEMATA
+            WHERE SCHEMA_NAME = '$database'");
+        } catch (\Throwable $th) {
+            echo "Consulta VerificarCadastro: ". $th->getMessage();
+        }
 
         $consulta = $consulta->fetch_assoc();
         if ($consulta["BancoExiste"] == 0) {;
             try {
 
-                $sqlCreateBanco = "CREATE DATABASE IF NOT EXISTS $database";
+                try {
+                    $sqlCreateBanco = "CREATE DATABASE IF NOT EXISTS $database";
+                    $DatabeDados = USER . "_dados";
+                } catch (\Throwable $th) {
+                    die("ERRO sqlCreateBanco: " . $th->getMessage());
+                }
+
+                $conn->select_db($DatabeDados);
                 if ($conn->query($sqlCreateBanco)) {
                     echo "<h1>banco criado com sucesso</h1>";
                     @include_once __DIR__ . "/../../Data/conexao.php";
@@ -40,8 +52,6 @@ if (isset($_POST["NomeEmpresa"])) {
                     echo "<br>";
                     echo "<br>";
 
-                    $conexao->select_db($database);
-                    $conn->select_db("dados");
 
                     $sqlCreateTabelaCategoria = "CREATE TABLE `cadcategoria` (
                     `idCat` int(11) NOT NULL AUTO_INCREMENT,
@@ -169,63 +179,68 @@ if (isset($_POST["NomeEmpresa"])) {
                     KEY `idConta2` (`IdConta`) USING BTREE
                     ) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_uca1400_ai_ci;";
 
-
+                    
                     $sqlInsertLogin = "INSERT INTO cadlogin (Empresa, Cpf_Cnpj, Email, Ativo) VALUES ('$Empresa', '$CPF_CNPJ', '$Email', 0)";
                     $sqlInsertLoginBD = "INSERT INTO caduser (NomeUser, EmailUser, SenhaUser, cpf_cnpj, Ativo) VALUES ('$Empresa', '$Email', '$Senha' , '$CPF_CNPJ', 0)";
-
-                    if ($conexao->query($sqlCreateTabelaCategoria)) {
-                        echo "Tabela Categoria criada";
-                        echo "<br>";
-                    }
-
-                    if ($conexao->query($sqlCreateTabelaEmpresa)) {
-                        echo "Tabela Empresa criada";
-                        echo "<br>";
-                    }
-
-                    if ($conexao->query($sqlCreateTabelaPessoa)) {
-                        echo "Tabela Pessoa criada";
-                        echo "<br>";
-                    }
-
-                    if ($conexao->query($sqlCreateTabelaUsuario)) {
-                        echo "Tabela Usuario criada";
-                        echo "<br>";
-                    }
-
-                    if ($conexao->query($sqlCreateTabelasubcategoria)) {
-                        echo "Tabela sub categoria criada";
-                        echo "<br>";
-                    }
-
-                    if ($conexao->query($sqlCreateTabelaCP)) {
-                        echo "Tabela contas a pagar criada";
-                        echo "<br>";
-                    }
-
-                    if ($conexao->query($sqlCreateTabelaCR)) {
-                        echo "Tabela contas a receber criada";
-                        echo "<br>";
-                    }
-
-                    if ($conexao->query($sqlCreateTabelaSaldo)) {
-                        echo "Tabela Saldo criada";
-                        echo "<br>";
-                    }
-
-                    if ($conexao->query($sqlCreateTabelaCadConta)) {
-                        echo "Tabela Conta criada";
-                        echo "<br>";
-                    }
-
-                    if ($conn->query($sqlInsertLogin)) {
-                        echo "Usuario e Senha Criados";
-                        echo "<br>";
-                    }
-
-                    if ($conexao->query($sqlInsertLoginBD)) {
-                        echo "Usuario e Senha Criados no BD";
-                        echo "<br>";
+                    
+                    try {
+                        $conexao->select_db($database);
+                        if ($conexao->query($sqlCreateTabelaCategoria)) {
+                            echo "Tabela Categoria criada";
+                            echo "<br>";
+                        }
+    
+                        if ($conexao->query($sqlCreateTabelaEmpresa)) {
+                            echo "Tabela Empresa criada";
+                            echo "<br>";
+                        }
+    
+                        if ($conexao->query($sqlCreateTabelaPessoa)) {
+                            echo "Tabela Pessoa criada";
+                            echo "<br>";
+                        }
+    
+                        if ($conexao->query($sqlCreateTabelaUsuario)) {
+                            echo "Tabela Usuario criada";
+                            echo "<br>";
+                        }
+    
+                        if ($conexao->query($sqlCreateTabelasubcategoria)) {
+                            echo "Tabela sub categoria criada";
+                            echo "<br>";
+                        }
+    
+                        if ($conexao->query($sqlCreateTabelaCP)) {
+                            echo "Tabela contas a pagar criada";
+                            echo "<br>";
+                        }
+    
+                        if ($conexao->query($sqlCreateTabelaCR)) {
+                            echo "Tabela contas a receber criada";
+                            echo "<br>";
+                        }
+    
+                        if ($conexao->query($sqlCreateTabelaSaldo)) {
+                            echo "Tabela Saldo criada";
+                            echo "<br>";
+                        }
+    
+                        if ($conexao->query($sqlCreateTabelaCadConta)) {
+                            echo "Tabela Conta criada";
+                            echo "<br>";
+                        }
+    
+                        if ($conn->query($sqlInsertLogin)) {
+                            echo "Usuario e Senha Criados";
+                            echo "<br>";
+                        }
+    
+                        if ($conexao->query($sqlInsertLoginBD)) {
+                            echo "Usuario e Senha Criados no BD";
+                            echo "<br>";
+                        }
+                    } catch (\Throwable $th) {
+                        die("ERRO AO USAR O CONEXAO: " . $th->getMessage());
                     }
 
                     header('Refresh:2 url="../../model/logoff.php"');

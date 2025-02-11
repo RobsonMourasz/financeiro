@@ -2,9 +2,10 @@
 if(!isset($_SESSION)){
     session_start();
 }
-$database = "if0_38287172_". $_SESSION["cpf_cnpj"];
+
 define("IP", "sql106.infinityfree.com");
 define("USER", "if0_38287172");
 define("PASS", "FFySzZSpwoDKgx");
-define("DATA", $database);
+$dataBase = USER.$_SESSION["cpf_cnpj"];
+define("DATA", $dataBase);
 define("PORT", "3306");

@@ -7,3 +7,4 @@ define("IP", "LOCALHOST");
 define("USER", "root");
 define("PASS", "Qwe1234241+-+");
 define("DATA", "dados");
+define("PORT", "3310");

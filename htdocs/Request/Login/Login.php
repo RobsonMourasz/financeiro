@@ -13,10 +13,10 @@ if (isset($_POST['email'])) {
 
         $verificaBD = $conn->query("SELECT * FROM cadlogin a WHERE a.Email = '$email'");
         if ($verificaBD->num_rows > 0) {
-            $teste = "asdasda@asdasd.com";
             $verificaBD = $verificaBD->fetch_assoc();
-            $database = "f_" . $verificaBD['Cpf_Cnpj'];
-            $_SESSION["cpf_cnpj"] = $verificaBD['Cpf_Cnpj'];
+            $tempCNPJ = limpar_texto($verificaBD['Cpf_Cnpj']);
+            $database = USER . $tempCNPJ;
+            $_SESSION["cpf_cnpj"] = $tempCNPJ;
             $conexao->select_db($database);
             $verificaLogin = $conexao->prepare("SELECT * FROM caduser a WHERE a.EmailUser = ?");
             $verificaLogin->bind_param("s", $email);
