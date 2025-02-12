@@ -6,12 +6,12 @@ if (!isset($_SESSION)) {
 if (isset($_SESSION['sessao'])) {
     if ($_SESSION['sessao'] === "ativa") {
         if (isset($_GET['url'])) {
-            $url = __DIR__ . "/page/" . $_GET['url'] . ".php";
+            $url = __DIR__ . "/Page/" . $_GET['url'] . ".php";
             if (!file_exists($url)) {
-                $url = __DIR__ . "/page/404.html";
+                $url = __DIR__ . "/Page/404.html";
             }
         } else {
-            $url = __DIR__ . "/page/Dashboard.php";
+            $url = __DIR__ . "/Page/Dashboard.php";
         }
 ?>
 
@@ -140,7 +140,11 @@ if (isset($_SESSION['sessao'])) {
                                 <small class="alertas-mensagens"></small>
                             </div>
 
-                            <?php include_once($url) ?>
+                            <?php if (isset($url) && !empty($url)) {
+                                @include_once($url);
+                            }
+                            ?>
+
                         </div>
                         <!-- /.container-fluid -->
 

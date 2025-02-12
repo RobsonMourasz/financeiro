@@ -351,6 +351,7 @@ async function Confirma(idElemento) {
             if (dados.Retorno == "OK") {
                 iconeAtual.classList.remove("bi-hand-thumbs-down")
                 iconeAtual.classList.add("bi-hand-thumbs-up-fill")
+                Carregar_Tabela();
             } else {
                 TelaAvisos("falso", "Erro ao tentar confirmar");
             }
@@ -362,6 +363,7 @@ async function Confirma(idElemento) {
             if (dados.Retorno == "OK") {
                 iconeAtual.classList.remove("bi-hand-thumbs-up-fill")
                 iconeAtual.classList.add("bi-hand-thumbs-down")
+                Carregar_Tabela();
             } else {
                 TelaAvisos("falso", "Erro ao tentar confirmar");
             }

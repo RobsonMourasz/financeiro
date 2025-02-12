@@ -3,8 +3,8 @@ if(!isset($_SESSION)){
     session_start();
 }
 
-define("IP", "sql106.infinityfree.com");
-define("USER", "if0_38287172");
-define("PASS", "FFySzZSpwoDKgx");
-define("DATA", "if0_38287172_dados");
+define("IP", "sql207.infinityfree.com");
+define("USER", "if0_38300666");
+define("PASS", "w3G9n7fZrPvk4C");
+define("DATA", "if0_38300666_dados");
 define("PORT", "3306");

@@ -15,7 +15,7 @@ if (isset($_POST['email'])) {
         if ($verificaBD->num_rows > 0) {
             $verificaBD = $verificaBD->fetch_assoc();
             $tempCNPJ = limpar_texto($verificaBD['Cpf_Cnpj']);
-            $database = USER . $tempCNPJ;
+            $database = USER ."_". $tempCNPJ;
             $_SESSION["cpf_cnpj"] = $tempCNPJ;
             $conexao->select_db($database);
             $verificaLogin = $conexao->prepare("SELECT * FROM caduser a WHERE a.EmailUser = ?");

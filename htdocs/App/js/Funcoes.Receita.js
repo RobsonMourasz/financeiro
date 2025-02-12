@@ -241,6 +241,7 @@ async function Carregar_Tabela() {
                 let tbody = document.getElementById("tbody");
                 tbody.textContent = '';
                 if (dados.Dados.length > 0) {
+
                     for (let i = 0; i < dados.Dados.length; i++) {
                         let tr = tbody.insertRow();
                         let td_Vencimento = tr.insertCell();
@@ -257,13 +258,16 @@ async function Carregar_Tabela() {
                         td_vr.setAttribute("scope", "row")
                         td_vr.classList.add("tex-center")
                         td_vr.textContent = formatarReal(dados.Dados[i].ValorParcela);
+
+
                         if (dados.Dados[i].Confirmada === "S") {
                             td_confirmado.innerHTML = `<i class="bi bi-hand-thumbs-up-fill" id="${dados.Dados[i].idCR}" onclick="Confirma('${dados.Dados[i].idCR}')" style="cursor:pointer;"></i>`;
-                            VrConfirmado = VrConfirmado + parseFloat(dados.Dados[i].ValorParcela);
+                            VrConfirmado +=  parseFloat(dados.Dados[i].ValorParcela);
                         } else {
                             td_confirmado.innerHTML = `<i class="bi bi-hand-thumbs-down" id="${dados.Dados[i].idCR}" onclick="Confirma('${dados.Dados[i].idCR}')" style="cursor:pointer;"></i>`;
                             VrAberto += parseFloat(dados.Dados[i].ValorParcela);
                         }
+
 
                         td_acao.innerHTML = `<i class="bi bi-trash" data-toggle="modal" data-target="#modalExcluir" onclick="Excluir(${dados.Dados[i].idCR})" style="cursor:pointer;"></i> <i class="bi bi-clipboard-check-fill" data-toggle="modal" data-target="#modalEditar" onclick="Editar(${dados.Dados[i].idCR})" style="cursor:pointer;"></i>`
                     }
@@ -347,6 +351,8 @@ async function Confirma(idElemento) {
         if (response.ok) {
             const dados = await response.json();
             if (dados.Retorno == "OK") {
+                iconeAtual.classList.remove("bi-hand-thumbs-down")
+                iconeAtual.classList.add("bi-hand-thumbs-up-fill")
                 Carregar_Tabela();
             } else {
                 TelaAvisos("falso", "Erro ao tentar confirmar");
@@ -357,6 +363,8 @@ async function Confirma(idElemento) {
         if (response.ok) {
             const dados = await response.json();
             if (dados.Retorno == "OK") {
+                iconeAtual.classList.remove("bi-hand-thumbs-up-fill")
+                iconeAtual.classList.add("bi-hand-thumbs-down")
                 Carregar_Tabela();
             } else {
                 TelaAvisos("falso", "Erro ao tentar confirmar");
