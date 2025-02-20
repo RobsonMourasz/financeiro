@@ -47,7 +47,7 @@
             }
         }
 
-        const responseCat = await fetch("Request/Categoria/pesqCategoriaDespesa.php?id=todos")
+        const responseCat = await fetch("Request/Categoria/pesqCategoria.php?id=todos")
         if (responseCat.ok) {
             const Cat = await responseCat.json();
             if (Cat.Retorno == "OK") {

@@ -19,15 +19,15 @@ if(isset($_GET['id'])){
         WHERE a.idCat =  $id");
         if($PesqCat->num_rows > 0){
             $PesqCat = $PesqCat->fetch_all(MYSQLI_ASSOC);
-            $retorno = array("Retorno" => "OK", "Dados" => $PesqCat);  
+            $retorno = ["Retorno" => "OK", "Dados" => $PesqCat];  
         }else{
             $retorno = array("Retorno" => "ERRO", "Motivo" => "Nenhuma Categoria Encontrada !");  
         }
     }
-    echo json_encode($retorno);
+    print_r($retorno);
     exit;
 }else{
     $retorno = array("Retorno" => "ERRO", "Motivo" => "GET id não encontrado!");
-    echo json_encode($retorno);
+    var_dump(json_encode($retorno));
     exit;
 }
